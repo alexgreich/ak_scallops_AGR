@@ -1,0 +1,403 @@
+---
+# title: "Stock Assessment and Fishery Evaluation Report for the Scallop Fishery Off Alaska"
+# author: |
+#   | Scallop Plan Team 
+#   | Tyler Jackson$^{1}$, Scott Miller$^{2}$, Sarah Rheinsmith$^{3}$
+#   |
+#   | $^1$Alaska Department of Fish and Game, tyler.jackson@alaska.gov
+#   | $^2$National Marine Fisheries Service, scott.miller@noaa.gov
+#   | $^3$North Pacific Fisheries Management Council, sarah.rheinsmith@noaa.gov
+# date: "`r format(Sys.time(), '%B %Y')`"
+output:
+  bookdown::pdf_document2:
+    toc: no
+header-includes:
+   - \usepackage{float}
+   - \usepackage{hanging}
+---
+
+```{r, echo = F, message = F, warning = F}
+library(tidyverse)
+library(xtable)
+options(scipen = 999)
+
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.pos='H')
+```
+
+<!-- tile page -->
+
+<!-- \newgeometry{left=1mm,right=1mm,bottom=1mm,top=1mm} -->
+<!-- ```{r out.width= "100%", eval = T} -->
+<!-- knitr::include_graphics("../../../figures/safe/2023/title_page_2023.png") -->
+<!-- ``` -->
+
+<!-- \newgeometry{left=1in,right=1in,bottom=1in,top=1in} -->
+<!-- \setcounter{page}{1} -->
+
+<!-- end title page --> 
+
+
+# Executive Summary {-}
+
+\begin{enumerate}
+
+\item \textbf{Stock}: Weathervane scallop ($Patinopecten$ $caurinus$) in waters off Alaska. Status of other Alaska scallop stocks are detailed in the Ecosystem Component section of time document.
+
+\item \textbf{Catches}: Early landings of Alaska weathervane scallops occurred during the late-1960's near Kodiak Island. The fishery expanded rapidly to the eastern Gulf of Alaska (GOA)(i.e., Yakutat) and catches peaked in 1969 (1.85 mil lb; 839 t), then decreased through 1978. A smaller, more stable fishery occurred throughout the 1980's and the fishery expanded along the Aleutian Islands and to Prince William Sound. During the early-1990's fishery participation nearly doubled and scallop landings quickly rose to a second peak in 1992 (1,785,673 lb; 810 t shucked meats). Following a precipitous decline in the mid-1990's, scallop catches slowly decreased until the 2013/14 season whereafter landings in the Bering Sea and Kodiak Shelikof beds sharply dropped, with the lowest statewide harvest level on record (aside from the 2020 COVID-19 pandemic) occurring during the 2016/17 season (229,009 lb; 104 t). There has been modest increase in catches following improved fishing performance in Kodiak Shelikof and Kodiak Northeast in 2021 (298,770 lb; 136 t) and 2022 (329,095 lb; 149 t). Statewide landings during the 2023/24 season totaled \textcolor{red}{number} lb (\textcolor{red}{number} t) shucked meats.
+
+\item \textbf{Stock Biomass}: Estimates of the full stock biomass are not available. ADF\&G has performed dredge surveys in the Cook Inlet (Area H) and Prince William Sound (Area E) registration areas since 1996. Survey protocols were standardized and expanded to the Kodiak (Area K) and Yakatut (Area D) registration areas in 2016. The survey now alternates between major districts within registration areas in the western GOA (i.e., Kodiak Northeast, Kodiak Shelikof, Cook Inlet) and eastern GOA (i.e., Prince William Sound, Yakutat) on a biennial cycle. Bering Sea (Area Q), Dutch Harbor (Area O), and Alaska Peninsula (Area M) registration areas, as well as Area K districts west of Kodiak Shelikof has never been sampled by the dredge survey. ADF\&G Dredge Survey results since 2016 are listed in Table (\textcolor{red}{TABLEEEEEE}).
+
+\item \textbf{Recruitment}: Estimates of scallops smaller than exploitable size (< 100 mm)....
+
+
+\item \textbf{Management performance}: No overfished determination has been made for this stock, thus stock status is "unknown". Two vessels participated in the 2023/24 fishery, resulting in \textcolor{red}{number} lb (\textcolor{red}{number} t) retained shucked meats and an estimated \textcolor{red}{number} lb (\textcolor{red}{number} t) discard mortality. Overfishing did not occur in the 2023/24 season, or any previous season in the time series.
+
+\begin{table}[H]
+\centering
+\caption{Management quanities for the statewide Alaska weathervane scallop fishery during the previous five seasons. All weights represent schucked meats. Total catch includes estimated discard removals assuming 20\% handling mortality.}
+\label{table:mgmtqs}
+\begin{tabular}{lcccccc}
+& Combined & Retained & Total &  &  \\
+Season & GHL & Catch (lb) & Catch (lb) & OFL (mil lb) & ABC (mil lb) \\
+\hline
+```{r echo = F, warning = F, message = F, results = 'asis'} 
+
+read_csv("../../output/safe/2024/mgmt_quantities_1990_present.csv") %>%
+  dplyr::select(-year) %>%
+  # filter for last 5 yrs
+  tail(., 5) -> x
+# print table
+print(xtable(x, align="lcccccc", digits=c(0, 0, 0, 0, 0, 3, 3)),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\\
+& Combined & Retained & Total &  &  \\
+Season & GHL & Catch (t) & Catch (t) & OFL (t) & ABC (t) \\
+\hline
+```{r echo = F, warning = F, message = F, results = 'asis'} 
+
+read_csv("../../output/safe/2024/mgmt_quantities_1990_present.csv") %>%
+  dplyr::select(-year) %>%
+  # filter for last 5 yrs
+  tail(., 5) %>%
+  mutate_at(2:4, function(k){k * 0.000453592}) %>%
+  mutate_at(5:6, function(k){k * 1e6 * 0.000453592}) -> x
+# print table
+print(xtable(x, align="lcccccc", digits=c(0, 0, 0, 0, 0, 0, 0)),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+\item \textbf{Basis for the OFL}: OY is established as a range from 0 - 1.284 million lb (582 t) schucked meats. The upper limit of OY is based on the average retained catch from 1990 - 1997 (excluding 1995), plus an estimate of discard mortality during that time period. In lieu of an estimate of spawning biomass, OFL is set such that max OFL = OY. 
+
+\item \textbf{Basis for the ABC recommendation}: The maximum ABC control rule is defined as max ABC = 90\% of OFL = 1.156 million lb (524 t).  
+
+\end{enumerate}
+
+# A. Summary of Major Changes {-}
+
+## 1. Changes in Management of the Fishery {-}
+
+The Guideline Harvest Limit (GHL) for the West Kayak Island subsection of Area E (Prince William Sound) decreased from 8,000 lb (3.62 t) shucked meats to 7,200 lb (3.27 t), reducing the statewide total from 375,500 lb (170 t) to 374,700 lb (169.9 t).
+
+## 2. Changes to the Input Data {-}
+
+There are no changes to data informing the current OFL and ABC. Retained catch and total fishing mortality have been updated through the 2023/24 season. New ancillary data include 2023/24 fishery observer data and 2023 ADF\&G dredge survey estimates (see Section D for details).
+
+## 3. Changes in Assessment Methodology {-}
+
+Harvest specifications continue to be determined using the average total catch approach described in the FMP and section E of this document. An alternative approach is described in Appendix B.
+
+## 4. Changes in Assessment Results {-}
+
+None.
+
+# B. Responses to Comments {-}
+# C. Introduction {-}
+
+## 1. Scientific Name {-} 
+
+Weathervane scallop, ($Patinopectan$ $carinus$), in waters of Alaska. Although the FMP covers all scallop stocks off the coast of Alaska, including reddish scallop ($Chlamys$ $rubida$), spiny scallop ($Chlamys$ $hastata$), and rock scallop ($Crassadoma$ $gigantea$), the weathervane scallop is the only commercially targeted stock at this time. Status of other Alaska scallop stocks are detailed in the Ecosystem Component section of this document.  
+
+## 2. Distribution {-}
+
+Weathervane scallop inhabit waters 2 - 300 m depth in the northeastern Pacific Ocean as far west as the Aleutian Islands, Alaska and Bering Sea to as far south as Point Reyes, California. Scallop habitat generally consists of clayey silt to gravely mud substrates (Turk 2001).
+
+## 3. Stock Structure {-}
+
+Alaska weathervane scallops are considered a single stock under the FMP (NPFMC 2014), though the State of Alaska manages the stock as nine registration areas, each containing various management districts or subdistricts (Figure \ref{fig: areamap}). Scallops tend to form dense aggregations in discrete 'beds' that parallel the direction of the prevailing current. Gaffney et al., (2010) observed genetic homogeneity among several nuclear and mitochondrial genetic markers along much of the GOA and southeastern Bering Sea. There is little knowledge of larval connectivity, though it is assumed that connectivity throughout the GOA is facilitated from east to west by the Alaska Coastal Current.
+
+## 4. Life History {-}
+
+Knowledge of weathervane scallop early life history is mostly borrowed from other, similar scallop species. Weathervane scallops are dioecious, and maintain an approxiamtely 50:50 sex ratio within beds. Scallops in the western GOA grow faster and larger than those in the eastern GOA (Ignell and Haynes 2000). Sexual maturity takes place between ages 3 - 4 yr or 74 - 128 mm shell height in Kodiak and 73 - 92 mm in Yakutat (Hennick 1970). Gonads are observed full (i.e., ripe) between February - May, with spawning typically occurring in May - June. Gonad recovery to the next full state takes approximately six months. Spawn timing is thought to influence intra-annual fluctuation in abductor muscle weight (i.e., meat weight) at size (Hennen and Hart 2012). Fertilized eggs settle to the bottom where they develop into veliger larvae. Veligers swim in the water column and feed on microplankton for several weeks before settling to the bottom. Age is determined by the formation of concentric annual growth rings formed on the upper valve. The first annulus is formed during the second year of life (about 17 mm shell height) and subsequent annuli are laid on an annual basis. Weathervane scallops are long-lived, with ages commonly observed in the 20's and as old as 28 years (Hennick 1973).
+
+
+## 5. Fishery History {-}
+
+An Alaskan weathervane scallop fishery was first established near Kodiak Island in 1967 following decline in fishing opportunity for red king crab ($Paralithodes$ $camtschaticus$). In 1968 the fishery expanded to Yakutat and 19 vessels landed 1.68 mil lb (761 t) shucked meats. The fleet included both specialized scallop vessels from New England and local vessels converted from other fisheries. The fishery peaked in 1969, with 1.85 mil lb (839 t). Interest in the fishery declined rapidly through 1973, with only 5-7 landing approximately 1.16 mil lb (527 t) annually. Early observer data suggested a lesser proportion of older ($\geq$ 7 yr) scallops in catches compared to the fishery's inaugural years. Landings further decline through the mid-1970's, averaging only ~306,000 lb (139 t) yr$^{-1}$ taken from Kodiak and Yakutat. The observer program was discontinued through this period and no data other than landings were collected (Kaiser 1986; Kruse et al., 2005).  
+
+Overcapitalization of the New England sea scallop ($Placopecten$ $magellanicus$) renewed interest in Alaska weathervane scallops and more stable fishery occurred throughout the 1980's. During this period, the fishery began expanding outward from Yakutat and Kodiak areas, though Kodiak beds still accounted for nearly half of scallop landings. During the early-1990's exploration of previously unfished beds resulted in a rapid increase in fishery participation, landings, and ex-vessel revenue. Following a second peak in landings in 1992 (1,785,673 lb; 810 t shucked meats), ADF\&G drafted an interim fishery management plan (FMP) that introduced new fishery management measures aimed at ensuring the long-term viability of the stock amid conservation concern surrounding increasing effort and harvest (Kruse et al., 2005). The early-1990's also saw greater specialization of scallop vessels and an increase in onboard freezing of shucked meats. New regulations curtailed landings between 1993-1994 and the fishery was closed for most of 1995 by NMFS after a loophole in state management jurisdiction was exploited by a single vessel operating in federal waters (> 3 mi from shore) after the GHL set by ADF\&G was met. The fishery rebounded and reached its most recent peak in landings in 1999 (838,046 lb; 380 t). In 2000, the NPFMC implemented a license limitation program and most vessel owners formed a fishery cooperative. Throughout the 2000's fishery participation became more consolidated and scallop catches slowly decreased until the 2013/14 season, whereafter landings in the Bering Sea and Kodiak Shelikof beds sharply dropped. The lowest statewide harvest level on record (aside from the 2020 COVID-19 pandemic) occurred during the 2016/17 season (229,009 lb; 104 t). There has been modest increase in catches following improved fishing performance in Kodiak Shelikof and Kodiak Northeast in 2021 (298,770 lb; 136 t) and 2022 (329,095 lb; 149 t). Statewide landings during the 2023/24 season totaled \textcolor{red}{number} lb (\textcolor{red}{number} t) shucked meats.
+
+## 6. Management History {-}
+
+Management of the Alsaka weathervane scallop fishery by the State of Alaska began in 1968 with the introduction of fishing seasons, gear restrictions, and closure areas. Initially a small survey and at-sea observer program were initiated for the collection of biological data, but were discontinued in the 1970's. After rapidly increased landings and ensuing conservation concern in the early 1990's, ADF\&G declared the scallop fishery a "High-impact Emerging Fishery" and developed an interim FMP in 1993. A refined FMP was formally adopted in 1994 (Kruse 1994). The 1994 FMP established the current registration areas, crew limits, new gear restrictions, guideline harvest ranges (GHRs), and fishing seasons. During this time, a mandatory industry-funded onboard observer program began for collection of scallop biological data and monitoring of crab bycatch. In 1995, a single vessel exploited a loophole in federal-state management jurisdiction which results in over-harvest of area E. NMFS adopted an emergency measure closing the fishery and established the federal FMP (NPFMC 2014). The FMP established optimum yield (OY) as a range from 0 to 1.1 million lb (\~500 t) of shucked scallop abductor muscles (meats) with the upper end being based on the historic high in landings since 1993.
+
+### 6.1 Amendments to the FMP {-}
+
+Amendment 1 to the FMP established a joint federal and state management regime, in which federal regulations mirrored most state regulations as a temporary measure until changes to the Magnuson-Stevens Act allow the NPFMC to delegate management of the scallop fishery in federal waters to the State of Alaska. Amendment 1 also increased the upper limit of OY to 1.8 million lb (816 t) to account for historic landings in state waters. The fishery re-opened in federal waters on August 1, 1996. In 1997, Amendment 2 to the FMP established a temporary moratorium on new vessels entering the fishery through June, 2000. Eighteen vessels qualified for permits during this period. Amendment 3 to the FMP (1998) officially delegated management of the fishery in federal waters to the State of Alaska. The NPFMC adopted the current license limitation program (LLP) in June, 2000 (FMP Amendment 4). The LLP allowed nine licenses, two of which were limited to a single 6 ft dredge. Gear restrictions on these two licenses were removed by Amendment 10 in 2004. Amendment 6 to the FMP (1999) revised OY as 0 to 1.24 million lb (562 t), with the upper limit defined as the the average retained catch between 1990 - 1997, excluding 1995 (Free-Sloan 2007; Table \ref{table:freesloan}). Amendment 7 and 9 to the FMP identified several habitat areas of particular concern that are closed to scallop dredging (i.e., bottom-contact fishing). Optimum yield was further refined by Amendment 13, which increased the OY upper limit by 44,000 lb (1.284 million lb) to account for all sources of fishing mortality during the reference period based on a proxy estimation (Balsiger et al., 2011). Amendment 13 also established that the overfishing limit (OFL) be set equal to the maximum sustainable yield (MSY; the upper limit of OY) and specified an acceptable biological catch (ABC) control rule that allows a maximum ABC of 90\% of the OFL. Annual catch limit (ACL) of weathervane scallops was set so that ACL = ABC, and state guideline harvest levels (GHLs) must be set so that retained catch and estimated discard mortality be no greater that the ACL/ABC. 
+
+### 6.2 ADF\&G Management Measures {-}
+
+#### 6.2.1 Registration Areas and Districts {-}
+
+The Alaska Scallop Fishery Management Plan (5 AAC 38.076) established nine scallop registration areas in Alaska for vessels commercially fishing scallops (Figure \ref{fig:areamap}). These include the Southeastern Alaska Registration Area (Area A); Yakutat Registration Area (Area D), which was previously divided into the YAK and D16 Districts; Prince William Sound Registration Area (Area E), which is subdivided into the East (EKI) and West Kayak Island (WKI) Subsections; Cook Inlet Registration Area (Area H), which is subdivided into the Northern, Central, Southern, Kamishak Bay (KAM), Barren Islands, Outer and Eastern Districts; Kodiak Registration Area (Area K), which is subdivided into the Northeast (KNE), Shelikof (KSH), Southeast (KSE), Southwest (KSW), and Semidi Islands Districts (KSEM); Alaska Peninsula Registration Area (Area M), which is subdivided into the West Chignik (WC), Central (C), and Unimak Bight (UB) Districts; Dutch Harbor Registration Area (Area O); Bering Sea Registration Area (Area Q); and Adak Registration Area (Area R). Scallop seasons have never been opened in Area A, and effort occurred in Area R during 1995 only. Since 2018/19, beds adjacent to the Karluk River have been managed as part of the KSW district, instead of the KSH district. Fishery statistics have been adjusted back to 2009/10 to account for this change.  
+
+#### 6.2.2 Seasons {-}
+
+The regulatory fishing season for weathervane scallops in Alaska outside of the Area H is July 1 through February 15 (5 AAC 38.167, 5 AAC 38.220 & 5 AAC 38.420). The regulatory fishing season for weathervane scallops in the KAM District of Area H is August 15 through October 31 (5 AAC 38.320). These seasons were developed to limit fishing during scallop spawning periods, to achieve the highest possible product quality, to limit gear conflicts with other fisheries, and to increase vessel safety. Scallop fishing in any registration area in the state may be closed by emergency order prior to the end of the regulatory season.  
+
+#### 6.2.3 Guideline Harvest Ranges {-}
+
+Guideline harvest ranges (GHRs) are hard caps established in State of Alaska regulations for each registration area and are not to be exceeded. GHLs are pre-season targets set for each fishing area (registration area, district, or statistical area) prior to the season by ADF&G regional managers. Total harvest for each fishing area in a given season is typically near or below the GHL, but may exceed it.  
+
+Regulatory GHRs for traditional scallop fishing areas were first established by ADF\&G in 1993 under the interim FMP. Regulatory GHRs were set at 0 - 250,000 lb (113 t) for Area D; 0 - 50,000 lb (23 t) for Area E; 10,000 - 20,000 lb (4.5 - 9 t) for the KAM District of Area H; 0 - 400,000 lb (181 t) for Area K; and 0 - 170,000 lb (77 t) for Area O. These area GHR ceilings were determined by averaging historic catches from 1969 to 1992, excluding years when there was no fishing or a “fishing-up effect” occurred (Barnhart, 2003). Prior to the 1996 re-opening of the weathervane scallop fishery, the State of Alaska established GHRs for non-traditional registration areas including: 0 - 200,000 lb (91 t) for Area M; 0 - 600,000 (272 t) lb for Area Q; 0 - 35,000 lb (16 t) for District 16 (Area D); and 0 - 75,000 lb (34 t) for Area R. The combined total of the upper limits from traditional and non-traditional areas was 1.8 million lb (816 t), which was defined as MSY in Amendment 1 to the FMP.  
+
+To accommodate the new definition of OY in Amendment 6 of the FMP, regulatory GHR ceilings were reduced by the State of Alaska from 400,000 lb (181 t) to 300,000 lb (136 t) in Area K; fromm 200,000 lb (91 t) to 100,000 lb (45 t) in Area M; from 170,000 lb (77 t) to 110,000 (50 t) in Area O; and from 600,000 lb (272 t) to 300,000 lb (136 t) in Area Q. Hence, the regulatory GHR ceiling written into Alaska regulatory code is also 1.24 million lb.
+
+
+#### 6.2.4 Minimum Performance Standards {-}
+
+Following concern over declining harvest within Area K during the 2002/03 season, an in-season minimum performance standard (MPS; formerly ‘benchmark’) was established prior to the 2003/04 season to gauge fishery performance and support in-season fishery closures, if warranted. CPUE of shucked meats is tracked throughout the season by management area and compared to the MPS standard. If the in season cumulative CPUE is less than or equal to the MPS when approximately half of the GHL is taken, the fishery may close prior to achieving the upper end of the GHL. If CPUE is higher than the MPS the fishery may continue toward the upper end of the GHL with continued monitoring. This approach has been applied to management areas, major beds within management areas, and statistical reporting areas depending upon the level of concern. It is important to clarify that the MPS is not viewed as a management goal, but rather a low mark around which to base conversation on in-season management actions. ADF\%G uses MPS for the KNE and KSH Districts of Area K and Area D (below).
+
+\begin{center}
+\begin{tabular}{lcccc}
+Area & MPS (mt / dregde hr) & Basis Year & Reference Time Series \\
+\hline
+\textbf{D (Yakutat)} &&&\\
+Yakutat & 34 & 2011/12 & 1998/99 - 2013/14\\
+\textbf{K (Kodiak)} &&&\\
+KNE (Northeast) & 46 & 2005/06 & 2000/01 - 2009/10\\
+KSH (Shelikof) & 47 & 2002/03 & 2000/01 - 2009/10\\
+\hline
+\end{tabular}
+\end{center}
+
+#### 6.2.5 Crab Bycatch Limits {-}
+
+Bycatch of crabs in the scallop fishery is controlled through the use of Crab Bycatch Limits (CBLs) that are based on condition of individual crab stocks. CBLs were first instituted by the State in July, 1993. Methods used to determine CBLs in 1993 and 1994 were approved by the State of Alaska Board of Fisheries and the NPFMC under Amendment 1 to the FMP. Since that time definitions of CBLs have undergone minor changes. In Areas K, M, O, and Q the CBLs for $Chionoecetes$ crabs are determined as a rate of crab per pound of scallop GHL, whereas bycatch limits for red king crab ($Paralithodes$ $camtschaticus$; RKC) are fixed. ADF\&G uses different rates in Areas K and M depending on whether estimates of Tanner crab mature male biomass from recent trawl surveys are above (larger bycatch rate) or below (lower bycatch rate) a Tanner crab harvest strategy threshold (5 AAC 35.507(e)(5)). Rates applied to determine CBLs vary by scallop harvest area (below). In Areas H and E, the CBL for Tanner crab is set at 0.5\% of area swept estimates of crab caught during the most recent scallop dredge survey, while the CBL is fixed at 30 crab for Area H only.  Crab bycatch limits are not used in area D.
+
+\begin{center}
+\begin{tabular}{lcccc}
+& RKC$^a$ & Tanner crab ($C.$ $bairdi$) & Snow crab ($C.$ $opilio$)\\
+Registration Area & (number of crab) & (crab / lb) & (crab / lb)\\
+\hline
+K (Kodiak) & 25 & 0.5 or 0.6 & \\
+M (Alaska Peninsula) & 25 & 0.5 or 0.6 & \\
+O (Dutch Harbor) & 10 & 0.75 & \\
+Q (Bering Sea) & 100 & 2.5 & 1.5\\
+\hline
+\end{tabular}
+\end{center}
+
+
+#### 6.2.6 State Water Vessel Limitation {-}
+
+Participating in the Scallop fishery in State of Alaska waters (0-3 nmi) had been limited by a vessel-based limited entry program until State limited entry expired in 2013 and was not renewed by the Alaska State Legislature. To date, no additional state-only vessels have participated in the open access state water fishery. 
+
+
+# D. Data {-}
+
+### 1. Historic Catch Data {-}
+### 2. ADF\&G Shellfish Observer Program {-}
+
+ADF\&G established the current at-sea observer program for the scallop fishery in 1993 under 5 AAC 38.076 (g). Earlier, at-sea observers were utilized intermittently for targeted collection of biological data. ADF\&G has always required 100\% observer coverage, except in Area H, where the fishery has historically been prosecuted by smaller vessels. Scallop observers principally collect information on the retained catch, as well as discard and bycatch rates to satisfy requirements of the Magnuson-Stevens Act and support regulatory enforcement. In addition, observers have collected a suite of biological data including shell height compositions of the retained and discarded catch, individual meat weights and gonad condition, shells for aging, and condition of discarded scallops. Data gathered through the observer program comprise the primary information source for ADF\&G in setting harvest limits.   
+
+In 2009, ADF\&G made changes to how observers recorded data at sea and subsequently, the program's data management practices. These changes no longer required observers to summarize data at sea and shoreside ADF\&G staff began curating raw data in a local database. The current scallop observer database only contains data from 2009 - present. Data collected from 1993 - 2008 would require considerable reformatting before it is used in conjunction with data from 2009 - present. As a result, only prior estimates of retained round and meat biomass, discards, and nominal CPUE are available for 1993 - 2008. 
+
+Vessel fishing logbooks track haul specific data from both observer sampled and non-sampled hauls including location, duration, retained catch (i.e., in units of bushels of whole scallops), and crab bycatch. These data are paired with daily observer records to estimate haul specific retained catch in units of round biomass and associated CPUE. Haul specific retained meat biomass is obtained by apportioning totals from the vessel's daily production log to logbook data. Daily production logs are used by ADF\&G as the primary data source for tracking retained catch towards area GHLs. Time series of area specific GHL, estimated retained catch, discard mortality, and CPUE are in \textcolor{red}{Tables X-X}.
+
+### 3. ADF\&G Dredge Survey {-}
+
+ADF\&G dredge surveys began in Area H and and Area E. The program’s inaugural surveys were conducted in Kamishak Bay in 1984 (Hammarstrom and Merritt 1985) and around Kayak Island in 1996 (Bechtol et al., 2003). Since 1996 biennial surveys have continued in these areas (Gustafson and Goldman 2012), enabling ADF\&G to (1) delineate the primary scallop beds; (2) estimate scallop abundance and biomass within them; (3) characterize bed composition using age and shell height data; and (4) estimate catch rates of non-target species, particularly Tanner crab. In 2016, ADF\&G standardized existing survey efforts and expanded the dredge survey to other commercially important harvest areas (Smith et al., 2016). Surveys from 2016 - 2018 sampled beds within Kodiak Shelikof (KSH) and Northeast (KNE) Districts, Area E, and Area D somewhat irregularly. Since 2019, the ADF\&G has focused on sampling all actively fished beds in the eastern GOA (Areas E and D) or western GOA (KSH, KNE, and Area H) on a biennial basis. Complete details of the survey area, survey design, sampling protocols, and data analysis are found in Burt et al., (2021). 
+
+The 2023 ADF\&G dredge survey sampled seven beds between the YAK District (Area D) and the EKI and WKI subsections of Area E. The portion of the EK1 bed that lies within the YAK District was not sampled due to logistic restraints. Abundance and biomass of exploitable-sized scallops ($\geq$ 100 mm shell height) increased overall in the YAK District, and slightly decreased in WKI and EKI. Abundance and biomass of pre-recruit-sized scallops ($<$ 100 mm) decreased among all beds except WKI (Hopkins et al., $in$ $prep$). Estimates from the 2023 survey are in Table \ref{table:surveyab}, and full details of survey results are in Hopkins et al., ($in$ $prep$). ADF\&G dredge survey data are not currently used for computation of OFL/ABC.
+
+
+
+
+
+# E. Analytical Approach {-}
+# F. Harvest Specifications {-}
+## 1. Calculation of the OFL {-}
+
+The original FMP established optimum yield (OY) as a range from 0 to 1.1 million lb (499 t) of shucked meats with the upper end being based on the historic high in landings since 1993. Under Amendment 1, in 1996, the upper end for OY was increased to 1.8 million lb (816 t) to account for historic State water landings. A more conservative approach was taken in 1999, when OY was re-defined as 0 to 1.24 million lb (562 t) with the upper end reflecting average rather than maximum catch. The reference period for defining the upper range for OY is 1990-1997 excluding 1995 (Free-Sloan 2007; Table \ref{table:freesloan}).  Most recently, in 2012, under Amendment 13, OY was re-defined as 0 to 1.284 million lb (582 t) of shucked meats to include estimated discard mortality (39,680 lb; 18 t) in the directed fishery, groundfish fisheries, and agency surveys over the reference time frame, assuming 20\% handling mortality . Balsiger et al. (2013) details accounting of total scallop mortality in the directed fishery and bycatch fisheries as computed at the time.
+
+## 2. Calculation of the ABC {-}
+
+The ABC control rule calculates a statewide maximum ABC at 90\% of the OFL, which provides a 10\% buffer to account for scientific uncertainty in the estimation of the OFL. The recommendation is to set ABC at the maximum allowable, or 1.156 million lb (524 t) shucked meats.
+
+# G. Data Gaps and Research Priorities {-}
+# H. Ecosystem Component {-}
+
+# Literature Cited {-} 
+
+\begin{hangparas}{.25in}{1}
+
+Balsiger, JW, D Stram, P Murphy (2011) For proposed amendment 13 to the fishery management plan for the scallop fishery off Alaska. Environmental Assessment, National Oceanic and Atmospheric Association, Anchorage, AK.
+
+Bechtol, WR, RL Gustafson, JL Cope (2003) A survey of weathervane scallops in Kamishak Bay, Alaska, 2001.  Alaska Department of Fish and Game, Division of Commercial Fisheries, Regional Information Report No. 2A03-31, Anchorage, AK.
+
+Burt, R, M Byerly, A Hopkins, T Jackson, K McNeel (2021) Weathervane scallop dredge survey operational plan, 2021–2023. Alaska Department of Fish and Game, Division, Division of Commercial Fisheries, Regional Operational Plan No. ROP.CF.4K.2021.09, Kodiak, AK. 
+
+Free-Sloan, N (2007) A brief overview of the Alaska weathervane scallop fishery and the vessel permit limited entry program. CFEC Report 07-2N. State of Alaska, Commercial Fisheries Entry Commission, Juneau, AK.  
+
+Gaffney, PM, CM Pascal, J Barnhart, WS Grant, and JE Seeb (2010) Genetic homogeneity of weathervane scallops ($Patinopecten$ $caurinus$) in the northeastern Pacific. Canadian Journal of Fisheries and Aquatic Sciences 67: 1827-183. 
+
+Gustafson, RL, and J Goldman (2012)  Assessment of weathervane scallops in Kamishak Bay and at Kayak Island, 2004 through 2010.  Alaska Department of Fish and Game, Fishery Data Series No. 12-62, Anchorage, AK.
+
+Hammarstrom, LF, and MF Merritt (1985) A survey of Pacific weathervane scallops (Pecten caurinus) in Kamishak Bay, Alaska. Alaska Department of Fish and Game, Informational Leaflet No. 252, Juneau, AK.
+
+Hennen, DR and DR Hart (2012) Shell height-to-weight relationships for Atlantic sea scallops ($Placopecten$ $magellanicus$) in offshore U.S. waters. Journal of Shellfish Research 31: 1133-1144.  
+
+Hennick, DP (1970) Reproductive cycle, size at maturity, and sexual composition of commericially harvested weathervane scallops ($Patinopecten$ $caurinus$) in Alaska. Journal of the Fisheries Research Board of Canada 27(11): 2112-2119.  
+
+Hennick, DP (1973) Sea scallop $Patinopectan$ $carinus$ investigations in Alaska. Final report, July 1, 1969 to June 30, 1972. Comm. Fish. Res. Devel. Act. Project No. 5-23-R. Available from Alaska Department of Fish and Game, Juneau, Alaska.
+
+Ignell S and E Haynes (2000) Geographic patterns in growth of the giant Pacific sea scallop, $Patinopecten$ $caurinus$. Fishery Bulletin 98: 849-853.  
+
+Kruse, GH, JP Barnhart, GE Rosenkranz (2005) Management of the data-limited weathervane scallop fishery in Alaska. $In$ Fisheries Assessment and Management in Data-Limited Situations. Eds: Kruse, GH, VF Gallucci, DE Hay, RI Perry, RM Peterman, TC Shirley, PD Spencer, B Wilson, D Woodby. October, 2003. University of Alaska Sea Grant College Program, Anchorage, AK.  
+
+Smith, Q, B Williams, R Burt (2016) Statewide weathervane scallop survey operational plan, 2016 through 2018. Alaska Department of Fish and Game, Alaska Department of Fish and Game, Regional Operational Plan No. ROP.CF.1J.2016.07, Juneau, AK.
+
+Turk, TA (2001) Spatial distribution and selected habitat preferences of weathervane scallops ($Patinopectan$ $caurinus$) in Alaska. $In$ Spatial Processes and Management of Marine Populations. Eds: Kruse, GH, N Bez, A Booth, MW Dorn, S Hills, RN Lipcius, D Pelletier, C Roy, SJ Smith, and D Witherell. October 27-30, 1999. University of Alaska Sea Grant College Program, Anchorage, AK.  
+
+\end{hangparas}
+
+
+
+# Tables {-}
+
+#### {-} 
+\begin{table}[H]
+\centering
+\caption{Statewide landings from 1990 to 1995 as summarized by Free-Sloan (2007).}
+\label{table:freesloan}
+\begin{tabular}{lcc}
+Season & Retained catch (lb)  & Retained catch (t)\\
+\hline
+1990 & 1,488,737 & 675\\
+1991 & 1,136,649 & 516\\
+1992 & 1,753,873 & 796\\
+1993 & 1,511,539 & 686\\
+1994 & 1,256,736 & 570\\
+1995 & 351,023 & 159\\
+1996 & 728,424 & 330\\
+1997 & 802,383 & 364\\
+\hline
+\end{tabular}
+\end{table}
+
+#### {-}
+
+\begin{table}[H]
+\centering
+\caption{Estimated abundance ($N$), round biomass (t), meat biomass (t), and associated CVs of exploitable-sized ($\geq$ 100 mm shell height) and pre-recruit scallops ($<$ 100 mm shell height) by bed, from the 2023 ADF\&G Dredge Survey.}
+\label{table:surveyab}
+\begin{tabular}{llccccccc}
+\\
+Shell Height $\geq$ 100 mm & & \multicolumn{2}{c}{Abundance} & \multicolumn{2}{c}{Round Biomass} & \multicolumn{2}{c}{Meat Biomass}\\
+District & Bed & $N$ & CV & t & CV & t & CV\\
+\hline
+```{r surveylarge, results='asis', eval = T}
+read_csv("../../output/dredge_survey/2024/abundance_est.csv") %>%
+  transmute(year, samp_grp, district, bed_name, abundance, a_cv = cv) %>%
+  left_join(read_csv("../../output/dredge_survey/2024/rnd_biomass_est_t.csv") %>%
+            transmute(year, samp_grp, district, bed_name, rnd_biomass, b_cv = cv)) %>%
+  left_join(read_csv("../../output/dredge_survey/2024/meat_biomass_size_100_NA_t_est.csv") %>%
+            transmute(year, samp_grp = 1, district, bed_name, meat_biomass, m_cv = cv)) %>%
+  filter(samp_grp == 1, year == 2023) %>% 
+  mutate(bed_name = factor(bed_name, levels = c("WK1", "EK1", "YAK1", "YAK2", "YAK3", "YAK4", "YAK5"))) %>%
+  arrange(bed_name) %>%
+  transmute(district_text = c("West Kayak Is. (WKI)", "East Kayak Is. (EKI)", "Yakutat (YAK)", rep(NA, 4)),
+            bed_name,
+            abund = prettyNum(round(abundance), ","),
+            a_cv = round(a_cv, 2),
+            rnd_biomass = prettyNum(round(rnd_biomass), ","),
+            b_cv = round(b_cv, 2),
+            meat_biomass = prettyNum(round(meat_biomass, 1), ","),
+            m_cv = round(m_cv, 2)) -> survey_res_large
+
+
+# print table
+print(xtable(survey_res_large, align="llccccccc"),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\\
+Shell Height $<$ 100 mm & & \multicolumn{2}{c}{Abundance} & \multicolumn{2}{c}{Round Biomass} & & \\
+District & Bed & $N$ & CV & t & CV & & \\
+\hline
+```{r surveysmall, results='asis', eval = T}
+read_csv("../../output/dredge_survey/2024/abundance_est.csv") %>%
+  transmute(year, samp_grp, district, bed_name, abundance, a_cv = cv) %>%
+  left_join(read_csv("../../output/dredge_survey/2024/rnd_biomass_est_t.csv") %>%
+            transmute(year, samp_grp, district, bed_name, rnd_biomass, b_cv = cv)) %>%
+  filter(samp_grp == 2, year == 2023) %>% 
+  mutate(bed_name = factor(bed_name, levels = c("WK1", "EK1", "YAK1", "YAK2", "YAK3", "YAK4", "YAK5"))) %>%
+  arrange(bed_name) %>%
+  transmute(district_text = c("West Kayak Is. (WKI)", "East Kayak Is. (EKI)", "Yakutat (YAK)", rep(NA, 4)),
+            bed_name,
+            abund = prettyNum(round(abundance), ","),
+            a_cv = round(a_cv, 2),
+            rnd_biomass = prettyNum(round(rnd_biomass, 1), ","),
+            b_cv = round(b_cv, 2),
+            meat_biomass = NA,
+            m_cv = NA) -> survey_res_small
+
+
+# print table
+print(xtable(survey_res_small, align="llccccccc"),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+
+
+
+
+
+# Figures {-}
+
+```{r areamap, fig.align='center', fig.cap="Alaska scallop fishery registration areas. General areas of effort are overlaid by blue polygons. Exploratory fisheries in waters normally closed to scallop fishing (gray shading) have been opened by ADF\\&G Commissioner’s Permit in the Alaska Peninsula Unimak Bight District during past seasons.", fig.height=5, fig.width = 7, eval = T}
+knitr::include_graphics("../../figures/safe/2024/StatewideScallopRegAreasDistrictsClosedWaters_2022.png")
+```
+
