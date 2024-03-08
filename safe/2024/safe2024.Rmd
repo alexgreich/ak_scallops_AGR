@@ -24,17 +24,41 @@ options(scipen = 999)
 knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.pos='H')
 ```
 
-<!-- tile page -->
+<!-- \tile page -->
 
-<!-- \newgeometry{left=1mm,right=1mm,bottom=1mm,top=1mm} -->
-<!-- ```{r out.width= "100%", eval = T} -->
-<!-- knitr::include_graphics("../../../figures/safe/2023/title_page_2023.png") -->
-<!-- ``` -->
+\newgeometry{left=1mm,right=1mm,bottom=1mm,top=1mm}
+```{r out.width= "100%", eval = T}
+knitr::include_graphics("../../figures/safe/2024/safe_title_page.png")
+```
 
-<!-- \newgeometry{left=1in,right=1in,bottom=1in,top=1in} -->
-<!-- \setcounter{page}{1} -->
+\newgeometry{left=1in,right=1in,bottom=1in,top=1in}
+\setcounter{page}{1}
 
-<!-- end title page --> 
+<!-- end title page -->
+
+# Definitions {-}
+
+The FMP contains the following stock status definitions:  
+
+\underline{Acceptable Biological Catch (ABC)} is a level of annual catch of a stock that is set below the OFL and accounts for the scientific uncertainty in the estimate of OFL as well as any other scientific uncertainty. The maximum ABC is calculated from the ABC control rule. Annually, the Council’s Scientific and Statistical Committee will set a statewide ABC for the weathervane scallop fishery prior to the beginning of the fishing season. The Scientific and Statistical Committee may set an ABC lower than the maximum ABC, but it must provide an explanation for setting the ABC below the maximum ABC.  
+
+\underline{ABC Control Rule} is the specified approach for setting the maximum ABC for weathervane scallops. The ABC control rule calculates a maximum statewide ABC at 90 percent of the OFL, providing a 10 percent buffer to account for scientific uncertainty in estimation of the OFL.  
+
+\underline{Annual Catch Limit (ACL)} is the level of annual catch that, if exceeded, invokes reactive accountability measures.  For weathervane scallops, the ACL is set equal to ABC.
+B$_{MSY}$ is the total weight of the stock, i.e., biomass (B) that results from fishing at F$_{MSY}$ and is the minimum standard for a rebuilding target when a rebuilding plan is required.  
+
+\underline{Catch per unit Effort (CPUE)} is related to abundance through catchability and for scallops is expressed as lb of meats per dredge hour. CPUE for fishing vessels is monitored through onboard observers.  
+
+\underline{F$_{MSY}$ Control Rule} is a harvest strategy based on fishing mortality (F) which would be expected to result in a long-term average catch approximating MSY.
+Guideline Harvest Level (GHL) is specified by the State and represents the pre-season estimated level of harvest that will not jeopardize the sustained yield of a stock. GHL may be expressed as a range of allowable harvests for each State registration area, district, sub-district, or section.  
+
+\underline{Maximum Sustainable Yield (MSY)} is the largest long-term average catch or yield that can be taken from a stock or stock complex under prevailing ecological and environmental conditions. The long-term average stock size obtained by fishing year after year at this rate under average recruitment may be a reasonable proxy for the MSY stock size, and the long-term average catch so obtained is considered a reasonable proxy for   
+
+\underline{Minimum Stock Size Threshold (MSST)} is the biomass below which the stock is considered to be overfished and is usually equal to one half of BMSY.   
+
+\underline{Optimum yield (OY)} is the amount of fish that will provide the greatest overall benefit to the Nation, particularly with respect to food production and recreational opportunities and taking into account the protection of marine ecosystems; that is prescribed on the basis of the MSY from the fishery, as reduced by any relevant economic, social, or ecological factor; and, in the case of an overfished fishery, that provides for rebuilding to a level consistent with producing the MSY in such fishery.  
+
+\underline{Overfishing Limit (OFL)} is the catch above which overfishing is occurring and in the absence of an estimate of the statewide weathervane scallop spawning biomass, the default OFL is the MSY.
 
 
 # Executive Summary {-}
@@ -43,14 +67,11 @@ knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.pos='H')
 
 \item \textbf{Stock}: Weathervane scallop ($Patinopecten$ $caurinus$) in waters off Alaska. Status of other Alaska scallop stocks are detailed in the Ecosystem Component section of time document.
 
-\item \textbf{Catches}: Early landings of Alaska weathervane scallops occurred during the late-1960's near Kodiak Island. The fishery expanded rapidly to the eastern Gulf of Alaska (GOA)(i.e., Yakutat) and catches peaked in 1969 (1.85 mil lb; 839 t), then decreased through 1978. A smaller, more stable fishery occurred throughout the 1980's and the fishery expanded along the Aleutian Islands and to Prince William Sound. During the early-1990's fishery participation nearly doubled and scallop landings quickly rose to a second peak in 1992 (1,785,673 lb; 810 t shucked meats). Following a precipitous decline in the mid-1990's, scallop catches slowly decreased until the 2013/14 season whereafter landings in the Bering Sea and Kodiak Shelikof beds sharply dropped, with the lowest statewide harvest level on record (aside from the 2020 COVID-19 pandemic) occurring during the 2016/17 season (229,009 lb; 104 t). There has been modest increase in catches following improved fishing performance in Kodiak Shelikof and Kodiak Northeast in 2021 (298,770 lb; 136 t) and 2022 (329,095 lb; 149 t). Statewide landings during the 2023/24 season totaled \textcolor{red}{number} lb (\textcolor{red}{number} t) shucked meats.
+\item \textbf{Catches}: Early landings of Alaska weathervane scallops occurred during the late-1960's near Kodiak Island. The fishery expanded rapidly to the eastern Gulf of Alaska (GOA)(i.e., Yakutat) and catches peaked in 1969 (1.85 mil lb; 839 t), then decreased through 1978. A smaller, more stable fishery occurred throughout the 1980's and the fishery expanded along the Aleutian Islands and to Prince William Sound. During the early-1990's fishery participation nearly doubled and scallop landings quickly rose to a second peak in 1992 (1,785,673 lb; 810 t shucked meats). Following a precipitous decline in the mid-1990's, scallop catches slowly decreased until the 2013/14 season whereafter landings in the Bering Sea and Kodiak Shelikof beds sharply dropped, with the lowest statewide harvest level on record (aside from the 2020 COVID-19 pandemic) occurring during the 2016/17 season (229,009 lb; 104 t). There has been modest increase in catches following improved fishing performance in Kodiak Shelikof and Kodiak Northeast in 2021 (298,770 lb; 136 t) and 2022 (329,095 lb; 149 t). Statewide landings during the 2023/24 season totaled 318,647 lb (145 t) shucked meats.
 
-\item \textbf{Stock Biomass}: Estimates of the full stock biomass are not available. ADF\&G has performed dredge surveys in the Cook Inlet (Area H) and Prince William Sound (Area E) registration areas since 1996. Survey protocols were standardized and expanded to the Kodiak (Area K) and Yakatut (Area D) registration areas in 2016. The survey now alternates between major districts within registration areas in the western GOA (i.e., Kodiak Northeast, Kodiak Shelikof, Cook Inlet) and eastern GOA (i.e., Prince William Sound, Yakutat) on a biennial cycle. Bering Sea (Area Q), Dutch Harbor (Area O), and Alaska Peninsula (Area M) registration areas, as well as Area K districts west of Kodiak Shelikof has never been sampled by the dredge survey. ADF\&G Dredge Survey results since 2016 are listed in Table (\textcolor{red}{TABLEEEEEE}).
+\item \textbf{Stock Biomass}: Estimates of the full stock biomass are not available. ADF\&G has performed dredge surveys in the Cook Inlet (Area H) and Prince William Sound (Area E) registration areas since 1996. Survey protocols were standardized and expanded to the Kodiak (Area K) and Yakatut (Area D) registration areas in 2016. The survey now alternates between major districts within registration areas in the western GOA (i.e., Kodiak Northeast, Kodiak Shelikof, Cook Inlet) and eastern GOA (i.e., Prince William Sound, Yakutat) on a biennial cycle. Bering Sea (Area Q), Dutch Harbor (Area O), and Alaska Peninsula (Area M) registration areas, as well as Area K districts west of Kodiak Shelikof has never been sampled by the dredge survey. ADF\&G Dredge Survey results are listed in Table \ref{table:surveyab}.
 
-\item \textbf{Recruitment}: Estimates of scallops smaller than exploitable size (< 100 mm)....
-
-
-\item \textbf{Management performance}: No overfished determination has been made for this stock, thus stock status is "unknown". Two vessels participated in the 2023/24 fishery, resulting in \textcolor{red}{number} lb (\textcolor{red}{number} t) retained shucked meats and an estimated \textcolor{red}{number} lb (\textcolor{red}{number} t) discard mortality. Overfishing did not occur in the 2023/24 season, or any previous season in the time series.
+\item \textbf{Management performance}: No overfished determination has been made for this stock, thus stock status is "unknown". Two vessels participated in the 2023/24 fishery, resulting in 318,647 lb (145 t) retained shucked meats and an estimated 9,465 lb (4.3 t) discard mortality. Overfishing did not occur in the 2023/24 season, or any previous season in the time series (Figure \ref{fig:figcatch}).
 
 \begin{table}[H]
 \centering
@@ -76,6 +97,8 @@ print(xtable(x, align="lcccccc", digits=c(0, 0, 0, 0, 0, 3, 3)),
 			     format.args = list(big.mark = ","))
 
 ```
+2024/25 & & & & 1.284 & 1.156\\
+2025/26 & & & & 1.284 & 1.156\\
 \hline
 \\
 & Combined & Retained & Total &  &  \\
@@ -99,13 +122,15 @@ print(xtable(x, align="lcccccc", digits=c(0, 0, 0, 0, 0, 0, 0)),
 			     format.args = list(big.mark = ","))
 
 ```
+2024/25 & & & & 582 & 524\\
+2025/26 & & & & 582 & 524\\
 \hline
 \end{tabular}
 \end{table}
 
-\item \textbf{Basis for the OFL}: OY is established as a range from 0 - 1.284 million lb (582 t) schucked meats. The upper limit of OY is based on the average retained catch from 1990 - 1997 (excluding 1995), plus an estimate of discard mortality during that time period. In lieu of an estimate of spawning biomass, OFL is set such that max OFL = OY. 
+\item \textbf{Basis for the OFL}: OY is established as a range from 0 - 1.284 million lb (582 t) schucked meats. The upper limit of OY is based on the average retained catch from 1990 - 1997 (excluding 1995), plus an estimate of discard mortality during that time period. In lieu of an estimate of spawning biomass, OFL is set such that max OFL = OY. OFL will be set at 1.284 mil lb (582 t) for the 2024/25 and 2025/26 seasons.
 
-\item \textbf{Basis for the ABC recommendation}: The maximum ABC control rule is defined as max ABC = 90\% of OFL = 1.156 million lb (524 t).  
+\item \textbf{Basis for the ABC recommendation}: The maximum ABC control rule is defined as max ABC = 90\% of OFL = 1.156 million lb (524 t). ABC will be set at 1.156 mil lb (524 t) for the 2024/25 and 2025/26 seasons.
 
 \end{enumerate}
 
@@ -128,6 +153,37 @@ Harvest specifications continue to be determined using the average total catch a
 None.
 
 # B. Responses to Comments {-}
+
+## SSC April 2023 {-}
+
+\textbf{Comment}: "\textit{The SSC concurred with the SPT that collecting reatined-not-landed (RNL) meat data via the observer program would be valuable, if feasible, and recommended work on estimating RNL be a priority.}"
+
+\textbf{Response}: There were no changes to observer protocols for the 2023/24 season, and the assessment author was unable to make progress on RNL meats estimation given the currently available data during this assessment cycle. The ADF\&G Scallop Observer Program will consider if RNL meat data collection can be accommodated with current sampling duties.
+\noindent\rule{\textwidth}{0.4pt}
+
+<!-- ---- -->
+
+\textbf{Comment}: "\textit{The SSC appreciates ongoing efforts to recover 1992 - 2008 fishery data to better inform the CPUE index and size compositions supplied to the model.}"
+
+\textbf{Response}: ADF\&G staff have made some progress in partitioning fish ticket data from 1990 - 2008 by district, but no progress has been made regarding observer data pre-2008.
+\noindent\rule{\textwidth}{0.4pt}
+
+<!-- ---- -->
+
+\textbf{Comment}: "\textit{The SSC appreciates this work and concurs with the author and SPT recommendation to carry forward (stock synthesis) models 23.0a3 and 23.3 for review in the next full assessment. This is based on overall fit to the data and retrospective analysis.}"
+
+\textbf{Response}: The author recommended shelving development of an age-structured model in favor of pursuing data limited approaches that could be used to assess a greater proportion of the stock.
+\noindent\rule{\textwidth}{0.4pt}
+
+<!-- ---- -->
+
+\textbf{Comment}: "\textit{Staff provided a summary of ongoing efforts to revise the Scallop FMP to remove language requiring that specifications be set annually and allow for a biennial or triennial schedule. The SSC reiterates its support for such an amendment.}"
+
+\textbf{Response}: Amendment 18 is finalized, and the SPT recommends setting harvest specifications on a biennial cycle.
+\noindent\rule{\textwidth}{0.4pt}
+
+<!-- ---- -->
+
 # C. Introduction {-}
 
 ## 1. Scientific Name {-} 
@@ -140,7 +196,7 @@ Weathervane scallop inhabit waters 2 - 300 m depth in the northeastern Pacific O
 
 ## 3. Stock Structure {-}
 
-Alaska weathervane scallops are considered a single stock under the FMP (NPFMC 2014), though the State of Alaska manages the stock as nine registration areas, each containing various management districts or subdistricts (Figure \ref{fig: areamap}). Scallops tend to form dense aggregations in discrete 'beds' that parallel the direction of the prevailing current. Gaffney et al., (2010) observed genetic homogeneity among several nuclear and mitochondrial genetic markers along much of the GOA and southeastern Bering Sea. There is little knowledge of larval connectivity, though it is assumed that connectivity throughout the GOA is facilitated from east to west by the Alaska Coastal Current.
+Alaska weathervane scallops are considered a single stock under the FMP (NPFMC 2014), though the State of Alaska manages the stock as nine registration areas, each containing various management districts or subdistricts (Figure \ref{fig:areamap}). Scallops tend to form dense aggregations in discrete 'beds' that parallel the direction of the prevailing current. Gaffney et al., (2010) observed genetic homogeneity among several nuclear and mitochondrial genetic markers along much of the GOA and southeastern Bering Sea. There is little knowledge of larval connectivity, though it is assumed that connectivity throughout the GOA is facilitated from east to west by the Alaska Coastal Current.
 
 ## 4. Life History {-}
 
@@ -151,7 +207,7 @@ Knowledge of weathervane scallop early life history is mostly borrowed from othe
 
 An Alaskan weathervane scallop fishery was first established near Kodiak Island in 1967 following decline in fishing opportunity for red king crab ($Paralithodes$ $camtschaticus$). In 1968 the fishery expanded to Yakutat and 19 vessels landed 1.68 mil lb (761 t) shucked meats. The fleet included both specialized scallop vessels from New England and local vessels converted from other fisheries. The fishery peaked in 1969, with 1.85 mil lb (839 t). Interest in the fishery declined rapidly through 1973, with only 5-7 landing approximately 1.16 mil lb (527 t) annually. Early observer data suggested a lesser proportion of older ($\geq$ 7 yr) scallops in catches compared to the fishery's inaugural years. Landings further decline through the mid-1970's, averaging only ~306,000 lb (139 t) yr$^{-1}$ taken from Kodiak and Yakutat. The observer program was discontinued through this period and no data other than landings were collected (Kaiser 1986; Kruse et al., 2005).  
 
-Overcapitalization of the New England sea scallop ($Placopecten$ $magellanicus$) renewed interest in Alaska weathervane scallops and more stable fishery occurred throughout the 1980's. During this period, the fishery began expanding outward from Yakutat and Kodiak areas, though Kodiak beds still accounted for nearly half of scallop landings. During the early-1990's exploration of previously unfished beds resulted in a rapid increase in fishery participation, landings, and ex-vessel revenue. Following a second peak in landings in 1992 (1,785,673 lb; 810 t shucked meats), ADF\&G drafted an interim fishery management plan (FMP) that introduced new fishery management measures aimed at ensuring the long-term viability of the stock amid conservation concern surrounding increasing effort and harvest (Kruse et al., 2005). The early-1990's also saw greater specialization of scallop vessels and an increase in onboard freezing of shucked meats. New regulations curtailed landings between 1993-1994 and the fishery was closed for most of 1995 by NMFS after a loophole in state management jurisdiction was exploited by a single vessel operating in federal waters (> 3 mi from shore) after the GHL set by ADF\&G was met. The fishery rebounded and reached its most recent peak in landings in 1999 (838,046 lb; 380 t). In 2000, the NPFMC implemented a license limitation program and most vessel owners formed a fishery cooperative. Throughout the 2000's fishery participation became more consolidated and scallop catches slowly decreased until the 2013/14 season, whereafter landings in the Bering Sea and Kodiak Shelikof beds sharply dropped. The lowest statewide harvest level on record (aside from the 2020 COVID-19 pandemic) occurred during the 2016/17 season (229,009 lb; 104 t). There has been modest increase in catches following improved fishing performance in Kodiak Shelikof and Kodiak Northeast in 2021 (298,770 lb; 136 t) and 2022 (329,095 lb; 149 t). Statewide landings during the 2023/24 season totaled \textcolor{red}{number} lb (\textcolor{red}{number} t) shucked meats.
+Overcapitalization of the New England sea scallop ($Placopecten$ $magellanicus$) renewed interest in Alaska weathervane scallops and more stable fishery occurred throughout the 1980's. During this period, the fishery began expanding outward from Yakutat and Kodiak areas, though Kodiak beds still accounted for nearly half of scallop landings. During the early-1990's exploration of previously unfished beds resulted in a rapid increase in fishery participation, landings, and ex-vessel revenue. Following a second peak in landings in 1992 (1,785,673 lb; 810 t shucked meats), ADF\&G drafted an interim fishery management plan (FMP) that introduced new fishery management measures aimed at ensuring the long-term viability of the stock amid conservation concern surrounding increasing effort and harvest (Kruse et al., 2005). The early-1990's also saw greater specialization of scallop vessels and an increase in onboard freezing of shucked meats. New regulations curtailed landings between 1993-1994 and the fishery was closed for most of 1995 by NMFS after a loophole in state management jurisdiction was exploited by a single vessel operating in federal waters (> 3 mi from shore) after the GHL set by ADF\&G was met. The fishery rebounded and reached its most recent peak in landings in 1999 (838,046 lb; 380 t). In 2000, the NPFMC implemented a license limitation program and most vessel owners formed a fishery cooperative. Throughout the 2000's fishery participation became more consolidated and scallop catches slowly decreased until the 2013/14 season, whereafter landings in the Bering Sea and Kodiak Shelikof beds sharply dropped. The lowest statewide harvest level on record (aside from the 2020 COVID-19 pandemic) occurred during the 2016/17 season (229,009 lb; 104 t). There has been modest increase in catches following improved fishing performance in Kodiak Shelikof and Kodiak Northeast in 2021 (298,770 lb; 136 t) and 2022 (329,095 lb; 149 t). Statewide landings during the 2023/24 season totaled 318,647 lb (145 t) shucked meats.
 
 ## 6. Management History {-}
 
@@ -159,7 +215,7 @@ Management of the Alsaka weathervane scallop fishery by the State of Alaska bega
 
 ### 6.1 Amendments to the FMP {-}
 
-Amendment 1 to the FMP established a joint federal and state management regime, in which federal regulations mirrored most state regulations as a temporary measure until changes to the Magnuson-Stevens Act allow the NPFMC to delegate management of the scallop fishery in federal waters to the State of Alaska. Amendment 1 also increased the upper limit of OY to 1.8 million lb (816 t) to account for historic landings in state waters. The fishery re-opened in federal waters on August 1, 1996. In 1997, Amendment 2 to the FMP established a temporary moratorium on new vessels entering the fishery through June, 2000. Eighteen vessels qualified for permits during this period. Amendment 3 to the FMP (1998) officially delegated management of the fishery in federal waters to the State of Alaska. The NPFMC adopted the current license limitation program (LLP) in June, 2000 (FMP Amendment 4). The LLP allowed nine licenses, two of which were limited to a single 6 ft dredge. Gear restrictions on these two licenses were removed by Amendment 10 in 2004. Amendment 6 to the FMP (1999) revised OY as 0 to 1.24 million lb (562 t), with the upper limit defined as the the average retained catch between 1990 - 1997, excluding 1995 (Free-Sloan 2007; Table \ref{table:freesloan}). Amendment 7 and 9 to the FMP identified several habitat areas of particular concern that are closed to scallop dredging (i.e., bottom-contact fishing). Optimum yield was further refined by Amendment 13, which increased the OY upper limit by 44,000 lb (1.284 million lb) to account for all sources of fishing mortality during the reference period based on a proxy estimation (Balsiger et al., 2011). Amendment 13 also established that the overfishing limit (OFL) be set equal to the maximum sustainable yield (MSY; the upper limit of OY) and specified an acceptable biological catch (ABC) control rule that allows a maximum ABC of 90\% of the OFL. Annual catch limit (ACL) of weathervane scallops was set so that ACL = ABC, and state guideline harvest levels (GHLs) must be set so that retained catch and estimated discard mortality be no greater that the ACL/ABC. 
+Amendment 1 to the FMP established a joint federal and state management regime, in which federal regulations mirrored most state regulations as a temporary measure until changes to the Magnuson-Stevens Act allow the NPFMC to delegate management of the scallop fishery in federal waters to the State of Alaska. Amendment 1 also increased the upper limit of OY to 1.8 million lb (816 t) to account for historic landings in state waters. The fishery re-opened in federal waters on August 1, 1996. In 1997, Amendment 2 to the FMP established a temporary moratorium on new vessels entering the fishery through June, 2000. Eighteen vessels qualified for permits during this period. Amendment 3 to the FMP (1998) officially delegated management of the fishery in federal waters to the State of Alaska. The NPFMC adopted the current license limitation program (LLP) in June, 2000 (FMP Amendment 4). The LLP allowed nine licenses, two of which were limited to a single 6 ft dredge. Gear restrictions on these two licenses were removed by Amendment 10 in 2004. Amendment 6 to the FMP (1999) revised OY as 0 to 1.24 million lb (562 t), with the upper limit defined as the the average retained catch between 1990 - 1997, excluding 1995 (Free-Sloan 2007; Table \ref{table:freesloan}). Amendment 7 and 9 to the FMP identified several habitat areas of particular concern that are closed to scallop dredging (i.e., bottom-contact fishing). Optimum yield was further refined by Amendment 13, which increased the OY upper limit by 44,000 lb (1.284 million lb) to account for all sources of fishing mortality during the reference period based on a proxy estimation (Balsiger et al., 2011). Amendment 13 also established that the overfishing limit (OFL) be set equal to the maximum sustainable yield (MSY; the upper limit of OY) and specified an acceptable biological catch (ABC) control rule that allows a maximum ABC of 90\% of the OFL. Annual catch limit (ACL) of weathervane scallops was set so that ACL = ABC, and state guideline harvest levels (GHLs) must be set so that retained catch and estimated discard mortality be no greater that the ACL/ABC. Amendment 15, approved on October 31, 2012, revised EFH descriptions and identifications by species and updated life history, distribution, and habitat association information based on information from the EFH 5-year review. Amendment 16, approved on October 8, 2014, designated six areas of skate egg concentration as Habitat Areas of Particular Concern (HAPC). The HAPC designations for the six areas of skate egg concentration in the BSAI are intended to highlight the importance of this EFH. Amendment 17, approved on September 17, 2021, revised the language surrounding the bycatch reporting methodology to meet the goals of the MSA. Amendment 18, approved on January 19, 2024, revised the timing for developing the SAFE report and harvest specification setting process to allow more flexibility and remove the annual SAFE production and specification setting process requirement.
 
 ### 6.2 ADF\&G Management Measures {-}
 
@@ -193,13 +249,15 @@ Yakutat & 34 & 2011/12 & 1998/99 - 2013/14\\
 \textbf{K (Kodiak)} &&&\\
 KNE (Northeast) & 46 & 2005/06 & 2000/01 - 2009/10\\
 KSH (Shelikof) & 47 & 2002/03 & 2000/01 - 2009/10\\
+\textbf{Q (Bering Sea)} &&&\\
+Q & 43 & 2005/06 & 2000/01 - 2009/10\\
 \hline
 \end{tabular}
 \end{center}
 
 #### 6.2.5 Crab Bycatch Limits {-}
 
-Bycatch of crabs in the scallop fishery is controlled through the use of Crab Bycatch Limits (CBLs) that are based on condition of individual crab stocks. CBLs were first instituted by the State in July, 1993. Methods used to determine CBLs in 1993 and 1994 were approved by the State of Alaska Board of Fisheries and the NPFMC under Amendment 1 to the FMP. Since that time definitions of CBLs have undergone minor changes. In Areas K, M, O, and Q the CBLs for $Chionoecetes$ crabs are determined as a rate of crab per pound of scallop GHL, whereas bycatch limits for red king crab ($Paralithodes$ $camtschaticus$; RKC) are fixed. ADF\&G uses different rates in Areas K and M depending on whether estimates of Tanner crab mature male biomass from recent trawl surveys are above (larger bycatch rate) or below (lower bycatch rate) a Tanner crab harvest strategy threshold (5 AAC 35.507(e)(5)). Rates applied to determine CBLs vary by scallop harvest area (below). In Areas H and E, the CBL for Tanner crab is set at 0.5\% of area swept estimates of crab caught during the most recent scallop dredge survey, while the CBL is fixed at 30 crab for Area H only.  Crab bycatch limits are not used in area D.
+Bycatch of crabs in the scallop fishery is controlled through the use of Crab Bycatch Limits (CBLs) that are based on condition of individual crab stocks. CBLs were first instituted by the State in July, 1993. Methods used to determine CBLs in 1993 and 1994 were approved by the State of Alaska Board of Fisheries and the NPFMC under Amendment 1 to the FMP. Since that time definitions of CBLs have undergone minor changes. In Areas K, M, O, and Q the CBLs for $Chionoecetes$ crabs are determined as a rate of crab per pound of scallop GHL, whereas bycatch limits for red king crab ($Paralithodes$ $camtschaticus$; RKC) are fixed. ADF\&G uses different rates in Areas K and M depending on whether estimates of Tanner crab mature male biomass from recent trawl surveys are above (larger bycatch rate) or below (lower bycatch rate) a Tanner crab harvest strategy threshold (5 AAC 35.507). Rates applied to determine CBLs vary by scallop harvest area (below). In Areas H and E, the CBL for Tanner crab is set at 0.5\% of area swept estimates of crab caught during the most recent scallop dredge survey, while the CBL is fixed at 30 crab for Area H only.  Crab bycatch limits are not used in area D. Time series of bycatch limits and crab bycatch totals since 2009/10 season are in Tables (\ref{table:ekicrabstats} - \ref{table:qcrabstats}).
 
 \begin{center}
 \begin{tabular}{lcccc}
@@ -223,50 +281,82 @@ Participating in the Scallop fishery in State of Alaska waters (0-3 nmi) had bee
 # D. Data {-}
 
 ### 1. Historic Catch Data {-}
-### 2. ADF\&G Shellfish Observer Program {-}
+
+Fish ticket data have been previously used to document retained catch in the early years of the fishery (Kruse et al. 2005; Free-Sloan 2007). From 1985 until 2008, retained scallop meat weight harvested during scallop fisheries was stored within the State of Alaska shellfish fish ticket database and not directly connected with other data collected by the scallop observer program. Errors and omissions are common within this data because the data were reviewed independently by staff among ADF\&G regions and lacked a standardized comprehensive review by a statewide coordinator familiar with the fishery and participants. After researching the fish ticket database, scallop observer databases, historic annual management reports, emergency orders, news releases, trip logs, vessel registrations and speaking with vessel operators, errors in the fish ticket data from 1990 to 2008 were identified. Scallop observer program staff worked with staff at ADF\&G Headquarters as well as within the Southeastern, Central, and Westward Regions to correct the errors. A summary of retained scallop meat weight harvest data by registration area and district has been compiled from 1990-2008.
+
+### 2. ADF\&G Scallop Observer Program {-}
 
 ADF\&G established the current at-sea observer program for the scallop fishery in 1993 under 5 AAC 38.076 (g). Earlier, at-sea observers were utilized intermittently for targeted collection of biological data. ADF\&G has always required 100\% observer coverage, except in Area H, where the fishery has historically been prosecuted by smaller vessels. Scallop observers principally collect information on the retained catch, as well as discard and bycatch rates to satisfy requirements of the Magnuson-Stevens Act and support regulatory enforcement. In addition, observers have collected a suite of biological data including shell height compositions of the retained and discarded catch, individual meat weights and gonad condition, shells for aging, and condition of discarded scallops. Data gathered through the observer program comprise the primary information source for ADF\&G in setting harvest limits.   
 
-In 2009, ADF\&G made changes to how observers recorded data at sea and subsequently, the program's data management practices. These changes no longer required observers to summarize data at sea and shoreside ADF\&G staff began curating raw data in a local database. The current scallop observer database only contains data from 2009 - present. Data collected from 1993 - 2008 would require considerable reformatting before it is used in conjunction with data from 2009 - present. As a result, only prior estimates of retained round and meat biomass, discards, and nominal CPUE are available for 1993 - 2008. 
+In 2009, ADF\&G made changes to how observers recorded data at sea and subsequently, the program's data management practices. These changes no longer required observers to summarize data at sea and shoreside ADF\&G staff began curating raw data in a local database. The current scallop observer database only contains data from 2009 - present. Data collected from 1993 - 2008 requires considerable reformatting, rescue of data from original paper data forms and current quality assurance/quality control procedures applied before it is used in conjunction with data from 2009 - present. As a result, only prior estimates of retained round and meat biomass, discards, and nominal CPUE are available for 1993 - 2008. 
 
-Vessel fishing logbooks track haul specific data from both observer sampled and non-sampled hauls including location, duration, retained catch (i.e., in units of bushels of whole scallops), and crab bycatch. These data are paired with daily observer records to estimate haul specific retained catch in units of round biomass and associated CPUE. Haul specific retained meat biomass is obtained by apportioning totals from the vessel's daily production log to logbook data. Daily production logs are used by ADF\&G as the primary data source for tracking retained catch towards area GHLs. Time series of area specific GHL, estimated retained catch, discard mortality, and CPUE are in \textcolor{red}{Tables X-X}.
+Vessel fishing logbooks track haul specific data from both observer sampled and non-sampled hauls including location, duration, retained catch (i.e., in units of bushels of whole scallops), and crab bycatch. These data are paired with daily observer collected catch sampling data to estimate haul specific retained catch in units of round biomass and associated CPUE. Haul specific retained meat biomass is obtained by apportioning totals from the vessel's daily meat weight production log to fishing logbook data. Daily meat weight production logs are used by ADF\&G as the primary data source for tracking retained catch towards area GHLs. Time series of area specific GHL, estimated retained catch, discard mortality, and CPUE are in Tables \ref{table:yakstats} - \ref{table:qstats}.
 
 ### 3. ADF\&G Dredge Survey {-}
 
-ADF\&G dredge surveys began in Area H and and Area E. The program’s inaugural surveys were conducted in Kamishak Bay in 1984 (Hammarstrom and Merritt 1985) and around Kayak Island in 1996 (Bechtol et al., 2003). Since 1996 biennial surveys have continued in these areas (Gustafson and Goldman 2012), enabling ADF\&G to (1) delineate the primary scallop beds; (2) estimate scallop abundance and biomass within them; (3) characterize bed composition using age and shell height data; and (4) estimate catch rates of non-target species, particularly Tanner crab. In 2016, ADF\&G standardized existing survey efforts and expanded the dredge survey to other commercially important harvest areas (Smith et al., 2016). Surveys from 2016 - 2018 sampled beds within Kodiak Shelikof (KSH) and Northeast (KNE) Districts, Area E, and Area D somewhat irregularly. Since 2019, the ADF\&G has focused on sampling all actively fished beds in the eastern GOA (Areas E and D) or western GOA (KSH, KNE, and Area H) on a biennial basis. Complete details of the survey area, survey design, sampling protocols, and data analysis are found in Burt et al., (2021). 
+ADF\&G dredge surveys began in Area H and and Area E. The program’s inaugural surveys were conducted in Kamishak Bay in 1984 (Hammarstrom and Merritt 1985) and around Kayak Island in 1996 (Bechtol et al., 2003). Since 1996 biennial surveys have continued in these areas (Gustafson and Goldman 2012), enabling ADF\&G to (1) delineate the primary scallop beds; (2) estimate scallop abundance and biomass within them; (3) characterize bed composition using age and shell height data; and (4) estimate catch rates of non-target species, particularly Tanner crab. In 2016, ADF\&G expanded the dredge survey to other commercially important harvest areas (Smith et al., 2016). Surveys from 2016 – 2018 sampled beds within Kodiak Shelikof (KSH) and Northeast (KNE) Districts, Area E, and Area D somewhat irregularly. Since 2019, ADF\&G has standardized existing survey efforts and focused on sampling all actively fished beds in the eastern GOA (Areas E and D) or western GOA (KSH, KNE, and Area H) on a biennial basis. Complete details of the survey area, survey design, sampling protocols, and data analysis are found in Burt et al., (2021). 
 
 The 2023 ADF\&G dredge survey sampled seven beds between the YAK District (Area D) and the EKI and WKI subsections of Area E. The portion of the EK1 bed that lies within the YAK District was not sampled due to logistic restraints. Abundance and biomass of exploitable-sized scallops ($\geq$ 100 mm shell height) increased overall in the YAK District, and slightly decreased in WKI and EKI. Abundance and biomass of pre-recruit-sized scallops ($<$ 100 mm) decreased among all beds except WKI (Hopkins et al., $in$ $prep$). Estimates from the 2023 survey are in Table \ref{table:surveyab}, and full details of survey results are in Hopkins et al., ($in$ $prep$). ADF\&G dredge survey data are not currently used for computation of OFL/ABC.
 
 
-
-
-
 # E. Analytical Approach {-}
+
+## 1. History of Modelling Explorations {-}
+
+Bechtol (2000) used fishery and ADF\&G dredge survey data to develop an age-structured assessment model of the Kamishak Bay portion of the stock from 1983 – 1997. This model was updated using newer survey age compositions and catch data through 2012 (Zhang 2014). Exploration of a Kamishak catch-at-age model was again furthered by Zheng (2018), and Jackson and Zheng (2022) using Stock Synthesis (Methot and Wetzel 2013). Scallop modelling using Stock Synthesis was continued for Kodiak Shelikof District by Jackson (2023). While results of model explorations in Kamishak and Shelikof Districts were promising, extension of these models to the broader stock is unlikely due to the disparity in data availability among districts and the resources necessary for model development. Appendix B explores using ADF\&G drede survey and fishery CPUE data in a state-space random walk model (REMA; Sullivan et al. 2023) as a data-limited approach for assessing this stock.
+
+## 2. Current Approach {-}
+
+MSY stock size and allowable catch limits for the full stock have been based on historic catches since 1996 (NPFMC 2014). A reference period from 1990 - 1997, excluding 1995 reflects the prevailing ecological conditions and a time when the fishery was fully capitalized. Since 1996, MSY has been revised to 1) use average total catch as opposed to maximum (Amendment 6; NPFMC 1998) and 2) incorporate bycatch fisheries (Amendment 13;  Balsiger et al., 2013).  
+
 # F. Harvest Specifications {-}
 ## 1. Calculation of the OFL {-}
 
-The original FMP established optimum yield (OY) as a range from 0 to 1.1 million lb (499 t) of shucked meats with the upper end being based on the historic high in landings since 1993. Under Amendment 1, in 1996, the upper end for OY was increased to 1.8 million lb (816 t) to account for historic State water landings. A more conservative approach was taken in 1999, when OY was re-defined as 0 to 1.24 million lb (562 t) with the upper end reflecting average rather than maximum catch. The reference period for defining the upper range for OY is 1990-1997 excluding 1995 (Free-Sloan 2007; Table \ref{table:freesloan}).  Most recently, in 2012, under Amendment 13, OY was re-defined as 0 to 1.284 million lb (582 t) of shucked meats to include estimated discard mortality (39,680 lb; 18 t) in the directed fishery, groundfish fisheries, and agency surveys over the reference time frame, assuming 20\% handling mortality . Balsiger et al. (2013) details accounting of total scallop mortality in the directed fishery and bycatch fisheries as computed at the time.
+The original FMP established optimum yield (OY) as a range from 0 to 1.1 million lb (499 t) of shucked meats with the upper end being based on the historic high in landings since 1993. Under Amendment 1, in 1996, the upper end for OY was increased to 1.8 million lb (816 t) to account for historic State water landings. A more conservative approach was taken in 1999, when OY was re-defined as 0 to 1.24 million lb (562 t) with the upper end reflecting average rather than maximum catch. The reference period for defining the upper range for OY is 1990-1997 excluding 1995 (Free-Sloan 2007; Table \ref{table:freesloan}).  Most recently, in 2012, under Amendment 13, OY was re-defined as 0 to 1.284 million lb (582 t) of shucked meats to include estimated discard mortality (39,680 lb; 18 t) in the directed fishery, groundfish fisheries, and agency surveys over the reference time frame, assuming 20\% handling mortality. Balsiger et al., (2013) details accounting of total scallop mortality in the directed fishery and bycatch fisheries as computed at the time.
 
 ## 2. Calculation of the ABC {-}
 
 The ABC control rule calculates a statewide maximum ABC at 90\% of the OFL, which provides a 10\% buffer to account for scientific uncertainty in the estimation of the OFL. The recommendation is to set ABC at the maximum allowable, or 1.156 million lb (524 t) shucked meats.
 
 # G. Data Gaps and Research Priorities {-}
-# H. Ecosystem Component {-}
+# H. Ecosystem Components {-}
+
+## 1. Ecosystem Component Stocks {-}
+
+In Amendment 13 to the FMP established an ‘Ecosystem Component' for non-target scallop stocks. Stocks contained under this category of the FMP are stocks which are not the subject of a directed fishery, including: rock scallops $Crassadoma$ $gigantea$, pink scallops $Chlamys$ $rubida$, and spiny scallops: $Chlamys$ $hastata$, $Chlamys$ $behringiana$, and $Chlamys$ $albida$. For these stocks annual catch limits are not required to be annually specified.   
+
+No commercial harvests have been documented for scallop species other than weathervane scallops in waters off Alaska since at least 1992, but there are currently low-level personal use/subsistence fisheries for some of these species. Should a target fishery become desirable for any of these species, either as a whole complex or by individual stock grouping, an FMP amendment would need to be initiated by the Council to move the stock ‘into the fishery’ under the FMP and ACLs annually specified. Major fishery development is not anticipated for non-weathervane scallops, but market potential does exist for both pink and rock scallops. The spatial distribution of non-weathervane scallop species is not well defined, although these species currently compose a relatively minor component of catches in both NMFS and ADF&G surveys (von Szalay and Raring 2017; Markowitz et al., 2023).
+
+## 2. Fishery Effects on Ecosystem {-}
+
+### 2.1 Effects on Benthos {-}
+
+The Alaska weathervane scallop fishery occurs in continental shelf waters at depths 40–150 m in throughout the Gulf of Alaska and into the Eastern Bering Sea (Figure \ref{fig:areamap}). There is strong evidence that scallop dredging reduces diversity, at least in the near term, however, the level of impact and the recovery rate tend to vary among habitat types (Collie et al. 2000; Kaiser et al. 2006). Past studies on the effects of scallop dredging in the Gulf of Alaska have found differences in community abundance and diversity for areas either open or closed to dredging (Stone et al. 2005). More recently, Glass and Kruse (2017) found evidence of recovery from disturbance by fishing gear in the Bering Sea scallop bed through increases in sessile benthic organisms during a period of decreased fishing activity. Although Glass and Kruse (2017) also found contrasting impacts in the Kodiak Shelikof district, the authors suggest that reductions in bycatch through self-regulatory fishing practices, extensive closure areas, and the small size of the fishery combine to constrain impacts overall. It is proposed, however, that controlled fishing experiments that apply a before–after, control–impact (BACI) approach could be used to better characterize the effects of scallop dredging on benthic communities off Alaska.  
+
+### 2.1 Effects on Bycatch Species {-}
+
+Scallop fishery bycatch is closely monitored by the ADF\&G Shellfish Observer Program. Bycatch in the scallop fishery includes prohibited species such as red king crab, Tanner crab, snow crab, and Pacific halibut $Hippoglossus$ $stenolepis$, other commercially important species of fish and invertebrates, miscellaneous non-commercial species, and natural and man-made debris. Weathervane scallops predominate the catch composition by a large margin (~90-95\%) (Figure \ref{fig:ecobycatch}). Crab bycatch in the scallop fishery is highest in the Bering Sea, although this accounts for a small proportion of total BSAI crab bycatch. Non-crustacean benthic invertebrates make up the largest proportion of bycatch in the Gulf of Alaska (Figure \ref{fig:ecobycatch}).
+
 
 # Literature Cited {-} 
 
 \begin{hangparas}{.25in}{1}
 
-Balsiger, JW, D Stram, P Murphy (2011) For proposed amendment 13 to the fishery management plan for the scallop fishery off Alaska. Environmental Assessment, National Oceanic and Atmospheric Association, Anchorage, AK.
+Balsiger, JW, D Stram, P Murphy (2011) For proposed amendment 13 to the fishery management plan for the scallop fishery off Alaska. Environmental Assessment, National Oceanic and Atmospheric Association, Anchorage, AK.  
+
+Bechtol, WR (2000) Preliminary evaluation of multiple data sources in an age structured model for weathervane scallops in Kamishak Bay, Alaska. Alaska Department of Fish and Game, Division of Commercial Fisheries, Regional Information Report 2A00-03, Anchorage. 23 pp.  
 
 Bechtol, WR, RL Gustafson, JL Cope (2003) A survey of weathervane scallops in Kamishak Bay, Alaska, 2001.  Alaska Department of Fish and Game, Division of Commercial Fisheries, Regional Information Report No. 2A03-31, Anchorage, AK.
 
 Burt, R, M Byerly, A Hopkins, T Jackson, K McNeel (2021) Weathervane scallop dredge survey operational plan, 2021–2023. Alaska Department of Fish and Game, Division, Division of Commercial Fisheries, Regional Operational Plan No. ROP.CF.4K.2021.09, Kodiak, AK. 
 
+Collie, JS, SJ Hall, MJ Kaiser, IR Poiner (2000) A quantitative analysis of fishing impacts on shelf-sea benthos. Journal of Animal Ecology 69: 785–798.  
+
 Free-Sloan, N (2007) A brief overview of the Alaska weathervane scallop fishery and the vessel permit limited entry program. CFEC Report 07-2N. State of Alaska, Commercial Fisheries Entry Commission, Juneau, AK.  
 
-Gaffney, PM, CM Pascal, J Barnhart, WS Grant, and JE Seeb (2010) Genetic homogeneity of weathervane scallops ($Patinopecten$ $caurinus$) in the northeastern Pacific. Canadian Journal of Fisheries and Aquatic Sciences 67: 1827-183. 
+Gaffney, PM, CM Pascal, J Barnhart, WS Grant, and JE Seeb (2010) Genetic homogeneity of weathervane scallops ($Patinopecten$ $caurinus$) in the northeastern Pacific. Canadian Journal of Fisheries and Aquatic Sciences 67: 1827-183.  
+
+Glass, J, G Kruse (2017) Spatiotemporal variability of benthic communities on weathervane scallop beds off Alaska. Marine and Coastal Fisheries 9: 521-534.
 
 Gustafson, RL, and J Goldman (2012)  Assessment of weathervane scallops in Kamishak Bay and at Kayak Island, 2004 through 2010.  Alaska Department of Fish and Game, Fishery Data Series No. 12-62, Anchorage, AK.
 
@@ -280,11 +370,29 @@ Hennick, DP (1973) Sea scallop $Patinopectan$ $carinus$ investigations in Alaska
 
 Ignell S and E Haynes (2000) Geographic patterns in growth of the giant Pacific sea scallop, $Patinopecten$ $caurinus$. Fishery Bulletin 98: 849-853.  
 
+Jackson, T (2023) Appendix B: Stock Synthesis Evaluation of Kodiak Shelikof. $In$ Stock Assessment and Fishery Evaluation Report for the Scallop Fishery Off Alaska. North Pacific Fishery Management Council. Anchorage, AK.   
+
+Kaiser, MJ, KR Clarke, H Hinz, M Austen, PJ Somerfield, I Karakassis (2006) Global analysis of response and recovery of benthic biota to fishing. Marine Ecology Progress Series 311: 1–14.  
+
 Kruse, GH, JP Barnhart, GE Rosenkranz (2005) Management of the data-limited weathervane scallop fishery in Alaska. $In$ Fisheries Assessment and Management in Data-Limited Situations. Eds: Kruse, GH, VF Gallucci, DE Hay, RI Perry, RM Peterman, TC Shirley, PD Spencer, B Wilson, D Woodby. October, 2003. University of Alaska Sea Grant College Program, Anchorage, AK.  
+
+Markowitz, EH, EJ Dawson, CB Anderson, SK Rohan, NE Charriere, BK Prohaska, DE Stevenson (2023) Results of the 2022 eastern and northern Bering Sea continental shelf bottom trawl survey of groundfish and invertebrate fauna. U.S. Department of Commerce, NOAA Technical Memorandum. NMFS-AFSC-469, 213 p.   
+
+Methot, RD and CR Wetzel (2013) Stock synthesis: A biological and statistical framework for fish stock assessment and fishery management. Fisheries Research 142: 86-99.  
 
 Smith, Q, B Williams, R Burt (2016) Statewide weathervane scallop survey operational plan, 2016 through 2018. Alaska Department of Fish and Game, Alaska Department of Fish and Game, Regional Operational Plan No. ROP.CF.1J.2016.07, Juneau, AK.
 
+Stone, RP, MM Masuda, PW Malecha (2005) Effects of bottom trawling on soft-sediment epibenthic communities in the Gulf of Alaska. Pages 439–453 in PW Barnes and JP Thomas, editors. Benthic habitats and the effects of fishing. American Fisheries Society, Symposium 41, Bethesda, Maryland. 
+
+Sullivan, J, C Monnahan, P Hulson, J Ianelli, J Thorson, and A Havron (2022) REMA: a consensus version of the random effects model for ABC apportionment and Tier 4/5 assessments. Plan Team Report, Joint Groundfish Plan Teams, North Pacific Fishery Management Council. 605 W 4th Ave, Suite 306 Anchorage, AK 99501.  
+
 Turk, TA (2001) Spatial distribution and selected habitat preferences of weathervane scallops ($Patinopectan$ $caurinus$) in Alaska. $In$ Spatial Processes and Management of Marine Populations. Eds: Kruse, GH, N Bez, A Booth, MW Dorn, S Hills, RN Lipcius, D Pelletier, C Roy, SJ Smith, and D Witherell. October 27-30, 1999. University of Alaska Sea Grant College Program, Anchorage, AK.  
+
+von Szalay, PG and NW Raring (2018) Data Report: 2017 Gulf of Alaska bottom trawl survey. U.S. Department of Commerce, NOAA Technical Memorandum. NMFS-AFSC-374, 260 p. 
+
+Zhang, X (2014) Presentation to the NPFMC Scallop Plan Team, February, 2014.
+
+Zheng, J (2018) Evaluation of a Stock Synthesis Approach to Assess Weathervane Scallops in Kamishak Bay, Alaska. Presentation to the NPFMC Scallop Plan Team, February, 2018.
 
 \end{hangparas}
 
@@ -391,9 +499,729 @@ print(xtable(survey_res_small, align="llccccccc"),
 \end{table}
 
 
+#### {-}
+\begin{table}[H]
+\centering
+\caption{Area D (Yakutat) fishery statistics from 1990 - present. Statistics pre-2009 are based on preliminary analysis of historic fish ticket data. Round weight catch pre-2009 is estimated assuming meat weight catch is 10\% of round weight catch. Discard handling mortality was assumed 20\%.}
+\label{table:yakstats}
+\begin{tabular}{llccccccc}
+&& \multicolumn{2}{c}{Retained Catch} & Discard & Dredge & CPUE & CPUE\\
+Season & GHL & Meat (lb) & Round (lb)  & Mortality (lb) & Hrs & (Meat) &  (Round)\\
+\hline
+```{r yakstats, results='asis', eval = T}
+read_csv("../../output/safe/2024/fishery_stats_1990_present.csv") %>%
+  filter(district == "YAK") %>%
+  mutate(season = ifelse(year >= 1994, paste0(year, "/", substring(year+1,3,4)), year)) %>%
+  transmute(season, ghl, landed_lb_mw, landed_lb_rnd, disc_mort_lb_mw, dredge_hrs,
+            cpue_mw = landed_lb_mw/dredge_hrs, cpue_rnd = landed_lb_rnd/dredge_hrs) -> x
+
+# print table
+print(xtable(x, align="llccccccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Area E (Prince william Sound) fishery statistics from 1990 - 1999. After 2000, Area E was managed as East and West Kayak Island Subsections. Statistics are based on preliminary analysis of historic fish ticket data. Round weight catch pre-2009 is estimated assuming meat weight catch is 10\% of round weight catch. Discard handling mortality was assumed 20\%.}
+\label{table:estats}
+\begin{tabular}{llccccccc}
+&&& \multicolumn{2}{c}{Retained Catch} & Discard & Dredge & CPUE & CPUE\\
+Season & District & GHL & Meat (lb) & Round (lb)  & Mortality (lb) & Hrs & (Meat) &  (Round)\\
+\hline
+```{r estats, results='asis', eval = T}
+read_csv("../../output/safe/2024/fishery_stats_1990_present.csv") %>%
+  filter(district %in% c("E"), year > 1992) %>%
+  mutate(season = ifelse(year >= 1994, paste0(year, "/", substring(year+1,3,4)), year)) %>%
+  transmute(season, ghl, landed_lb_mw, landed_lb_rnd, disc_mort_lb_mw, dredge_hrs,
+            cpue_mw = landed_lb_mw/dredge_hrs, cpue_rnd = landed_lb_rnd/dredge_hrs) %>%
+  mutate(cpue_mw = ifelse(is.nan(cpue_mw), NA, cpue_mw), cpue_rnd = ifelse(is.nan(cpue_rnd), NA, cpue_rnd),
+         ghl = ifelse(ghl == 0, "Closed", prettyNum(ghl, big.mark = ","))) %>%
+  arrange(season) %>%
+  replace(. == 0, NA) -> x
+
+# print table
+print(xtable(x, align="llccccccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\multicolumn{9}{l}{*Landed Catch for 1995/96 doesn't include illegal fishing by one vessel.}
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{EKI (East Kayak Island) Subsection fishery statistics from 2000 - present. Statistics are based on preliminary analysis of historic fish ticket data. Round weight catch pre-2009 is estimated assuming meat weight catch is 10\% of round weight catch. Discard handling mortality was assumed 20\%. EKI has been closed since the 2012/13 season.}
+\label{table:ekistats}
+\begin{tabular}{llcccccccc}
+&&& \multicolumn{2}{c}{Retained Catch} & Discard & Dredge & CPUE & CPUE\\
+Season & District & GHL & Meat (lb) & Round (lb)  & Mortality (lb) & Hrs & (Meat) &  (Round)\\
+\hline
+```{r ekistats, results='asis', eval = T}
+read_csv("../../output/safe/2024/fishery_stats_1990_present.csv") %>%
+  filter(district %in% c("EKI"), year > 1992, year < 2012) %>%
+  mutate(season = ifelse(year >= 1994, paste0(year, "/", substring(year+1,3,4)), year)) %>%
+  transmute(season, ghl, landed_lb_mw, landed_lb_rnd, disc_mort_lb_mw, dredge_hrs,
+            cpue_mw = landed_lb_mw/dredge_hrs, cpue_rnd = landed_lb_rnd/dredge_hrs) %>%
+  mutate(cpue_mw = ifelse(is.nan(cpue_mw), NA, cpue_mw), cpue_rnd = ifelse(is.nan(cpue_rnd), NA, cpue_rnd),
+         ghl = ifelse(ghl == 0, "Closed", prettyNum(ghl, big.mark = ","))) %>%
+  arrange(season) %>%
+  replace(. == 0, NA) -> x
+
+# print table
+print(xtable(x, align="llccccccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{WKI (West Kayak Island) Subsection fishery statistics from 2000 - present. Statistics are based on preliminary analysis of historic fish ticket data. Round weight catch pre-2009 is estimated assuming meat weight catch is 10\% of round weight catch. Discard handling mortality was assumed 20\%.}
+\label{table:wkistats}
+\begin{tabular}{llcccccccc}
+&&& \multicolumn{2}{c}{Retained Catch} & Discard & Dredge & CPUE & CPUE\\
+Season & District & GHL & Meat (lb) & Round (lb)  & Mortality (lb) & Hrs & (Meat) &  (Round)\\
+\hline
+```{r wkistats, results='asis', eval = T}
+read_csv("../../output/safe/2024/fishery_stats_1990_present.csv") %>%
+  filter(district %in% c("WKI"), year > 1992) %>%
+  mutate(season = ifelse(year >= 1994, paste0(year, "/", substring(year+1,3,4)), year)) %>%
+  transmute(season, ghl, landed_lb_mw, landed_lb_rnd, disc_mort_lb_mw, dredge_hrs,
+            cpue_mw = landed_lb_mw/dredge_hrs, cpue_rnd = landed_lb_rnd/dredge_hrs) %>%
+  mutate(cpue_mw = ifelse(is.nan(cpue_mw), NA, cpue_mw), cpue_rnd = ifelse(is.nan(cpue_rnd), NA, cpue_rnd),
+         ghl = ifelse(ghl == 0, "Closed", prettyNum(ghl, big.mark = ","))) %>%
+  arrange(season) %>%
+  replace(. == 0, NA) -> x
+
+# print table
+print(xtable(x, align="llccccccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Area H (Cook Inlet) fishery statistics from 2000 - 2017. Statistics are based on preliminary analysis of historic fish ticket data. Round weight is estimated assuming meat weight catch is 10\% of round weight catch. Discard handling mortality was assumed 20\%. Area H has been closed since 2017.}
+\label{table:hstats}
+\begin{tabular}{llccccccc}
+&& \multicolumn{2}{c}{Retained Catch} & Discard & Dredge & CPUE & CPUE\\
+Season & GHL & Meat (lb) & Round (lb) & Mortality (lb) & Hrs & (Meat) &  (Round)\\
+\hline
+```{r hstats, results='asis', eval = T}
+read_csv("../../output/safe/2024/fishery_stats_1990_present.csv") %>%
+  filter(district == "H") %>%
+  mutate(season = ifelse(year >= 1994, paste0(year, "/", substring(year+1,3,4)), year)) %>%
+  transmute(season, ghl, landed_lb_mw, landed_lb_rnd, disc_mort_lb_mw, dredge_hrs,
+            cpue_mw = landed_lb_mw/dredge_hrs, cpue_rnd = landed_lb_rnd/dredge_hrs) %>%
+  mutate(cpue_mw = ifelse(is.nan(cpue_mw), NA, cpue_mw), 
+         cpue_rnd = ifelse(is.nan(cpue_rnd), NA, cpue_rnd),
+         dredge_hrs = ifelse((is.na(dredge_hrs)&ghl>0), 0, dredge_hrs),
+         ghl = ifelse(ghl == 0, "Closed", prettyNum(ghl, big.mark = ",")),
+         landed_lb_rnd = ifelse(dredge_hrs == 0, NA, landed_lb_rnd),
+         landed_lb_mw = ifelse(dredge_hrs == 0, NA, landed_lb_mw)) %>%
+  filter(substring(season, 1, 4) < 2009) -> x
+
+# print table
+print(xtable(x, align="llccccccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+2009/10 & 14,000 & & & & 0 & & \\
+2010/11 & 14,000 & 9,460 & 94,600 & & 365 & 26 & 260\\
+2011/12 & 12,500 & 9,975 & 99,750 && 324 & 31 & 310\\
+2012/13 & 12,500 & 11,739 & 117,390 && 392 & 30 & 300\\
+2013/14 & Closed & & & & & \\
+2014/15 & Closed & & & & & \\
+2015/16 & 10,000 & 9,485 & 94,850 && 459 & 21 & 210\\
+2016/17 & 10,000 & 3,982 & 39,820 && 271 & 15 & 150\\
+2017/18 & 10,000 & & & & 0 & & \\
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{KSH (Kodiak Shelikof) District fishery statistics from 1990 - present. Statistics pre-2009 are based on preliminary analysis of historic fish ticket data. Round weight catch pre-2009 is estimated assuming meat weight catch is 10\% of round weight catch. Discard handling mortality was assumed 20\%.}
+\label{table:kshstats}
+\begin{tabular}{llccccccc}
+&& \multicolumn{2}{c}{Retained Catch} & Discard & Dredge & CPUE & CPUE\\
+Season & GHL & Meat (lb) & Round (lb)  & Mortality (lb) & Hrs & (Meat) &  (Round)\\
+\hline
+```{r kshstats, results='asis', eval = T}
+read_csv("../../output/safe/2024/fishery_stats_1990_present.csv") %>%
+  filter(district == "KSH") %>%
+  mutate(season = ifelse(year >= 1994, paste0(year, "/", substring(year+1,3,4)), year)) %>%
+  transmute(season, ghl, landed_lb_mw, landed_lb_rnd, disc_mort_lb_mw, dredge_hrs,
+            cpue_mw = landed_lb_mw/dredge_hrs, cpue_rnd = landed_lb_rnd/dredge_hrs) %>%
+  mutate(cpue_mw = ifelse(is.nan(cpue_mw), NA, cpue_mw), cpue_rnd = ifelse(is.nan(cpue_rnd), NA, cpue_rnd),
+         ghl = ifelse(ghl == 0, "Closed", prettyNum(ghl, big.mark = ","))) %>%
+  replace(. == 0, NA)  -> x
+
+# print table
+print(xtable(x, align="llccccccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{KNE (Kodiak Northeast) District fishery statistics from 1990 - present. Statistics pre-2009 are based on preliminary analysis of historic fish ticket data. Round weight catch pre-2009 is estimated assuming meat weight catch is 10\% of round weight catch. Discard handling mortality was assumed 20\%.}
+\label{table:knestats}
+\begin{tabular}{llccccccc}
+&& \multicolumn{2}{c}{Retained Catch} & Discard & Dredge & CPUE & CPUE\\
+Season & GHL & Meat (lb) & Round (lb)  & Mortality (lb) & Hrs & (Meat) &  (Round)\\
+\hline
+```{r knestats, results='asis', eval = T}
+read_csv("../../output/safe/2024/fishery_stats_1990_present.csv") %>%
+  filter(district == "KNE") %>%
+  mutate(season = ifelse(year >= 1994, paste0(year, "/", substring(year+1,3,4)), year)) %>%
+  transmute(season, ghl, landed_lb_mw, landed_lb_rnd, disc_mort_lb_mw, dredge_hrs,
+            cpue_mw = landed_lb_mw/dredge_hrs, cpue_rnd = landed_lb_rnd/dredge_hrs) %>%
+  mutate(cpue_mw = ifelse(is.nan(cpue_mw), NA, cpue_mw), cpue_rnd = ifelse(is.nan(cpue_rnd), NA, cpue_rnd),
+         ghl = ifelse(ghl == 0, "Closed", prettyNum(ghl, big.mark = ","))) %>%
+  replace(. == 0, NA)  -> x
+
+# print table
+print(xtable(x, align="llccccccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{KSW (Kodiak Southwest) District fishery statistics from 2009 - present. Discard handling mortality was assumed 20\%. All estimates include beds adjacent to the Karluk River that were managed as KSW since 2018/19. GHLs prior to 2018/19 do not reflect these beds.}
+\label{table:kswstats}
+\begin{tabular}{llccccccc}
+&& \multicolumn{2}{c}{Retained Catch} & Discard & Dredge & CPUE & CPUE\\
+Season & GHL & Meat (lb) & Round (lb)  & Mortality (lb) & Hrs & (Meat) &  (Round)\\
+\hline
+```{r kswstats, results='asis', eval = T}
+read_csv("../../output/safe/2024/fishery_stats_1990_present.csv") %>%
+  filter(district == "KSW", year >= 2009) %>%
+  mutate(season = ifelse(year >= 1994, paste0(year, "/", substring(year+1,3,4)), year)) %>%
+  transmute(season, ghl, landed_lb_mw, landed_lb_rnd, disc_mort_lb_mw, dredge_hrs,
+            cpue_mw = landed_lb_mw/dredge_hrs, cpue_rnd = landed_lb_rnd/dredge_hrs) %>%
+  mutate(cpue_mw = ifelse(is.nan(cpue_mw), NA, cpue_mw), cpue_rnd = ifelse(is.nan(cpue_rnd), NA, cpue_rnd),
+         ghl = ifelse(ghl == 0, "Closed", prettyNum(ghl, big.mark = ","))) %>%
+  replace(. == 0, NA)  -> x
+
+# print table
+print(xtable(x, align="llccccccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{KSE (Kodiak Southeast) District fishery statistics from 2018 - present. Discard handling mortality was assumed 20\%.}
+\label{table:knestats}
+\begin{tabular}{llccccccc}
+&& \multicolumn{2}{c}{Retained Catch} & Discard & Dredge & CPUE & CPUE\\
+Season & GHL & Meat (lb) & Round (lb)  & Mortality (lb) & Hrs & (Meat) &  (Round)\\
+\hline
+```{r ksestats, results='asis', eval = T}
+read_csv("../../output/safe/2024/fishery_stats_1990_present.csv") %>%
+  filter(district == "KSE", year >= 2018) %>%
+  mutate(season = ifelse(year >= 1994, paste0(year, "/", substring(year+1,3,4)), year)) %>%
+  transmute(season, ghl, landed_lb_mw, landed_lb_rnd, disc_mort_lb_mw, dredge_hrs,
+            cpue_mw = landed_lb_mw/dredge_hrs, cpue_rnd = landed_lb_rnd/dredge_hrs) %>%
+  mutate(cpue_mw = ifelse(is.nan(cpue_mw), NA, cpue_mw), cpue_rnd = ifelse(is.nan(cpue_rnd), NA, cpue_rnd),
+         ghl = ifelse(ghl == 0, "Closed", prettyNum(ghl, big.mark = ","))) %>%
+  replace(. == 0, NA) %>%
+  replace_na(list(dredge_hrs=0)) -> x
+
+# print table
+print(xtable(x, align="llccccccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
 
 
 
+\begin{table}[H]
+\centering
+\caption{Area M (Alaska Peninsula) fishery statistics from 1993 - present. Statistics pre-2009 are based on preliminary analysis of historic fish ticket data. Round weight catch pre-2009 is estimated assuming meat weight catch is 10\% of round weight catch. Discard handling mortality was assumed 20\%.}
+\label{table:mstats}
+\begin{tabular}{llccccccc}
+&& \multicolumn{2}{c}{Retained Catch} & Discard & Dredge & CPUE & CPUE\\
+Season & GHL & Meat (lb) & Round (lb)  & Mortality (lb) & Hrs & (Meat) &  (Round)\\
+\hline
+```{r mstats, results='asis', eval = T}
+read_csv("../../output/safe/2024/fishery_stats_1990_present.csv") %>%
+  filter(district == "M", year >= 1993) %>%
+  mutate(season = ifelse(year >= 1994, paste0(year, "/", substring(year+1,3,4)), year)) %>%
+  transmute(season, year, ghl, landed_lb_mw, landed_lb_rnd, disc_mort_lb_mw, dredge_hrs,
+            cpue_mw = landed_lb_mw/dredge_hrs, cpue_rnd = landed_lb_rnd/dredge_hrs) %>%
+  mutate(ghl = ifelse(is.na(ghl) & year >= 2000, 0, ghl),
+         landed_lb_rnd = ifelse(ghl == 0, NA, landed_lb_rnd),
+         landed_lb_mw = ifelse(ghl == 0, NA, landed_lb_mw),
+         cpue_mw = ifelse(is.nan(cpue_mw), NA, cpue_mw), 
+         cpue_rnd = ifelse(is.nan(cpue_rnd), NA, cpue_rnd),
+         dredge_hrs = ifelse((is.na(dredge_hrs)&ghl>0), 0, dredge_hrs),
+         ghl = ifelse(ghl == 0, "Closed", prettyNum(ghl, big.mark = ",")),
+         landed_lb_rnd = ifelse(dredge_hrs == 0, NA, landed_lb_rnd),
+         landed_lb_mw = ifelse(dredge_hrs == 0, NA, landed_lb_mw),
+         disc_mort_lb_mw = ifelse(dredge_hrs == 0, NA, disc_mort_lb_mw)) %>%
+  dplyr::select(-year) -> x
+
+# print table
+print(xtable(x, align="llccccccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Area O (Dutch Harbor) fishery statistics from 1993 - present. Statistics pre-2009 are based on preliminary analysis of historic fish ticket data. Round weight catch pre-2009 is estimated assuming meat weight catch is 10\% of round weight catch. Discard handling mortality was assumed 20\%.}
+\label{table:ostats}
+\begin{tabular}{llccccccc}
+&& \multicolumn{2}{c}{Retained Catch} & Discard & Dredge & CPUE & CPUE\\
+Season & GHL & Meat (lb) & Round (lb)  & Mortality (lb) & Hrs & (Meat) &  (Round)\\
+\hline
+```{r ostats, results='asis', eval = T}
+read_csv("../../output/safe/2024/fishery_stats_1990_present.csv") %>%
+  filter(district == "O", year >= 1993) %>%
+  mutate(season = ifelse(year >= 1994, paste0(year, "/", substring(year+1,3,4)), year)) %>%
+  transmute(season, year, ghl, landed_lb_mw, landed_lb_rnd, disc_mort_lb_mw, dredge_hrs,
+            cpue_mw = landed_lb_mw/dredge_hrs, cpue_rnd = landed_lb_rnd/dredge_hrs) %>%
+  mutate(ghl = ifelse(is.na(ghl) & year >= 2000, 0, ghl),
+         landed_lb_rnd = ifelse(ghl == 0, NA, landed_lb_rnd),
+         landed_lb_mw = ifelse(ghl == 0, NA, landed_lb_mw),
+         cpue_mw = ifelse(is.nan(cpue_mw), NA, cpue_mw), 
+         cpue_rnd = ifelse(is.nan(cpue_rnd), NA, cpue_rnd),
+         dredge_hrs = ifelse((is.na(dredge_hrs)&ghl>0), 0, dredge_hrs),
+         ghl = ifelse(ghl == 0, "Closed", prettyNum(ghl, big.mark = ",")),
+         landed_lb_rnd = ifelse(dredge_hrs == 0, NA, landed_lb_rnd),
+         landed_lb_mw = ifelse(dredge_hrs == 0, NA, landed_lb_mw),
+         disc_mort_lb_mw = ifelse(dredge_hrs == 0, NA, disc_mort_lb_mw)) %>%
+  dplyr::select(-year) -> x
+
+# print table
+print(xtable(x, align="llccccccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Area Q (Dutch Harbor) fishery statistics from 1993 - present. Statistics pre-2009 are based on preliminary analysis of historic fish ticket data. Round weight catch pre-2009 is estimated assuming meat weight catch is 10\% of round weight catch. Discard handling mortality was assumed 20\%.}
+\label{table:qstats}
+\begin{tabular}{llccccccc}
+&& \multicolumn{2}{c}{Retained Catch} & Discard & Dredge & CPUE & CPUE\\
+Season & GHL & Meat (lb) & Round (lb)  & Mortality (lb) & Hrs & (Meat) &  (Round)\\
+\hline
+```{r qstats, results='asis', eval = T}
+read_csv("../../output/safe/2024/fishery_stats_1990_present.csv") %>%
+  filter(district == "Q", year >= 1993) %>%
+  mutate(season = ifelse(year >= 1994, paste0(year, "/", substring(year+1,3,4)), year)) %>%
+  transmute(season, year, ghl, landed_lb_mw, landed_lb_rnd, disc_mort_lb_mw, dredge_hrs,
+            cpue_mw = landed_lb_mw/dredge_hrs, cpue_rnd = landed_lb_rnd/dredge_hrs) %>%
+  mutate(ghl = ifelse(is.na(ghl) & year >= 2000, 0, ghl),
+         landed_lb_rnd = ifelse(ghl == 0, NA, landed_lb_rnd),
+         landed_lb_mw = ifelse(ghl == 0, NA, landed_lb_mw),
+         cpue_mw = ifelse(is.nan(cpue_mw), NA, cpue_mw), 
+         cpue_rnd = ifelse(is.nan(cpue_rnd), NA, cpue_rnd),
+         dredge_hrs = ifelse((is.na(dredge_hrs)&ghl>0), 0, dredge_hrs),
+         ghl = ifelse(ghl == 0, "Closed", prettyNum(ghl, big.mark = ",")),
+         landed_lb_rnd = ifelse(dredge_hrs == 0, NA, landed_lb_rnd),
+         landed_lb_mw = ifelse(dredge_hrs == 0, NA, landed_lb_mw),
+         disc_mort_lb_mw = ifelse(dredge_hrs == 0, NA, disc_mort_lb_mw)) %>%
+  dplyr::select(-year) -> x
+
+# print table
+print(xtable(x, align="llccccccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+#### {-}
+
+```{r cbl, echo = F, quite = T, message = F, warning = F}
+
+f_add_season <- function(x, fishery_col = "fishery"){
+  x %>%
+    pull(grep(fishery_col, names(.))) %>%
+    str_sub(., 3, 4) %>%
+    as.numeric() %>%
+    tibble(season = .) %>%
+    mutate(season = ifelse(season < 80, season + 2000, season + 1900),
+           season = factor(paste0(season, "/", substring(season + 1, 3, 4)))) %>%
+    bind_cols(x)
+}
+
+read_csv("../../data/observer/metadata/ScalFisheryCrabBycatchLimitsByDistrict_2009-2023.csv") %>%
+  f_add_season(., fishery_col = "fishery") %>%
+  transmute(season, district = scaldistrict, tanner_cbl = bairdi_bycatch_limit, snow_cbl = opilio_and_hybrid_bycatch_limit, king_cbl = king_bycatch_limit) %>%
+  mutate(district = ifelse(district %in% c("C", "UB", "WC"), "M", district),
+         district = ifelse(district %in% c("D", "D16"), "YAK", district)) %>%
+  group_by(season, district) %>%
+  summarise_all(sum) -> crab_cbl
+
+```
+
+\begin{table}[H]
+\centering
+\caption{EKI (East Kayak Island) District crab bycatch limits and associated bycatch estimates by season.}
+\label{table:ekicrabstats}
+\begin{tabular}{llcc}
+& \multicolumn{2}{c}{Tanner crab}\\
+Season & CBL & Bycatch (N)\\
+\hline
+```{r ekicrabstats, results='asis', eval = T}
+read_csv("../../output/safe/2024/crab_bycatch_2009_present.csv") %>%
+  filter(district == "EKI") %>%
+  left_join(crab_cbl) %>%
+  transmute(season, tanner_cbl, total_tanner) -> x
+# print table
+print(xtable(x, align="llcc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{WKI (West Kayak Island) District crab bycatch limits and associated bycatch estimates by season. Bycatch limits have not been used since 2018/19.}
+\label{table:wkicrabstats}
+\begin{tabular}{llcc}
+& \multicolumn{2}{c}{Tanner crab} \\
+Season & CBL & Bycatch (N)\\
+\hline
+```{r wkicrabstats, results='asis', eval = T}
+read_csv("../../output/safe/2024/crab_bycatch_2009_present.csv") %>%
+  filter(district == "WKI",
+         as.numeric(substring(season, 1, 4)) < 2011) %>%
+  left_join(crab_cbl) %>%
+  transmute(season, tanner_cbl, total_tanner) -> x
+# print table
+print(xtable(x, align="llcc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+2010/11 & Closed & & \\
+2011/12 & Closed & & \\
+2012/13 & Closed & & \\
+2013/14 & Closed & & \\
+2014/15 & Closed & & \\
+2015/16 & Closed & & \\
+```{r wkicrabstats1, results='asis', eval = T}
+read_csv("../../output/safe/2024/crab_bycatch_2009_present.csv") %>%
+  filter(district == "WKI",
+         as.numeric(substring(season, 1, 4)) < 2019) %>%
+  left_join(crab_cbl) %>%
+  transmute(season, tanner_cbl, total_tanner) -> x
+# print table
+print(xtable(x, align="llcc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+2019/20 & Closed & & \\
+2020/21 & Closed & & \\
+```{r wkicrabstats2, results='asis', eval = T}
+read_csv("../../output/safe/2024/crab_bycatch_2009_present.csv") %>%
+  filter(district == "WKI",
+         as.numeric(substring(season, 1, 4)) > 2020) %>%
+  left_join(crab_cbl) %>%
+  transmute(season, tanner_cbl, total_tanner) -> x
+# print table
+print(xtable(x, align="llcc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{KSH (Kodiak Shelikof) District crab bycatch limits and associated bycatch estimates by season.}
+\label{table:kshcrabstats}
+\begin{tabular}{llcccc}
+& \multicolumn{2}{c}{Tanner crab} & \multicolumn{2}{c}{King crab}\\
+Season & CBL & Bycatch (N) & CBL & Bycatch (N)\\
+\hline
+```{r kshcrabstats, results='asis', eval = T}
+read_csv("../../output/safe/2024/crab_bycatch_2009_present.csv") %>%
+  filter(district == "KSH") %>%
+  left_join(crab_cbl) %>%
+  transmute(season, tanner_cbl, total_tanner, king_cbl, total_king) -> x
+# print table
+print(xtable(x, align="llcccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{KNE (Kodiak Northeast) District crab bycatch limits and associated bycatch estimates by season.}
+\label{table:knecrabstats}
+\begin{tabular}{llcccc}
+& \multicolumn{2}{c}{Tanner crab} & \multicolumn{2}{c}{King crab}\\
+Season & CBL & Bycatch (N) & CBL & Bycatch (N)\\
+\hline
+```{r knecrabstats, results='asis', eval = T}
+read_csv("../../output/safe/2024/crab_bycatch_2009_present.csv") %>%
+  filter(district == "KNE") %>%
+  left_join(crab_cbl) %>%
+  transmute(season, tanner_cbl, total_tanner, king_cbl, total_king) -> x
+# print table
+print(xtable(x, align="llcccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{KSW (Kodiak Southwest) District crab bycatch limits and associated bycatch estimates by season.}
+\label{table:knecrabstats}
+\begin{tabular}{llcccc}
+& \multicolumn{2}{c}{Tanner crab} & \multicolumn{2}{c}{King crab}\\
+Season & CBL & Bycatch (N) & CBL & Bycatch (N)\\
+\hline
+```{r kswcrabstats, results='asis', eval = T}
+read_csv("../../output/safe/2024/crab_bycatch_2009_present.csv") %>%
+  filter(district == "KSW") %>%
+  left_join(crab_cbl) %>%
+  transmute(season, tanner_cbl, total_tanner, king_cbl, total_king) -> x
+# print table
+print(xtable(x, align="llcccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Area M (Alaska Peninsula) crab bycatch limits and associated bycatch estimates by season.}
+\label{table:mcrabstats}
+\begin{tabular}{llcccc}
+& \multicolumn{2}{c}{Tanner crab} & \multicolumn{2}{c}{King crab}\\
+Season & CBL & Bycatch (N) & CBL & Bycatch (N)\\
+\hline
+```{r mcrabstats, results='asis', eval = T}
+read_csv("../../output/safe/2024/crab_bycatch_2009_present.csv") %>%
+  filter(district == "M") %>%
+  add_row(season = "2020/21", district = "M", total_tanner = NA, total_king = NA) %>%
+  add_row(season = "2021/22", district = "M", total_tanner = NA, total_king = NA) %>%
+  add_row(season = "2023/24", district = "M", total_tanner = NA, total_king = NA) %>%
+  arrange(season) %>%
+  left_join(crab_cbl) %>%
+  transmute(season, tanner_cbl, total_tanner, king_cbl, total_king) -> x
+# print table
+print(xtable(x, align="llcccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Area O (Dutch Harbor) crab bycatch limits and associated bycatch estimates by season.}
+\label{table:ocrabstats}
+\begin{tabular}{llcccc}
+& \multicolumn{2}{c}{Tanner crab} & \multicolumn{2}{c}{King crab}\\
+Season & CBL & Bycatch (N) & CBL & Bycatch (N)\\
+\hline
+```{r ocrabstats, results='asis', eval = T}
+read_csv("../../output/safe/2024/crab_bycatch_2009_present.csv") %>%
+  filter(district == "O") %>%
+  add_row(season = "2020/21", district = "M", total_tanner = NA, total_king = NA) %>%
+  add_row(season = "2021/22", district = "M", total_tanner = NA, total_king = NA) %>%
+  add_row(season = "2023/24", district = "M", total_tanner = NA, total_king = NA) %>%
+  arrange(season) %>%
+  left_join(crab_cbl) %>%
+  transmute(season, tanner_cbl, total_tanner, king_cbl, total_king) -> x
+# print table
+print(xtable(x, align="llcccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Area Q (Bering Sea) crab bycatch limits and associated bycatch estimates by season.}
+\label{table:qcrabstats}
+\begin{tabular}{llcccccc}
+& \multicolumn{2}{c}{Tanner crab} & \multicolumn{2}{c}{Snow crab} & \multicolumn{2}{c}{King crab}\\
+Season & CBL & Bycatch (N) & CBL & Bycatch (N) & CBL & Bycatch (N)\\
+\hline
+```{r qcrabstats, results='asis', eval = T}
+read_csv("../../output/safe/2024/crab_bycatch_2009_present.csv") %>%
+  filter(district == "Q") %>%
+  add_row(season = "2020/21", district = "M", total_tanner = NA, total_snow = NA, total_king = NA) %>%
+  add_row(season = "2021/22", district = "M", total_tanner = NA, total_snow = NA, total_king = NA) %>%
+  add_row(season = "2023/24", district = "M", total_tanner = NA, total_snow = NA, total_king = NA) %>%
+  arrange(season) %>%
+  left_join(crab_cbl) %>%
+  transmute(season, tanner_cbl, total_tanner, snow_cbl, total_snow, king_cbl, total_king) -> x
+# print table
+print(xtable(x, align="llcccccc", digits = 0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
 
 # Figures {-}
 
@@ -401,3 +1229,10 @@ print(xtable(survey_res_small, align="llccccccc"),
 knitr::include_graphics("../../figures/safe/2024/StatewideScallopRegAreasDistrictsClosedWaters_2022.png")
 ```
 
+```{r figcatch, fig.align='center', fig.cap="Statwide total catch estimates from 1990 - 2023. OFL is indicated by solid horizontal lines. The red dashed line indicates the statewide cumulative GHL.", fig.height=5, fig.width = 7, eval = T}
+knitr::include_graphics("../../figures/safe/2024/fishery_catch.png")
+```
+
+```{r ecobycatch, fig.align='center', fig.cap="Proportion of directed scallop fishery catch as the target species or all other bycatch species (left) and the proportion of bycatch by taxonomic group (right) by ecoregion. ", fig.height=5, fig.width = 7, eval = T}
+knitr::include_graphics("../../figures/safe/2024/fishery_bycatch_comp.png")
+```

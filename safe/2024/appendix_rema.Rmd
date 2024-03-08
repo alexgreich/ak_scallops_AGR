@@ -1,0 +1,564 @@
+---
+title: "Appendix B: Draft Weathervane Scallop Assessment using a Combination of Data-Limited Harvest Control Rules"
+author: |
+  | Tyler Jackson, tyler.jackson@alaska.gov
+date: "`r format(Sys.time(), '%B %Y')`"
+output:
+  bookdown::pdf_document2:
+    toc: no
+header-includes:
+   - \usepackage{float}
+   - \usepackage{hanging}
+---
+
+```{r, echo = F, message = F, warning = F}
+library(tidyverse)
+library(xtable)
+options(scipen = 999)
+
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.pos='H')
+```
+
+# Purpose {-}
+
+Previous efforts to develop an age-structured population dynamics model for weathervane scallops ($Patinopectan$ $carinus$) have been promising (Zheng 2018; Jackson 2023), though extension of these models to the broader stock is unlikely. Complex integrated assessment models require considerable resources for model development, review, and continued research. Development of stock-wide assessment is made more complicated by large disparities in data availability throughout the stock and spatially explicit life history traits like growth, size-at-maturity, and (likely) natural mortality. Though sufficient observer and recent survey data are available for key portions of the stock, data-limited approaches are likely better suited for the Alaska weathervane scallops given resources allocated to stock assessment, management needs, and economic benefit of the fishery.  
+
+Here, I explore a simple, state-space random walk model (REMA; Sullivan et al., 2022) using ADF\&G dredge survey biomass estimates from 2016 - 2023 and fishery catch-per-unit-effort (CPUE) data on a portion of the stock comprising ~ 80\% of annual landings. I then present an avenue for estimating a stock-wide overfishing limit that combines data-limited harvest control rules based on the surveyed and non-surveyed portions of the stock, and discuss various issues and limitations with the approach.
+
+# Modelling approach {-}
+
+## Data {-}
+
+### Survey biomass {-}
+
+Observed ADF\&G dredge survey biomass was estimated for sampled beds in the Kodiak Shelikof (KSH), Kodiak Northeast (KNE), Prince William Sound (E), and Yakutat (YAK) districts by methods described in Burt et al., (2021). In the absence of a clear size at maturity estimate by district, exploited biomass (shell height $\geq$ 100 mm) was used as a proxy. Scallops in most districts likely mature at a slightly smaller size (Hennick 1970). Round biomass was used as opposed to meat weight biomass, since meat weight at size is known to vary between surveys, likely due to fluctuation in survey and reproductive timing (Hennen and Hart 2012). Observed district biomass computed as the sum of bed biomass estimates. Biomass of beds that were not surveyed in a given year that other beds in the district were, were filled in with predicted values of a weighted linear model in the form of
+
+\begin{equation}
+\text{ln}(B_{t,j}) = Year_{t} + Bed_{b,j} + \epsilon 
+\end{equation}
+
+with weights equal to the inverse of the coefficient of variation (CV) on $B_{t,j}$. Since the EK1 bed spans the boundary between the E and YAK districts, EK1 was modeled with the YAK District. Samples that included only the EKI portion of EK1 in 2016 were removed from analysis. The beds KSH2 and KSH3 (Kodiak Shelikof District), and KNE4 (Kodiak Northeast District) were also removed from analysis since they were only surveyed once, and contribute only a marginal proportion of biomass in each district. Biomass estimates by bed and district from 2016 - 2023 are listed in Table \ref{table:surveybiomass}.
+
+
+### Fishery CPUE index {-}
+
+Fishery CPUE indices were derived from at-sea observer data from the 2009/10 - 2023/24 seasons. CPUE was defined as the total round weight of the catch per dredge-hour. Prior to analysis, fishery log-book data were filtered so that core data only included hauls that employed 13 or 15 ft dredges and adequate dredge performance. Zero catches were removed since they are typically rare and indicate poor gear performance. Hauls were also limited to the inner 95\% of CPUE and depth.  
+
+CPUE standardization models were fit using general additive models (GAM) as implemented in the R package $mgcv$ (Wood 2004). All models assumed a Gamma error distribution with log-link. Null models by district included only year (of season opening) as an explanatory variable
+
+\begin{equation}
+\text{ln}(CPUE_{i}) = Year_{y,i}
+\end{equation}
+
+The full scope of models evaluated included vessel, depth, dredge width, month and bed. Bed was not included for WKI District, since it only contains a single bed. Depth was fit as a thin plate regression spline, with smoothness determined by generalized cross-validation (Wood 2004). All other variables were fit as factors. The effects of variable addition were evaluated by forward and backward stepwise selection. The addition of a new variable was considered significant if CAIC (Anderson et al., 1998) decreased by at least two per degree of freedom lost and deviance explained (R$^2$) increased by at least 0.01. The best model forms by district are listed in Table \ref{table:gamres}. The marginal effects of selected covariates are in Figures \ref{fig:ksheffects} - \ref{fig:yakeffects}.  
+
+The standardized CPUE index was extracted from the models as the year coefficient ($\beta_i$) with the first level set to zero and scaled to canonical coefficients ($\beta^\prime_i$) as 
+
+\begin{equation}
+\beta^{\prime}_{i} = \frac{\beta_{i}}{\bar{\beta}} 
+\end{equation}  
+
+where
+
+\begin{equation}
+\bar{\beta} = \sqrt[n_{i}]{\prod_{i = 1}^{n_j}{\beta_{i}}}
+\end{equation}
+  
+and $n_j$ is the number of levels in the year variable (Table \ref{table:cpueindex}). Nominal CPUE was scaled by the same method for comparison (Figure \ref{fig:figcpueindex}).
+
+## State-space random walk model, REMA {-}
+
+The REMA R package (Sullivan et al., 2022) was developed as a consensus version of the state-space random walk model used to estimate biomass for data-limited stock assessments by the NPFMC Groundfish Plan Team since 2013. REMA underwent a favorable Center for Independent Experts review in 2023. In this model, observed survey biomass by scallop management district ($B_{t,j}$) is related to the latent state variable ($\hat{B}_{t,j}$; true district biomass) by
+
+\begin{equation}
+\text{ln}(B_{t,j}) = \text{ln}(\hat{B}_{t,j}) + \epsilon_{B_j}
+\end{equation}
+
+where $\epsilon_{B_j}\sim\mathcal{N}(0, \sigma_{ln(B_{t,j})}^{2})$ and $\sigma_{ln(B_{t,j})}$ is the standard error of log-transformed survey biomass approximated using the CV of $B_{t,j}$. The process model estimates $\hat{B}_{t,j}$ as 
+
+\begin{equation}
+\text{ln}(\hat{B}_{t,j}) = \text{ln}(\hat{B}_{t-1,j}) + \eta_{t-1,j}
+\end{equation}
+
+where $\eta_{t,j}\sim\mathcal{N}(0, \sigma_{PE}^2)$ and $\sigma_{PE}^2$ is process error variance. Process error variance was estimated as being pooled among districts and separately for each district. District biomass ($\hat{B}_{t,j}$) is estimated as a random effect. Total biomass among districts is the sum of district biomass estimates and associated standard error is estimated via the delta method.
+
+Scallop fishery catch per unit effort (CPUE) has been used a proxy for a biomass index by scallop fishery managers since the beginning of the fishery. Here, annual CPUE index by district ($I_{t,j}$) is fitted using the equation
+
+\begin{equation}
+\text{ln}(I_{t,j}) = \text{ln}(\hat{I}_{t,j}) + \epsilon_{I_{j}}
+\end{equation}
+
+where $\epsilon_{I_{j}}\sim\mathcal{N}(0, \sigma_{ln(I_{t,j})}^{2})$ and $\sigma_{ln(I_{t,j})}$ is the standard error of the CPUE index approximated using the CV of $I_{t,j}$. Predicted CPUE index $\hat{I}_{t,j}$ is related to $\hat{B}_{t,j}$ by the scaling parameter, $q_{j}$.
+
+\begin{equation}
+\hat{I}_{t,j} = q_{j}e^{\hat{B}_{t,j}}
+\end{equation}
+
+Since CVs associated with annual CPUE index were unrealistically low, extra standard error ($\sigma_{\tau}$) was estimated so that 
+
+\begin{equation}
+\sigma_{ln(I_{t,j})} = \sqrt{\text{ln}((\frac{\sigma_{I_{t,j}}}{I_{t,j}})^{2}+\sigma_{\tau}+1)}
+\end{equation}
+
+Extra standard error was estimated as a single parameter shared among districts or separately by district, $\sigma_{\tau,j}$. REMA is fit using marginal maximum likelihood estimation as implemented in Template Model Builder (TMB; Kristensen et al., 2016). More details of the REMA model can be found on GitHub (\textcolor{blue}{\href{https://afsc-assessments.github.io/rema/index.html}{\underline{REMA GitHub}}}).
+
+
+## REMA model scenarios {-}
+
+The following model parameterizations were evaluated:
+
+\begin{itemize}
+\item \textbf{24.0}: Base REMA model with four strata (KSH, KNE, WKI, YAK), a fishery CPUE index, shared $\sigma_{PE}^2$ and $\sigma_{\tau}$;  
+\item \textbf{24.1}: 24.0, with $\sigma_{PE}^2$ estimated by stratum and a prior on $\sigma_{PE}^2$ for WKI (see Results for explanation);
+\item \textbf{24.2}: 24.1, with an emphasis factor of 0.5 on fishery CPUE index likelihood component (following Echave et al., 2021);
+\item \textbf{24.3}: 24.2, with $\sigma_{\tau}$ estimated by stratum.
+\end{itemize}
+
+# Harvest control rules {-}
+
+Biological reference points for surveyed areas were estimated using the tier 4 $F_{\text{OFL}}$ control rule as specified in the fishery management plan for Bering Sea/Aleutian Islands (BSAI) king and Tanner crab (NPFMC 2023). 
+
+\begin{equation}
+F_{\text{OFL}} = 
+\begin{cases}
+0 & \frac{B_{prj}}{B_{\text{MSY, proxy}}} \leq 0.25\\[10pt]
+\frac{M(\frac{B_{prj}}{B_{\text{MSY, proxy}}} - \alpha)}{1-\alpha} & 0.25 < \frac{B_{prj}}{B_{\text{MSY, proxy}}} \leq 1\\[10pt]
+M & B_{prj} > B_{\text{MSY, proxy}}\\[10pt]
+\end{cases}
+\end{equation}
+
+Here, $B_{\text{MSY, proxy}}$ was defined as the average predicted biomass since the standardization of the observer program (2009 - 2023) and $\alpha$ = 0.1. Instantaneous natural mortality rate ($M$) was set to 0.13 yr$^{-1}$ (Kruse and Funk 1995) as specified in the FMP. Current biomass ($B_{prj}$) is the predicted biomass in the last year of the model projected from the time of the survey (May 1) to the end of the fishery. Fishing occurs throughout the season depending on year and district, so for simplicity catch was assumed to occur as a pulse fishery at the approximate midpoint of the regulatory season (Nov 1). The time period between the survey and the fishery is $\tau_{sf}$ = 0.504.
+
+\begin{equation}
+B_{prj} = \hat{B}e^{-M\tau_{sf}}-C_{T}
+\end{equation}
+
+The overfishing limit (OFL) of the surveyed portion of the stock ($\text{OFL}_{s}$) in units of meat weight is computed as
+
+\begin{equation}
+\text{OFL}_{s} = \gamma B_{prj}(1 - e^{-F_{\text{OFL}}})
+\end{equation}
+
+with round biomass was converted to meat biomass using $\gamma$ = 0.1 (NPFMC 2014). The overfishing limit for non-surveyed areas $\text{OFL}_{ns}$ was computed under a total-catch harvest control rule so that OFL is equal to the average total catch from either the FMP reference period (1990-94; 1996-97) or the 2009-2023 reference period used for $B_{\text{MSY, proxy}}$. Since there is no observer coverage in Area H (Cook Inlet), discard mortality was estimated based on the average ratio of discards to retained catch by year. In years prior to the observer program (1990 - 1994), discard mortality was estimated based on the average discard ratio by district (Table \ref{table:totcatchtab}). The OFL for the full stock was the sum of OFLs for surveyed and non-surveyed areas.
+
+\begin{equation}
+\text{OFL} = \text{OFL}_{s} + \text{OFL}_{ns}
+\end{equation}
+
+
+# Results and discussion {-} 
+
+## Model estimation {-}
+
+All REMA models successfully converged with satisfactorily low gradient components. Model 24.1 was unable to estimate a non-zero process error variance for WKI without a prior, which was based on the model 24.1 estimate run through 2022, so that $P_r(\text{ln }\sigma_{PE, \ WKI}^2)\sim\mathcal{N}(\text{-1.64, 0.38})$. Models 24.0 and 24.1 preferentially fit CPUE data over survey biomass despite extra error on CPUE data. This is presumably due to data availability in the early half of the time series. Both models 24.0 and 24.1 fit CPUE data near exactly (Figure \ref{fig:cpuefit}). Estimated extra standard error was much smaller for models 24.0 and 24.1, than models 24.2 and 24.3 (Table \ref{table:partab}). Naturally, fits to survey biomass were better for models 24.2 and 24.3 (i.e., models with less emphasis on CPUE data), especially in KSH and YAK (Figure \ref{fig:biomassfit}). Variation in predicted biomass was more attenuated for models 24.2 and 24.3, as would be expected from a long-lived, mostly sessile population. Total biomass remained stationary from 2009 until the time series low in 2017, and then steadily increased to a peak in 2022 before leveling off (Figure \ref{fig:totbiomass}). 
+
+Although, Akaike Information Criterion (AIC) suggests model 24.1 is the best model (Table \ref{table:aic}), model 24.2 is the recommended choice. Model 24.2 fits the survey biomass data better, which is preferred, since survey biomass is a more reliable indicator of stock trends. Fishery data in this analysis are used more as an auxiliary index of abundance for years when survey data are lacking. Additonally, model 24.2 results in an expected biomass trajectory that better aligns with the biology of the stock and lack of data in the first half of the time series. 
+
+## Reference points {-}
+
+Biological reference points were only computed for the surveyed portion of the stock using model 24.2. Terminal year biomass projected to the conclusion of the 2023/24 fishery was $B_{prj}$ = 11,133 t (24.54 mil lb) round weight. Average predicted biomass for the time series (i.e, $B_{\text{MSY, proxy}}$) was 9,601 t (21.17 mil lb) round weight, thus stock status was greater than 1, so $F_{\text{OFL}}$ = $M$ = 0.13. The overfishing limit of the surveyed portion of the stock was estimated to be $\text{OFL}_{s}$ = 136 t (0.3 mil lb) shucked meats (Table \ref{table:refpoints}).    
+
+Using different reference periods for the non-surveyed portion of the stock resulted in substantially different average total catch estimates. The period from 1990 - 1997, excluding 1995, resulted in a total catch $\text{OFL}_{ns}$ = 156 t (0.34 mil lb) shucked meats, while the period of the standardized observer program (2009 - 2023) resulted in $\text{OFL}_{ns}$ = 29 t (0.06 mil lb) shucked meats (Table \ref{table:refpoints}). The more recent reference period likely better captures the current productivity of the non-surveyed portions of the stock, which have become non-core to the fishery since they were prospected in the mid-1990s. Since 2009, fishing west of Kodiak (Area K) in the Alaska Peninsula (Area M), Dutch Harbor (Area O), or Bering Sea (Area Q) has primarily only been done by the $F/V$ $Ocean$ $Hunter$, $F/V$ $Arctic$ $Hunter$, and $F/V$ $Polar$ $Sea$ as was convenient before vessels switched to BSAI groundfish fisheries. Fishing performance of Area Q has not recovered following a steep decline in 2014/15 concurrent with observations of "weak meats" (Ferguson etal., 2021), and interest in fishing west of Area K has waned since the 2020/21 season. Further, the Kodiak Southwest District (KSW) has become a somewhat major contributor to stock-wide harvests averaging ~ 13\% of landings since 2016, though it has only been fished consistently since 2009 (Figure \ref{fig:totcatch}).  
+
+# Conclusions {-}
+
+REMA makes good use of available survey biomass estimates, is able to accommodate multiple survey areas, and does not require a disproportional amount of analyst time and resources. That said, REMA does not use size composition data that are ubiquitous among districts in which there have been fishery observers or surveys. Development of a simplified statistical catch-at-length model may make better use of the full suite of data, but again, it would be important to balance assessment efforts with the scope of management needs.  
+
+Dividing the stock into (relatively) data-rich and data-poor areas may be the only path to a better informed reference point calculation. It is unlikely that ADF\&G could expand the dredge survey to non-core areas west of Area K, and fishery data in those areas are sparse, when available. Further, interpreting fishery data from such a small fleet (i.e., currently two vessels, one in non-core areas) is difficult as vessels maintain a small footprint which shifts from year to year, and individual fishing behaviors are more apparent in the data. Data-rich (i.e., surveyed) areas could satisfy information necessary to utilize the BSAI king and Tanner crab tier 4 $F_{\text{OFL}}$ control rule which requires: 1) a reliable biomass estimate, 2) a target biomass $B_{\text{MSY, proxy}}$, and 3) an estimate of natural mortality rate, $M$. The control rule determines the maximum fishing mortality rate based on the current productive capacity of the stock (i.e., mature biomass) relative to the target level and closes the fishery when stock status is below a specified threshold. The maximum allowable fishing mortality increases along a ramp as stock status approaches the target level and caps at $F_{\text{OFL}}$ = $M$ when stock status is greater than 1 (i.e., $B$ > $B_{\text{MSY, proxy}}$) (NPFMC 2023). The difficulty in using this approach for weathervane scallops is defining an appropriate $B_{\text{MSY, proxy}}$. Survey data are only available to 2016 from major harvest areas, though the fishery began in earnest during the early 1990s. Fishery observer data go back as far as 1996, but data become less reliable prior to standardization of the observer program in 2009. The current analysis assumes that the scaling parameter, $q$, that relates fishery CPUE to survey biomass remains constant for the full 2009 - 2023 time series, and thus can be used to predict biomass pre-2016, though that may be less likely for fishery data from 1996 - 2008. Determining when the reference period for $B_{\text{MSY, proxy}}$ should end is also difficult, as the fishery is currently rebounding from a rut in the mid-2010s, thus there is not a clear steady state in the available time series. Defining $B_{\text{MSY, proxy}}$ as the time series average, as done here, may not be a suitable long-term biomass target since $B_{\text{MSY, proxy}}$ would slowly decrease whilst allowing fishing should biomass take on a continued downward trajectory, so long as stock status remained above threshold. On the other hand, fishing opportunity may be not fully exploited should a period of intense productivity result in an increasing $B_{\text{MSY, proxy}}$.  
+
+The current analysis suggests that fishing at 2023/24 GHLs (combined 374,700 lb) during the next season would be overfishing, but this analysis may be conservative for several reasons. Here, I used exploitable biomass (100 mm shell height) as a proxy for mature biomass. Scallops become vulnerable to commercial gear at 100 mm, though size at 50\% retention is typically 10 - 30 mm larger (Jackson, $unpublished$ $data$). Hennick (1970) described the onset of maturity occurring between ages 3 - 4 yr or 74 - 128 mm shell height in Kodiak and 73 - 92 mm in Yakutat. ADF\&G is currently re-evaluating size-at-maturity and qualitative gonad scoring using histological analysis on scallops collected in the Kodiak and Yakutat Areas, though results are not yet available. Defining productive capacity of the stock as mature biomass as opposed to exploitable biomass would presumably result in a larger harvestable surplus. The current estimate of natural mortality is also somewhat dated. Kruse and Funk (1995) estimated $M$ using various methods, including age data collected by Kaiser (1986) and Hennick (1973), and settled on a median value of $M$ = 0.13, which is currently used in the FMP (NPFMC 2014). Estimation of $M$ using more recent age, growth, and catch data would be a useful comparison. Naturally, if $M$ were larger than 0.13 (as assumed by Zheng 2018; Jackson 2023) the computed OFL would also be larger.  
+
+Survey analysis has long used a dredge efficiency of 0.83 (Gustafson and Goldman 2012), though the basis for this coefficient is undocumented and the survey dredge it applied to was retired in 2022. Re-visiting this analysis in the future with the CamSled and new survey dredges may be prudent, although assuming full gear efficiency could be used as a conservative measure. Lastly, most inside waters are closed to dredging (SAFE Figure 1), yet several of these areas contain scallop beds. The ADF\&G large-mesh trawl survey catches scallops of exploitable size in closed areas of the western GOA (Jackson 2021). The extent to which closed area beds contribute to the fished population is unknown. Excluding this portion of the population in stock assessment would be wise until better knowledge of connectivity exists.  
+
+# Tables {-}
+
+#### {-}
+\begin{table}[H]
+\centering
+\caption{Survey round biomass estimates (tonnes) and CV (in parentheses) by district from 2016 - 2023.}
+\label{table:surveybiomass}
+\begin{tabular}{lccccc}
+\\
+Year & KSH & KNE$^a$ & WKI & YAK$^{b,c}$\\
+\hline
+```{r surveybiomass, results='asis', eval = T}
+
+read_csv("../../output/models/rema/2024/survey_biomass_est.csv") %>%
+  mutate(val = ifelse(!is.na(biomass), paste(prettyNum(round(biomass), big.mark = ","), paste0("(", round(cv, 2), ")")), NA)) %>%
+  transmute(year, strata, val) %>%
+  pivot_wider(names_from = strata, values_from = val) %>%
+  arrange(year) %>%
+  transmute(year = factor(year), KSH, KNE, WKI, YAK) -> x
+
+# print table
+print(xtable(x, align="lccccc", digits=0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\multicolumn{5}{l}{$^a$KNE1, KNE5, YAK3 were not surveyed in 2017}\\
+\multicolumn{5}{l}{$^b$YAK4, YAK5 were not surveyed in 2018}\\
+\multicolumn{5}{l}{$^c$YAK1, YAK2 were not surveyed in 2019}\\
+\end{tabular}
+\end{table}
+
+#### {-}
+\begin{table}[H]
+\centering
+\caption{Residual degrees of freedom, AIC, and R$^{2}$ for the best model for each District.}
+\label{table:gamres}
+\begin{tabular}{lccccc}
+\\
+K. Shelikof & Residual DF & AIC & R$^{2}$\\
+Form & ($\Delta$ DF) & ($\Delta$ AIC) & ($\Delta$ R$^{2}$)\\
+\hline
+Year + Month + Dredge Width + s(depth) & 9,517.59 & 123,241 & 0.52 \\
+```{r kshres, results='asis', eval = T}
+x <- readRDS("../../output/observer/2024/assessment_cpue_std.RDS") %>% filter(district == "KSH") %>% pull(mod_tab) %>% .[[1]]
+x <- x %>% transmute(term = ifelse(term == "+ adfg", "+ Vessel", term),
+                     term = ifelse(term == "+ bed", "+ Bed", term),
+                     df = -1 * round(df, 2),
+                     delta_AIC = round(delta_AIC, 2),
+                     delta_r2 = round(delta_r2, 3))
+
+# print table
+print(xtable(x, align="lcccc", digits=c(0, 0, 2, 2, 3)),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\\
+K. Northeast & Residual DF & AIC & R$^{2}$\\
+Form & ($\Delta$ DF) & ($\Delta$ AIC) & ($\Delta$ R$^{2}$)\\
+\hline
+Year + Month + Dredge Width + s(depth) + Bed & 4,655.85 & 64,623 & 0.47 \\
+```{r kneres, results='asis', eval = T}
+x <- readRDS("../../output/observer/2024/assessment_cpue_std.RDS") %>% filter(district == "KNE") %>% pull(mod_tab) %>% .[[1]]
+x <- x %>% transmute(term = ifelse(term == "+ adfg", "+ Vessel", term),
+                     term = ifelse(term == "+ bed", "+ Bed", term),
+                     df = -1 * round(df, 2),
+                     delta_AIC = round(delta_AIC, 2),
+                     delta_r2 = round(delta_r2, 3))
+
+# print table
+print(xtable(x, align="lcccc", digits=c(0, 0, 2, 2, 3)),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\\
+West Kayak Is. & Residual DF & AIC & R$^{2}$\\
+Form & ($\Delta$ DF) & ($\Delta$ AIC) & ($\Delta$ R$^{2}$)\\
+\hline
+Year & 296 & 4,439 & 0.33 \\
+```{r wkires, results='asis', eval = T}
+x <- readRDS("../../output/observer/2024/assessment_cpue_std.RDS") %>% filter(district == "WKI") %>% pull(mod_tab) %>% .[[1]]
+x <- x %>% transmute(term = ifelse(term == "+ adfg", "+ Vessel", term),
+                     term = ifelse(term == "+ bed", "+ Bed", term),
+                     term = ifelse(term == "+ month", "+ Month", term),
+                     term = ifelse(term == "+ dredge_width", "+ Dredge Width", term),
+                     df = -1 * round(df, 2),
+                     delta_AIC = round(delta_AIC, 2),
+                     delta_r2 = round(delta_r2, 3))
+
+# print table
+print(xtable(x, align="lcccc", digits=c(0, 0, 2, 2, 3)),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\\
+Yakutat & Residual DF & AIC & R$^{2}$\\
+Form & ($\Delta$ DF) & ($\Delta$ AIC) & ($\Delta$ R$^{2}$)\\
+\hline
+Year + Bed + Vessel + Dredge Width + s(depth) & 21,378.62 & 288,325 & 0.25 \\
+```{r yakres, results='asis', eval = T}
+x <- readRDS("../../output/observer/2024/assessment_cpue_std.RDS") %>% filter(district == "YAK") %>% pull(mod_tab) %>% .[[1]]
+x <- x %>% transmute(term = ifelse(term == "+ adfg", "+ Vessel", term),
+                     term = ifelse(term == "+ bed", "+ Bed", term),
+                     term = ifelse(term == "+ month", "+ Month", term),
+                     term = ifelse(term == "+ dredge_width", "+ Dredge Width", term),
+                     df = -1 * round(df, 2),
+                     delta_AIC = round(delta_AIC, 2),
+                     delta_r2 = round(delta_r2, 3))
+
+# print table
+print(xtable(x, align="lcccc", digits=c(0, 0, 2, 2, 3)),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+#### {-}
+\begin{table}[H]
+\centering
+\caption{Fishery round biomass CPUE index and CV (in parentheses) by district from 2009/10 - 2022/23.}
+\label{table:cpueindex}
+\begin{tabular}{lccccc}
+\\
+Season & KSH & KNE & WKI & YAK\\
+\hline
+```{r cpueindex, results='asis', eval = T}
+
+read_csv("../../output/observer/2024/assessment_cpue_std_index.csv") %>%
+  mutate(val = ifelse(!is.na(index), paste(round(index, 3), paste0("(", round(se/index, 2), ")")), NA)) %>%
+  transmute(year, district, val) %>%
+  pivot_wider(names_from = district, values_from = val) %>%
+  transmute(year = factor(year), KSH, KNE, WKI, YAK) -> x
+
+
+# print table
+print(xtable(x, align="lccccc", digits=0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+#### {-}
+\begin{table}[H]
+\centering
+\caption{Retained catch, estimated discard mortality, and total catch (retained + discard M) in units of tonnes of shucked meats by season from 1990 - present. Discard mortality was based on discard ratios by year for Area H and by district from 1990-1994.}
+\label{table:totcatchtab}
+\begin{tabular}{lcccc}
+\\
+Season (start year) & Retained (t) & Discard Mortality (t) & Total Catch (t)\\
+\hline
+```{r totcatchtab, results='asis', eval = T}
+
+read_csv("../../output/models/rema/2024/non_survey_total_catch_ts.csv") %>%
+  mutate(year = as.character(year)) -> x
+
+
+# print table
+print(xtable(x, align="lcccc", digits=c(0, 0, 2, 2, 2)),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+#### {-}
+\begin{table}[H]
+\centering
+\caption{Parameter estimate and standard error (in parentheses) by model scenario.}
+\label{table:partab}
+\begin{tabular}{lccccc}
+\\
+Parameter & 24.0 & 24.1 & 24.2 & 24.3\\
+\hline
+```{r pars, results='asis', eval = T}
+
+read_csv("../../output/models/rema/2024/par_tab.csv") -> x
+
+# print table
+print(xtable(x, align="lccccc", digits=0),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","),
+			     sanitize.text.function = function(x){x})
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+#### {-}
+\begin{table}[H]
+\centering
+\caption{Objective function, number of parameters, and AIC by model scenario.}
+\label{table:aic}
+\begin{tabular}{lccccc}
+\\
+Model & NLL & N. Parameters & AIC & $\Delta$ AIC\\
+\hline
+```{r aic, results='asis', eval = T}
+
+read_csv("../../output/models/rema/2024/lik_tab.csv", col_types = c("c", "n", "n", "n")) %>%
+  mutate(model_name = as.character(model_name)) -> x
+
+# print table
+print(xtable(x, align="lccccc", digits=c(3, 3, 3, 0, 1, 1)),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+#### {-}
+\begin{table}[H]
+\centering
+\caption{Management quantities based on a combination of $B_{\text{MSY, proxy}}$ and total catch harvest control rules.}
+\label{table:refpoints}
+\begin{tabular}{lcccccccccc}
+\\
+(t) & \multicolumn{6}{c}{Surveyed Stock} & \multicolumn{2}{c}{Non-Surveyed Stock} & Total\\
+Model & $\hat{B}_{2023}$ & $B_{prj}$ & $B_{\text{MSY, proxy}}$ & $\frac{B_{prj}}{B_{\text{MSY, proxy}}}$ & $F_{\text{OFL}}$ & $\text{OFL}_{s}$ & Ref. Period & $\text{OFL}_{ns}$ & OFL\\
+\hline
+```{r refpointst, results='asis', eval = T}
+
+read_csv("../../output/models/rema/2024/reference_point_tab.csv") -> x
+
+# print table
+print(xtable(x, align="lcccccccccc", digits=c(0, 1, 0, 0, 0, 2, 2, 0, 0, 0, 0)),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\\
+(mil lb) & \multicolumn{6}{c}{Surveyed Stock} & \multicolumn{2}{c}{Non-Surveyed Stock} & Total\\
+Model & $\hat{B}_{2023}$ & $B_{prj}$ & $B_{\text{MSY, proxy}}$ & $\frac{B_{prj}}{B_{\text{MSY, proxy}}}$ & $M$ & $\text{OFL}_{s}$ & Ref. Period & $\text{OFL}_{ns}$ & OFL\\
+\hline
+```{r refpointslb, results='asis', eval = T}
+
+read_csv("../../output/models/rema/2024/reference_point_tab.csv") %>%
+  mutate_at(c(2:4, 7, 9:10), function(x){x / 0.000453592 / 1000000}) -> x
+
+# print table
+print(xtable(x, align="lcccccccccc", digits=c(0, 1, 2, 2, 2, 2, 2, 2, 0, 2, 2)),
+			     only.contents=TRUE,
+			     include.rownames=FALSE,
+			     floating=FALSE,
+			     include.colnames=FALSE,
+			     hline.after=NULL,
+			     format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+
+# Figures {-}
+
+```{r ksheffects, fig.align='center', fig.cap="Marginal effects of month, dredge width, and a smooth spline on depth with associated partial residuals for the best model fit to CPUE in the KSH District. Dashed lines indiciate 95\\% confidence intervals.", eval = T}
+knitr::include_graphics("../../figures/observer/2024/assessment_cpue_std_ksh_effects.png")
+```
+
+```{r kneeffects, fig.align='center', fig.cap="Marginal effects of month, dredge width, bed, and smooth spline on depth with associated partial residuals for the best model fit to CPUE in the KNE District. Dashed lines indiciate 95\\% confidence intervals.", eval = T}
+knitr::include_graphics("../../figures/observer/2024/assessment_cpue_std_kne_effects.png")
+```
+
+```{r yakeffects, fig.align='center', fig.cap="Marginal effects of vessel, dredge width, bed, and smooth spline on depth with associated partial residuals for the best model fit to CPUE in the YAK District. Dashed lines indiciate 95\\% confidence intervals.", eval = T}
+knitr::include_graphics("../../figures/observer/2024/assessment_cpue_std_yak_effects.png")
+```
+
+```{r figcpueindex, fig.align='center', fig.cap="Standardized and nominal fishery CPUE indices by district from 2009-2023.", eval = T}
+knitr::include_graphics("../../figures/observer/2024/assessment_cpue_std_index.png")
+```
+
+```{r cpuefit, fig.align='center', fig.cap="Fits to fishery CPUE index. Blue shaded area represents a 95\\% confidence band for predicted values and grey error bars indicate observed 95\\% confidence intervals based on estimated additional standard error for model 24.2.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2024/rema_cpue_fit.png")
+```
+
+```{r biomassfit, fig.align='center', fig.cap="Fits to survey round biomass. The grey shaded area represents a 95\\% confidence band for predicted values for model 24.2.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2024/rema_biomass_fit.png")
+```
+
+```{r totbiomass, fig.align='center', fig.cap="Predicted total round biomass among all surveyed districts. The grey shaded area represents a 95\\% confidence band for model 24.2.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2024/rema_total_biomass.png")
+```
+
+```{r totcatch, fig.align='center', fig.cap="Total catch (tonnes of shucked meats) from 1990 - 2023 by district for non-surveyed districts.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2024/tot_catch_mw_district.png")
+```
+
+# Literature Cited {-}
+
+\begin{hangparas}{.25in}{1}
+
+Anderson, DR, KP Burnham, and GC White (1998) Comparison of Akaike information criterion and consistent Akaike information criterion for model selection and statistical inference from capture-recapture studies. Journal of Applied Statistics 25: 263-282. 
+
+Burt, R, M Byerly, A Hopkins, T Jackson, K McNeel (2021) Weathervane scallop dredge survey operational plan, 2021–2023. Alaska Department of Fish and Game, Division, Division of Commercial Fisheries, Regional Operational Plan No. ROP.CF.4K.2021.09, Kodiak.  
+
+Echave KB, KA Siwicke, PJF Hulson, E Yasumiishi, B Ferriss (2021) Assessment of the shortraker rockfish stock in the Gulf of Alaska. North Pacific Fishery Management Council, Anchorage, AK.  
+
+Ferguson, JA, A Kristmundsson, MA Freeman, SD Inglis, R Burt, TR Meyers (2021) A case report and statewide surveillance of "weak meat" condition of Alaska weathervane scallops, Patinopecten caurinus, linked to a recently identified pathogenic parasite, $Merocystis$ $kathae$ (Apicomplexa: Aggregatidae). Journal of Invertebrate Pathology 185: 107668.  
+
+Gustafson, RL, KJ Goldman (2012) Assessment of weathervane scallops in Kamishak Bay and at Kayak
+Island, 2004 through 2010. Alaska Department of Fish and Game, Fishery Data Series No. 12-62, Anchorage, AK.  
+
+Hennen, DR and DR Hart (2012) Shell height-to-weight relationships for Atlantic sea scallops ($Placopecten$ $magellanicus$) in offshore U.S. waters. Journal of Shellfish Research 31: 1133-1144.   
+
+Hennick, DP (1970) Reproductive cycle, size at maturity, and sexual composition of commericially harvested weathervane scallops ($Patinopecten$ $caurinus$) in Alaska. Journal of the Fisheries Research Board of Canada 27(11): 2112-2119.  
+
+Hennick, DP (1973) Sea scallop $Patinopectan$ $carinus$ investigations in Alaska. Final report, July 1, 1969 to June 30, 1972. Comm. Fish. Res. Devel. Act. Project No. 5-23-R. Available from Alaska Department of Fish and Game, Juneau, Alaska.
+
+Jackson, T (2021) ADF\&G Westward Region large mesh bottom trawl survey. Presentation to the NPFMC Scallop Plan Team. February, 2021. Kodiak, AK.
+
+Jackson, T (2023) Stock Synthesis Evaluation of Kodiak Shelikof. $In$ NPFMC (North Pacific Fishery Management Council) (2023) Stock assessment and fishery evaluation (SAFE) report for the weathervane scallop fishery off Alaska. North Pacific Fishery Management Council, 605 West 4th Ave, Suite 306. Anchorage, AK.  
+
+Kaiser, RJ (1986) Characteristics of the Pacific weathervane scallop (Pecten [Patinopecten] caurinus, Gould 1850) fishery in Alaska, 1967-1981. Alaska Department of Fish and Game, Division of Commercial Fisheries (Unpublished Report, Catalog RUR-5J86-01), Juneau, AK.
+
+Kristensen, K, A Nielsen, CW Berg, H Skaug, and BM Bell (2016) TMB: Automatic differentiation and Laplace approximation. Journal of Statistical Software 70(5): 1-21. https://doi.org/10.18637/jss.v070.i05  
+
+Kruse, GH, FC Funk (1995) Biological reference points for weathervane scallops in Alaska. Poster presented to the North Pacific Symposium on Invertebrate Stock Assessment and Management, Nanaimo, British Columbia, Canada, March 6-10, 1995. 
+
+NPFMC (2014) Fishery management plan for the scallop fishery off Alaska. North Pacific Fishery Management Council, Anchorage, AK. February, 2014.
+
+NPFMC (2023) Fishery management plan for Bering Seas/Aleutian Islands king and Tanner crabs. North Pacific Fishery Management Council, Anchorage, AK. December, 2023.
+
+Sullivan, J, C Monnahan, P Hulson, J Ianelli, J Thorson, and A Havron (2022) REMA: a consensus version of the random effects model for ABC apportionment and Tier 4/5 assessments. Plan Team Report, Joint Groundfish Plan Teams, North Pacific Fishery Management Council. 605 W 4th Ave, Suite 306 Anchorage, AK 99501.  
+
+Wood, S (2004) Stable and efficient multiple smoothing parameter estimation for generalized additive models. Journal of the American Statistical Association 99: 673-686.
+
+Zheng, J (2018) Evaluation of a Stock Synthesis approach to assess weathervane scallops in Kamishak Bay, Alaska. Presentation to the NPFMC Scallop Plan Team. February, 2018. Kodiak, AK.
+
+\end{hangparas}
+
+
+
+
