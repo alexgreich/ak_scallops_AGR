@@ -3,7 +3,7 @@
 # scalobservR - functions for dealing with scallop observer data
 
 ## tyler jackson
-## 1/10/2024
+## 1/14/2024
 
 library(tidyverse)
 
@@ -136,6 +136,110 @@ load_bycatch_by_haul <- function(dir, catch, district = NULL, database_pull = F,
 
 
 
+# load_sh_data() ----
+
+
+# Load Scallop Observer Shell Height Composition Data
+#
+# Load scallop observer bycatch by haul data and do data management routine.
+# @param dir NULL. Path to directory with annual data pulls.
+# @param catch NULL. Cleaned catch data.
+# @param dist NULL. Character string district abbreviation: KSH, YAK, KNE, WKI, EKI, O, UB, C, WC, Q.
+# @param database_pull Default = FALSE. Do updated pull from database.
+# @param clean Default = TRUE. Do data cleaning.
+# @return Dataframe with observer catch by haul data
+# @examples load_sh_data(dir = ".", district = "KSH")
+#
+# @export
+#
+load_sh_data <- function(dir, catch, dist = NULL, database_pull = F, clean = T) {
+  
+  # load data
+  if(database_pull == T){stop("Database pull not set up yet")}
+  if(database_pull == F){
+    obs <- do.call(bind_rows, lapply(list.files(dir, full.names = T), read_csv))
+  }
+  
+  if(clean == T) {
+  
+    obs %>%
+      ## rename fields in shell_height data (2009 - present)
+      rename_all(~c("fishery", "district", "haul_id", "adfg", "rtnd_disc", "sh", "shell_num")) %>%
+      ## add scal_year and season to data
+      mutate(scal_year = ifelse(as.numeric(str_sub(fishery, 3, 4)) < 80, as.numeric(str_sub(fishery, 3, 4)) + 2000, as.numeric(str_sub(fishery, 3, 4)) + 1900),
+             season = factor(paste0(scal_year, "/", substring(scal_year + 1, 3, 4)))) %>% 
+      ## revise district as in catch data
+      mutate(district = catch$district[match(.$haul_id, catch$haul_id)]) -> out
+  
+    if(!is.null(dist)){out %>% filter(district %in% dist) -> out}
+    
+  }
+  if(clean == F) {
+    if(!is.null(dist)){obs %>% filter(District %in% dist) -> out}
+  }
+  
+  return(out)
+  
+}
+
+# load_mw_data () ----
+
+# Load Scallop Observer Meat Weight Data
+#
+# Load scallop observer bycatch by haul data and do data management routine.
+# @param dir NULL. Path to directory with annual data pulls.
+# @param catch NULL. Cleaned catch data.
+# @param dist NULL. Character string district abbreviation: KSH, YAK, KNE, WKI, EKI, O, UB, C, WC, Q.
+# @param database_pull Default = FALSE. Do updated pull from database.
+# @param clean Default = TRUE. Do data cleaning.
+# @return Dataframe with observer meat weight by haul data
+# @examples load_mw_data(dir = ".", district = "KSH")
+#
+# @export
+#
+load_mw_data <- function(dir, catch, dist = NULL, database_pull = F, clean = T) {
+  
+  # load data
+  if(database_pull == T){stop("Database pull not set up yet")}
+  if(database_pull == F){
+    obs <- do.call(bind_rows, lapply(list.files(dir, full.names = T), read_csv))
+  }
+  
+  if(clean == T) {
+    
+    obs %>%
+      ## rename haul_id to join to catch
+      rename_all(tolower) %>%
+      ## add scal_year and season to data
+      mutate(scal_year = ifelse(as.numeric(str_sub(fishery, 3, 4)) < 80, as.numeric(str_sub(fishery, 3, 4)) + 2000, as.numeric(str_sub(fishery, 3, 4)) + 1900),
+             season = factor(paste0(scal_year, "/", substring(scal_year + 1, 3, 4)))) %>% 
+      ## create haul id for 2020/21
+      mutate(set_date = mdy(set_date),
+             haul_id = ifelse(season == "2020/21", 
+                              paste0(fishery,
+                                     sprintf("%06d", adfg),
+                                     year(set_date),
+                                     sprintf("%02d", month(set_date)),
+                                     sprintf("%02d", day(set_date)),
+                                     sprintf("%04d", haul)), haul_id)) %>%
+      ## join with catch data to get location (district, bed)
+      left_join(catch %>%
+                  dplyr::select(haul_id, district, bed_code, set_lat, set_lon),
+                by = c("haul_id")) %>%
+      ## add retained - discard factor
+      mutate(rtnd_disc = ifelse(shell_num < 11, "retained", "discarded")) -> out
+    
+    if(!is.null(dist)){out %>% filter(district %in% dist) -> out}
+    
+  }
+  if(clean == F) {
+    if(!is.null(dist)){obs %>% filter(District %in% dist) -> out}
+  }
+  
+  return(out)
+  
+}
+
 # get_retained_summary() ---- 
 
 # Compute retained catch summary statistics by season and district
@@ -227,6 +331,99 @@ get_discards <- function(data, by = NULL, units = "lb") {
   return(out)
   
 }
+
+
+
+
+
+# get_sh_composition() ----
+
+# Get Sampled Number at Size
+#
+# Compute number of scallops measured at size and total number measured
+# @param data NULL. Cleaned shell height by haul data. See load_sh_data()
+# @param by NULL. Grouping variable, character string other than scal_year and season (e.g. "district")
+# @param by NULL. Grouping variable, character string other than scal_year and season (e.g. "district")
+
+
+# @return Dataframe with summary statistics
+# @examples get_retained_summary(data = catch, by = c("scal_year", "district"))
+#
+# @export
+#
+get_sh_composition <- function(data, type = NULL, by = NULL, catch = NULL, bycatch = NULL) {
+  
+  # make sure season and scal_year are not in by
+  by <- by[!(by %in% c("season", "scal_year"))]
+  
+  if((is.null(type)|type == "retained") & is.null(catch)) {stop("Missing catch data")}
+  if((is.null(type)|type == "discard") & is.null(bycatch)) {stop("Missing bycatch data")}
+  
+  # do summarise depending on type
+  if(type == "retained") {
+    shell_height %>%
+      filter(rtnd_disc == "R") %>%
+      left_join(catch %>% transmute(haul_id, wt = round_weight), by = join_by(haul_id)) %>%
+      group_by_at(c("season", "scal_year", by)) %>%
+      mutate(n_meas = n(),
+             total_wt = sum(wt)) %>%
+      group_by_at(c("season", "scal_year", by, "sh")) %>%
+      reframe(n = n(),
+              n_meas = mean(n_meas),
+              wt = sum(wt),
+              total_wt = mean(total_wt),
+              p = wt / total_wt) -> out
+  }
+  if(type == "discard") {
+    shell_height %>%
+      filter(rtnd_disc == "D") %>%
+      left_join(bycatch %>% transmute(haul_id, 
+                                      wt = (disc_wt + broken_wt + rem_disc_wt) / sample_hrs * dredge_hrs), 
+                by = join_by(haul_id)) %>%
+      group_by_at(c("season", "scal_year", by)) %>%
+      mutate(n_meas = n(),
+             total_wt = sum(wt)) %>%
+      group_by_at(c("season", "scal_year", by, "sh")) %>%
+      reframe(n = n(),
+              n_meas = mean(n_meas),
+              wt = sum(wt),
+              total_wt = mean(total_wt),
+              p = wt / total_wt) -> out
+  }
+  if(is.null(type)) {
+    
+    shell_height %>% 
+      filter(rtnd_disc == "R") %>%
+      left_join(catch %>% transmute(haul_id, wt = round_weight), by = join_by(haul_id)) %>%
+      bind_rows(shell_height %>%
+                  filter(rtnd_disc == "D") %>%
+                  left_join(bycatch %>% transmute(haul_id, 
+                                                  wt = (disc_wt + broken_wt + rem_disc_wt) / sample_hrs * dredge_hrs), 
+                            by = join_by(haul_id))) %>%
+      group_by_at(c("season", "scal_year", by)) %>%
+      mutate(n_meas = n(),
+             total_wt = sum(wt)) %>% ungroup %>%
+      group_by_at(c("season", "scal_year", by, "sh")) %>%
+      reframe(n = n(),
+              n_meas = mean(n_meas),
+              wt = sum(wt),
+              total_wt = mean(total_wt),
+              p = wt / total_wt) -> out
+    
+  }
+      
+  return(out)
+}
+
+
+
+
+
+
+
+
+
+
 
 
 

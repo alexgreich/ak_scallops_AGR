@@ -13,13 +13,16 @@ source("./code/observer/scalobservR.R")
 
 ## catch data 
 catch <- load_catch_by_haul("data/observer/catch")
-old_catch <- read_csv("./data/observer/old_catch/catch_summary_1992-2008.csv") %>%
-  mutate(district = gsub("D16", "YAK", district),
-         round_weight = meat_weight / 0.1) %>%
-  filter(!is.na(meat_weight)) 
+# old_catch <- read_csv("./data/observer/old_catch/catch_summary_1992-2008.csv") %>%
+#   mutate(district = gsub("D16", "YAK", district),
+#          round_weight = meat_weight / 0.1) %>%
+#   filter(!is.na(meat_weight)) 
 
 ## bycatch data
 bycatch <- load_bycatch_by_haul(dir = "data/observer/bycatch", catch)
+
+## shell height data
+shell_height <- load_sh_data(dir = "data/observer/shell_height", catch)
 
 # retained catch  ----
 
@@ -41,3 +44,11 @@ get_discards(data = bycatch, by = "district", units = "t") %>%
             obs = discards_rw, cv = discards_rw_cv,
             type = 2, units = 1, mult = 1, effort = 0, discard_mortality = 0.2) -> discards
 
+
+# retained sh ----
+
+# retained shell height composition 
+get_sh_composition(shell_height, type = "retained", catch = catch) 
+
+
+get_sh_composition(shell_height, type = "discard", bycatch = bycatch) 
