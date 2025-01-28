@@ -363,14 +363,15 @@ get_sh_composition <- function(data, type = NULL, by = NULL, catch = NULL, bycat
   if(type == "retained") {
     shell_height %>%
       filter(rtnd_disc == "R") %>%
-      left_join(catch %>% transmute(haul_id, wt = round_weight), by = join_by(haul_id)) %>%
+      left_join(catch %>% 
+                  transmute(haul_id, wt = round_weight), by = join_by(haul_id)) %>%
       group_by_at(c("season", "scal_year", by)) %>%
       mutate(n_meas = n(),
-             total_wt = sum(wt)) %>%
+             total_wt = sum(wt, na.rm = T)) %>%
       group_by_at(c("season", "scal_year", by, "sh")) %>%
       reframe(n = n(),
               n_meas = mean(n_meas),
-              wt = sum(wt),
+              wt = sum(wt, na.rm = T),
               total_wt = mean(total_wt),
               p = wt / total_wt) -> out
   }
@@ -382,11 +383,11 @@ get_sh_composition <- function(data, type = NULL, by = NULL, catch = NULL, bycat
                 by = join_by(haul_id)) %>%
       group_by_at(c("season", "scal_year", by)) %>%
       mutate(n_meas = n(),
-             total_wt = sum(wt)) %>%
+             total_wt = sum(wt, na.rm = T)) %>%
       group_by_at(c("season", "scal_year", by, "sh")) %>%
       reframe(n = n(),
               n_meas = mean(n_meas),
-              wt = sum(wt),
+              wt = sum(wt, na.rm = T),
               total_wt = mean(total_wt),
               p = wt / total_wt) -> out
   }
@@ -402,11 +403,11 @@ get_sh_composition <- function(data, type = NULL, by = NULL, catch = NULL, bycat
                             by = join_by(haul_id))) %>%
       group_by_at(c("season", "scal_year", by)) %>%
       mutate(n_meas = n(),
-             total_wt = sum(wt)) %>% ungroup %>%
+             total_wt = sum(wt, na.rm = T)) %>% ungroup %>%
       group_by_at(c("season", "scal_year", by, "sh")) %>%
       reframe(n = n(),
               n_meas = mean(n_meas),
-              wt = sum(wt),
+              wt = sum(wt, na.rm = T),
               total_wt = mean(total_wt),
               p = wt / total_wt) -> out
     
