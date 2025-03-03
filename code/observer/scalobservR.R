@@ -41,8 +41,11 @@ load_catch_by_haul <- function(dir, district = NULL, database_pull = F, clean = 
                  "tot_rtnd_basket", "tot_day_meat_weight")) %>%
       ## drop phantom rows
       drop_na(haul_id) %>%
+      ## coerce date to date class
+      mutate(set_date = lubridate::mdy(set_date)) %>%
       ## add scal_year and season to data
       mutate(scal_year = ifelse(as.numeric(str_sub(fishery, 3, 4)) < 80, as.numeric(str_sub(fishery, 3, 4)) + 2000, as.numeric(str_sub(fishery, 3, 4)) + 1900),
+             scal_year = ifelse(!is.na(set_date) & (set_date < mdy(paste0("7/1/", scal_year))), scal_year -1, scal_year),
              season = factor(paste0(scal_year, "/", substring(scal_year + 1, 3, 4)))) %>%
       ## classify Karluk bed as KSW district instead of KSH
       mutate(district = ifelse(bed_code %in% c("KSH4", "KSH5", "KSH6", "KSH7"), "KSW", district),
@@ -50,8 +53,6 @@ load_catch_by_haul <- function(dir, district = NULL, database_pull = F, clean = 
                                "KSW", district),
              district = ifelse(district %in% c("D16", "D", "YAK"),
                                "YAK", district)) %>%
-      ## coerce date to date class
-      mutate(set_date = lubridate::mdy(set_date)) %>%
       ## remove tows with zero dredge hours (logbook mistake)
       filter(dredge_hrs != 0)  %>%
       ## fix issue with missing basket weight in 2018/19
@@ -103,8 +104,11 @@ load_bycatch_by_haul <- function(dir, catch, district = NULL, database_pull = F,
                     "rem_disc_wt", "clapper_count")) %>%
       ## drop phantom rows
       drop_na(haul_id) %>%
+      ## coerce date to date class
+      mutate(set_date = lubridate::mdy(set_date)) %>%
       ## add scal_year and season to data
       mutate(scal_year = ifelse(as.numeric(str_sub(fishery, 3, 4)) < 80, as.numeric(str_sub(fishery, 3, 4)) + 2000, as.numeric(str_sub(fishery, 3, 4)) + 1900),
+             scal_year = ifelse(!is.na(set_date) & (set_date < mdy(paste0("7/1/", scal_year))), scal_year -1, scal_year),
              season = factor(paste0(scal_year, "/", substring(scal_year + 1, 3, 4)))) %>% 
       ## classify Karluk bed as KSW district instead of KSH
       # mutate(district = ifelse(bed_code %in% c("KSH4", "KSH5", "KSH6", "KSH7"), "KSW", district),
@@ -116,10 +120,10 @@ load_bycatch_by_haul <- function(dir, catch, district = NULL, database_pull = F,
       dplyr::select(-1:-3) %>%
       ## get beds/district info from catch data
       ## ie no bycatch data that does not match with catch data !
-      right_join(catch %>% dplyr::select(adfg, district, haul_id, set_lat, set_lon), 
+      right_join(catch %>% 
+                   dplyr::select(adfg, district, haul_id, set_lat, set_lon), 
                  by = c("haul_id")) %>%
-      ## coerce date to date class
-      mutate(set_date = lubridate::mdy(set_date)) %>%
+      
       ## remove tows with zero dredge hours (logbook mistake)
       filter(dredge_hrs != 0) -> out
     
@@ -210,11 +214,13 @@ load_mw_data <- function(dir, catch, dist = NULL, database_pull = F, clean = T) 
     obs %>%
       ## rename haul_id to join to catch
       rename_all(tolower) %>%
+      rename(set_date = sample_date) %>%
       ## add scal_year and season to data
       mutate(scal_year = ifelse(as.numeric(str_sub(fishery, 3, 4)) < 80, as.numeric(str_sub(fishery, 3, 4)) + 2000, as.numeric(str_sub(fishery, 3, 4)) + 1900),
              season = factor(paste0(scal_year, "/", substring(scal_year + 1, 3, 4)))) %>% 
       ## create haul id for 2020/21
       mutate(set_date = mdy(set_date),
+             haul_id = substr(shell_id, 1, 22),
              haul_id = ifelse(season == "2020/21", 
                               paste0(fishery,
                                      sprintf("%06d", adfg),
@@ -222,12 +228,72 @@ load_mw_data <- function(dir, catch, dist = NULL, database_pull = F, clean = T) 
                                      sprintf("%02d", month(set_date)),
                                      sprintf("%02d", day(set_date)),
                                      sprintf("%04d", haul)), haul_id)) %>%
+      dplyr::select(-district, -bed_code) %>%
       ## join with catch data to get location (district, bed)
       left_join(catch %>%
                   dplyr::select(haul_id, district, bed_code, set_lat, set_lon),
                 by = c("haul_id")) %>%
       ## add retained - discard factor
       mutate(rtnd_disc = ifelse(shell_num < 11, "retained", "discarded")) -> out
+    
+    if(!is.null(dist)){out %>% filter(district %in% dist) -> out}
+    
+  }
+  if(clean == F) {
+    if(!is.null(dist)){obs %>% filter(District %in% dist) -> out}
+  }
+  
+  return(out)
+  
+}
+
+# load_annuli_data () ----
+
+# Load Scallop Observer Annuli Data
+#
+# Load scallop observer annuli data and do data management routine.
+# @param dir NULL. Path to directory with annual data pulls.
+# @param catch NULL. Cleaned catch data.
+# @param dist NULL. Character string district abbreviation: KSH, YAK, KNE, WKI, EKI, O, UB, C, WC, Q.
+# @param database_pull Default = FALSE. Do updated pull from database.
+# @param clean Default = TRUE. Do data cleaning.
+# @return Dataframe with observer meat weight by haul data
+# @examples load_mw_data(dir = ".", district = "KSH")
+#
+# @export
+#
+load_annuli_data <- function(dir, catch, dist = NULL, database_pull = F, clean = T) {
+  
+  # load data
+  if(database_pull == T){stop("Database pull not set up yet")}
+  if(database_pull == F){
+    obs <- do.call(bind_rows, lapply(list.files(dir, full.names = T), read_csv))
+  }
+  
+  if(clean == T) {
+    
+    obs %>%
+      ## rename haul_id to join to catch
+      rename_all(tolower) %>%
+      rename(set_date = sample_date) %>%
+      ## add scal_year and season to data
+      mutate(scal_year = ifelse(as.numeric(str_sub(fishery, 3, 4)) < 80, as.numeric(str_sub(fishery, 3, 4)) + 2000, as.numeric(str_sub(fishery, 3, 4)) + 1900),
+             season = factor(paste0(scal_year, "/", substring(scal_year + 1, 3, 4)))) %>% 
+      ## create haul id for 2020/21
+      mutate(set_date = mdy(set_date),
+             haul_id = substr(shell_id, 1, 22),
+             haul_id = ifelse(season == "2020/21", 
+                              paste0(fishery,
+                                     sprintf("%06d", adfg),
+                                     year(set_date),
+                                     sprintf("%02d", month(set_date)),
+                                     sprintf("%02d", day(set_date)),
+                                     sprintf("%04d", haul)), haul_id)) %>%
+      dplyr::select(-district, -bed_code, -latitude, -longitude) %>%
+      ## join with catch data to get location (district, bed)
+      left_join(catch %>%
+                  dplyr::select(haul_id, district, bed_code, set_lat, set_lon),
+                by = c("haul_id")) -> out
     
     if(!is.null(dist)){out %>% filter(district %in% dist) -> out}
     
@@ -361,7 +427,7 @@ get_sh_composition <- function(data, type = NULL, by = NULL, catch = NULL, bycat
   
   # do summarise depending on type
   if(type == "retained") {
-    shell_height %>%
+    data %>%
       filter(rtnd_disc == "R") %>%
       left_join(catch %>% 
                   transmute(haul_id, wt = round_weight), by = join_by(haul_id)) %>%
@@ -376,7 +442,7 @@ get_sh_composition <- function(data, type = NULL, by = NULL, catch = NULL, bycat
               p = wt / total_wt) -> out
   }
   if(type == "discard") {
-    shell_height %>%
+    data %>%
       filter(rtnd_disc == "D") %>%
       left_join(bycatch %>% transmute(haul_id, 
                                       wt = (disc_wt + broken_wt + rem_disc_wt) / sample_hrs * dredge_hrs), 
@@ -393,10 +459,10 @@ get_sh_composition <- function(data, type = NULL, by = NULL, catch = NULL, bycat
   }
   if(is.null(type)) {
     
-    shell_height %>% 
+    data %>% 
       filter(rtnd_disc == "R") %>%
       left_join(catch %>% transmute(haul_id, wt = round_weight), by = join_by(haul_id)) %>%
-      bind_rows(shell_height %>%
+      bind_rows(data %>%
                   filter(rtnd_disc == "D") %>%
                   left_join(bycatch %>% transmute(haul_id, 
                                                   wt = (disc_wt + broken_wt + rem_disc_wt) / sample_hrs * dredge_hrs), 
