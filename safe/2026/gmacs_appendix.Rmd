@@ -1,0 +1,338 @@
+---
+title: "Appendix A: Proposed size structured stock assessment model framework for Alaska weathervane scallops"
+author: |
+  | Tyler Jackson
+  | Alaska Department of Fish and Game, tyler.jackson@alaska.gov
+date: "`r format(Sys.time(), '%B %Y')`"
+output:
+  bookdown::pdf_document2:
+    toc: no
+header-includes:
+   - \usepackage{float}
+   - \usepackage{hanging}
+   - \usepackage{enumerate}
+   - \usepackage{longtable}
+---
+
+```{r, echo = F, message = F, warning = F}
+library(gmacsr)
+library(patchwork)
+library(xtable)
+
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.pos='H',
+                      out.height = "\\textheight", out.width = "\\textwidth")
+```
+  
+# Purpose {-}
+
+This analysis details development of a size structured, model-based stock assessment for Alaska weathervane scallops. Specifically, models were developed for surveyed areas including Kodiak Shelikof district (KSH), Kodiak Northeast district (KNE), West Kayak Island subsection (WKI), East Kayak Island subsection (EKI), Yakutat district combined (YAK). Reference points were computed using a combination approach for surveyed and non-surveyed areas presented to the Scallop Plan Team in March 2023.
+
+# Data {-}
+
+## Retained Catch {-}
+
+Scallop landings are typically discussed in terms of round (i.e., whole animal) weight and meat weight, with the latter being used as the unit of measure for fishery management. Prior to 2009/10 meat weight data were only available from fish ticket data, which may contain some errors associated with ADF$\&$G statistical area and/or district designations (personal communication Ryan Burt ADF$\&$G). Since 2009/10, meat weight data have been tracked by the observer program using daily meat production logs. Although meat weight is used for management, round weight at size is less intra- and inter-annually variable, and thus can presumably be applied to all years and seasons with less risk of misspecification when season-specific meat weight at size data are unavailable. Pre-2009, round weight data was recorded by vessel captains in fishing logs, by multiplying the number the estimated number of bushels by the average bushel weight, which differed by vessel. From 2009/10 number of bushels have been counted by observers during observed hauls and by captains during unobserved hauls. Bushel weights are measured by observers and averaged over the course of the season by district.  
+
+Round weight was available from 1990/91 - 2024/25 for KSH, KNE, and YAK, and from 1997/98 - 2024/25 for WKI and EKI. Catch data are available for Kayak Island subsections from 1995/96, but were not parsed by subsection, and were not used here. For all areas, retained catch was assigned a CV of 0.05 prior to 2009/10, and 0.03 for years after 2009/10.
+
+## Discard Catch {-}
+
+Discarded scallops ($\hat{D}$) were estimated from observer bycatch by haul data as 
+
+\begin{equation}
+\hat{D} = A(\frac{1}{n}\sum^{n}_{i=1}{\frac{d_i}{a_i}})
+\end{equation}
+
+where $d_i$ is the discarded round weight and $a_i$ is the dredge hours corresponding to the sampled dredge in tow $i$, $n$ is the number of observed tows in the fishery, and $A$ is the total fishery dredge hours. Discard estimates were available for all years 1996/97 - 2024/25 in which there was a fishery. Standard errors and CV for discards were estimated directly as
+
+\begin{equation}
+\sigma_{D} = \sqrt{A^{2}(\frac{1}{n}\text{Var}(\frac{d_i}{a_i}))}
+\end{equation}
+
+Handling mortality on discards is assumed to be 0.2.
+
+## Fishery CPUE {-}
+
+Fishery catch per unit effort is the only source of index data before the ADF$\&$G began in 2016. CPUE standardization was derived from at-sea observer data from the 1996/7 - 2024/25 seasons. CPUE was defined as the total round weight of the catch per dredge-hour. Prior to analysis, fishery log-book data were filtered so that core data only included hauls that employed 13 or 15 ft dredges and adequate dredge performance. Zero catches were removed since they are typically rare and indicate poor gear performance. Hauls were also limited to the inner 95$\%$ of CPUE and depth.
+
+CPUE standardization models were fit using general additive models (GAM) as implemented in the R package $mgcv$ (Wood 2004). All models assumed a Gamma error distribution with log-link. Null models by district included only year (of season opening) as an explanatory variable
+
+\begin{equation}
+\text{ln}(CPUE_{i}) = Year_{y,i}
+\end{equation}
+
+The full scope of models evaluated included vessel, depth, dredge width, month and bed. Bed was not included for WKI District, since it only contains a single bed. Depth was fit as a thin plate regression spline, with smoothness determined by generalized cross-validation (Wood 2004). All other variables were fit as factors. The effects of variable addition were evaluated by forward and backward stepwise selection. The addition of a new variable was considered significant if CAIC (Anderson et al., 1998) decreased by at least two per degree of freedom lost and deviance explained (R$^2$) increased by at least 0.01. The best model forms by district are listed in Table \ref{table:gamres}. The marginal effects of selected covariates are in Figures \ref{fig:ksheffects} - \ref{fig:yakeffects}.
+
+The standardized CPUE index was extracted from the models as the year coefficient ($\beta_i$) with the first level set to zero and scaled to canonical coefficients ($\beta^\prime_i$) as
+
+\begin{equation}
+\beta^{\prime}_{i} = \frac{\beta_{i}}{\bar{\beta}}
+\end{equation}
+
+where
+
+\begin{equation}
+\bar{\beta} = \sqrt[n_{i}]{\prod_{i = 1}^{n_j}{\beta_{i}}}
+\end{equation}
+
+and $n_j$ is the number of levels in the year variable (Table \ref{table:cpueindex}). Nominal CPUE was scaled by the same method for comparison (Figure \ref{fig:figcpueindex}).
+
+
+## Fishery Shell Height Composition {-}
+
+Size composition of scallops is shell height measured from the umbo to outer shell margin. Scallops with shell heights between 41 - 160+ mm shell height were included in the model in 10 mm size bins. Shell height is measured for 40 retained and 40 discarded scallops during every observer sampled tow. Shell height distribution observed over the entire season is estimated by weighting the shell height composition of a given tow by the round weight catch of retained and discarded scallops of that tow, relative to all tows in the season. Input effective sample sizes ($N_{obs}$) were computed as
+
+\begin{equation}
+N_{obs} = \text{min}(100, N_{meas})
+\end{equation}
+
+where $N_{meas}$ was the total number of scallops measured.
+
+## ADF\&G Survey Data {-}
+
+### Survey Biomass {-}
+
+Observed ADF$\&$G dredge survey biomass was estimated for sampled beds in KSH, KNE, WKI, EKI, and YAK by methods described in Burt et al., (2021). Round biomass was used as opposed to meat weight biomass, since meat weight at size is known to vary between surveys, likely due to fluctuation in survey and reproductive timing (Hennen and Hart 2012). Observed district biomass computed as the sum of bed biomass estimates. Biomass of beds that were not surveyed in a given year that other beds in the district were, were filled in with predicted values of a weighted linear model in the form of
+
+\begin{equation}
+\text{ln}(B_{t,j}) = Year_{t} + Bed_{b,j} + \epsilon
+\end{equation}
+
+with weights equal to the inverse of the coefficient of variation (CV) on $B_{t,j}$. Since the EK1 bed spans the boundary between the E and YAK districts, EK1 was modeled with the YAK District. Samples that included only the EKI portion of EK1 in 2016 were removed from analysis. The beds KSH2 and KSH3 (Kodiak Shelikof district), and KNE4 (Kodiak Northeast district) were also removed from analysis since they were only surveyed once, and contribute only a marginal proportion of biomass in each district. Biomass estimates by bed and district from 2016 - 2025 are listed in Table \ref{table:surveybiomass}.
+
+### Survey Shell Height Composition {-}
+
+Survey shell height composition data were estimated using the same method as fishery data. Survey composition was given larger input weights than fishery data as
+
+\begin{equation}
+N_{obs} = \text{min}(500, N_{meas})
+\end{equation}
+
+# Analytic Approach {-}
+
+## Software {-}
+
+This analysis uses GMACS version 2.20.31 (\href{https://github.com/GMACS-project/GMACS_tpl-cpp_code/blob/devel-20250402}{\underline{GitHub Repository}}).
+
+## Model Dimensions {-}
+
+Basic model dimensions were as follows:
+
+\begin{itemize}
+\item{Start year: 1990/91 KSH, KNE, YAK; 1997/98 WKI, EKI; }
+\item{End year: 2024/25; }
+\item{Single sex (i.e., males + females combined); }
+\item{10 mm size classes from 51 - 160+ mm shell height; }
+\item{Two fleets: Directed Fishery, ADF$\&$G survey.}
+\end{itemize}
+
+## Annual Structure {-}
+
+The modeled 'scallop year' runs from May 1 to April 30 and includes five seasons:
+
+\begin{enumerate}
+\item{May 1: Dredge survey; }
+\item{May 1 - May 30: Natural mortality; }
+\item{June 1: Estimate SSB; }
+\item{June 1 - Fishery Midpoint: Fishery; }
+\item{Fishery Midpoint - April 30: Natural Mortality, Growth, Recruitment.}
+\end{enumerate}
+
+## Model Processes {-}
+
+### Initial Conditions {-}
+
+Models started in a non-equilibrium state. N matrices were populated by estimating an initial recruitment ($R_{init}$) and N-at-size deviations with 101 - 110 mm as the reference size class.
+
+### Weight at Shell Height {-}
+
+Round weight ($w$) was related to shell height using ADF$\&$G dredge survey data as 
+
+\begin{equation}
+w_{i} = \alpha SH_{i}^{\beta}
+\end{equation}
+
+where $\alpha$ and $\beta$ are allometric growth parameters. Weight at size was specific to each district (Figure \ref{fig:wal}).
+
+### Maturity {-}
+
+Gonad condition has been qualitatively assessed as part of the ADF$\&$G dredge survey as being "immature", "empty", "initial recovery", "filling", or "full" (Burt et al., 2021). Scallops with gonads in the initial recovery, filling, and full condition were considered mature. Size at maturity was estimated using a binomial regression by district as
+
+\begin{equation}
+\text{logit}(p_{i}) = \beta_{0} + \beta_{1}SH_{i} + \epsilon_i
+\end{equation}
+
+A maturity ogive was input to GMACS based on the midpoint of each shell height class (Figure \ref{fig:maturityogive}). It is important to note that maturity only determines the proportion of scallops contributing to spawning stock biomass and does not inform growth or recruitment in this model. 
+
+### Natural Mortality {-}
+
+Natural mortality was $M$ = 0.13 yr$^{-1}$ and was time and size invariant. This mortality value was estimated by Kruse and Funk (1995) using a maximum age approach.
+
+### Growth {-}
+
+Growth transition matrices were estimated assuming von Bertalanffy growth with individual variation in asymptotic shell height $L_{\infty}$ ($\sigma_{L_{\infty}}$). Growth parameters $L_{\infty}$, $K$ (growth rate), and $\sigma_{L_{\infty}}$ were estimated outside of GMACS using growth increment data within a linear mixed-effect model in the form of 
+
+\begin{equation}
+SH_{L+1} = mSH_{L} + (b + \beta_j) + \epsilon
+\end{equation}
+
+where $\beta_{j}$ is a $\mathcal{N}(0, \sigma^2)$ random intercept by individual scallop. Growth parameters were calculated as
+
+\begin{equation}
+L_{\infty} = \frac{b}{1 - m}
+\end{equation}
+
+\begin{equation}
+K = -\text{ln}(m)
+\end{equation}
+
+\begin{equation}
+\sigma_{L_{\infty}} = \frac{\text{Var}(\beta)}{(1-m)^2}
+\end{equation}
+
+and $\sigma_{L_{\infty}}$ was transformed to a lognormal scale by $\sqrt{\text{ln}(1 + \sigma_{L_{\infty}} / L_{\infty})^2}$. The growth transition matrix was computed as 
+
+\begin{equation}
+X_{i,j} = \int_{l_{i}^{-}}^{l_{i}^{+}}\int_{l_{j}^{-}}^{l_{j}^{+}}\int_{0}^{\infty}F(l_{1i},l_{2i},L_{\infty},\theta^{\prime})dL_{\infty}dl_{2i}dl_{1i}
+\end{equation}
+
+where $l_{1i}$ is the initial shell height within size class $i$, $l_{2j}$ is the shell height after one period of growth in resulting size class $j$, $F$ is the product of the probability distributions for growth variation and individuals within the initial size-class, and $\theta^\prime$ is a vector of parameters that define the probability distribution functions (Cronin-Fine and Punt 2020). Growth occurred for all individuals once annually, regardless of shell height.
+
+### Selectivity and Retention {-} 
+
+Selectivity ($S^{c}$) and retention ($S^{r}$) were a logistic function of shell height,
+
+\begin{equation}
+S_i = \frac{1}{1 + e^{(-\frac{l_i - \theta_{50}}{\sigma_{\theta}})}}
+\end{equation}
+
+where $\theta_{50}$ and $\sigma_{\theta}$ were estimated parameters representing the size at 50$\%$ selectivity (or retention) and slope (or 'width') of the logistic curve, respectively. Separate selectivity curves were estimated for the fishery and ADF$\&$G dredge survey and both processes were time invariant. Selectivity of the plus group size class (165+ mm SH) was forced to 1. No retention occurred during the dredge survey, thus there were six selectivity and retention parameters in total.
+
+### Recruitment {-} 
+
+Recruitment after the initial year was estimated as 
+
+\begin{equation}
+R_{t, i} = \bar{R}e^{\epsilon_t}\Omega_i
+\end{equation}
+
+where $\Omega_i$ is a normalized gamma function $\Gamma(l\mid\alpha,\beta)$ that describes the size distribution of recruits to the first four size classes. Annual recruitment deviations ($\epsilon_{t}$) are $\mathcal{N}(0, \sigma{\epsilon})$ on a log scale.
+
+### Likelihood Components {-}
+
+\textbf{Catch}   
+
+Retained catch biomass was estimated as 
+
+\begin{equation}
+C^{pre}_{t,i} = w_{i}N_{t,i} \frac{F_{t}S^{c}_{i}S^{r}_{i}(1-e^{Z_{t,i}})}{Z_{t,i}}     
+\end{equation}
+
+where $w_{i}$ is the weight (t) at shell height $i$, $N_{t,i}$ is the number of scallops at shell height $i$, in year $t$, $S^{c}_{i}$ and $S^{r}_{i}$ are the selectivity and retention at shell height $i$, respectively, $F_{t}$ is the instantaneous rate of fishing mortality in year $t$, shell height $i$, and $Z_{t,i}$ is the total mortality in year $t$, shell height $i$ computed as
+
+\begin{equation}
+Z_{t,i} = M+\sum_{i}{F_tS^{c}_{i}(S^{r}_{i} +(1-S^{r}_{i})h)} 
+\end{equation}
+
+where $h$ is handing mortality of discarded scallops, assumed to be $h$ = 0.2. Discarded catch biomass was estimated as
+
+\begin{equation}
+D^{pre}_{t,i} = w_{i}N_{t,i} \frac{F_{t}S^{c}_{i}(1-S^{r}_{i})(1-e^{Z_{t,i}})}{Z_{t,i}}
+\end{equation}
+
+The likelihood component relating to retained catch and discards are
+
+\begin{equation}
+LL^{catch} = \lambda_{C} \sum_{t} \left[ \frac{(\text{ln} C^{obs}_{t} - \text{ln}C^{pre}_{t})^2}{2\sigma^{2}_{C}} + \text{ln}(\sigma_{C}\sqrt{2\pi}) \right]
+\end{equation}
+
+\begin{equation}
+LL^{discards} = \lambda_{D} \sum_{t} \left[ \frac{(\text{ln} D^{obs}_{t} - \text{ln}D^{pre}_{t})^2}{2\sigma^{2}_{D}} + \text{ln}(\sigma_{D}\sqrt{2\pi}) \right]
+\end{equation}
+
+where $\lambda_{C}$ and $\lambda_{D}$ area weights used to assign emphasis to likelihood components.
+
+\textbf{Fishery CPUE}  
+
+Fishery CPUE ($U$) was estimated as 
+
+\begin{equation}
+U^{pre} = q \sum_i{w_i}N_{t,i}S^{c}_{i}S^{r}_{i} 
+\end{equation}
+
+where $q$ is the scaling coefficient catchability. The fishery CPUE likelihood component is
+
+\begin{equation}
+LL^{CPUE} = \lambda_U  \left[0.5\sum_t{\text{ln}(2\pi\sigma^{2}_{\tau, t})} + \sum_{t}{  \frac{(\text{ln} U^{obs}_{t} - \text{ln}U^{pre}_{t})^2}{2\sigma^{2}_{\tau, t} }} \right] 
+\end{equation}
+
+where $\sigma_{\tau, t} = \sigma_{U,t} + \sigma_{add}$, in which $\sigma_{U,t}$ is the uncertainty in CPUE in year, $t$, and $\sigma_{add}$ is estimated additional error.
+
+<!-- # Tables {-} -->
+
+<!-- <!-- \begin{table}[H]   --> -->
+<!-- <!-- \centering --> -->
+<!-- <!-- \caption{Number of samples and estimates of the breakpoint, $\psi$, by subdistrict and data source, and all data sources combined. The last column is the optimum value based on a likelihood profile of $\psi$.} --> -->
+<!-- <!-- \label{table:psiest} --> -->
+<!-- <!-- \begin{tabular}{ccccccc} --> -->
+<!-- <!-- Subdistrict & Data Source & N & $\psi$ & 95$\%$ CI & $\psi$ (Profile)\\ --> -->
+<!-- <!-- \hline --> -->
+<!-- <!-- ```{r psiest, results='asis', eval = T} --> -->
+<!-- <!-- x <- read_csv("../../../AIGKC/output/maturity/psi_estimates_sept25.csv") --> -->
+
+<!-- <!-- x %>% --> -->
+<!-- <!--   arrange(subdistrict) %>%  --> -->
+<!-- <!--   mutate(source = ifelse(is.na(source), "All Data", source), --> -->
+<!-- <!--          source = I(gsub("ADFG", "ADF\\\\&G", source)), --> -->
+<!-- <!--          subdistrict = c("EAG", NA, NA, NA, "WAG", NA, NA, NA), --> -->
+<!-- <!--          ci = paste0("(", round(l95, 1), ", ", round(u95, 1),")")) %>% --> -->
+<!-- <!--   transmute(subdistrict, source, n, psi, ci, lik_psi) -> x --> -->
+
+
+<!-- <!-- # print table --> -->
+<!-- <!-- print(xtable(x, align="ccccccc", digits=c(0,0,0,0,1,0,1)), --> -->
+<!-- <!-- 			     only.contents=TRUE, --> -->
+<!-- <!-- 			     include.rownames=FALSE, --> -->
+<!-- <!-- 			     floating=FALSE, --> -->
+<!-- <!-- 			     include.colnames=FALSE, --> -->
+<!-- <!-- 			     hline.after=NULL, --> -->
+<!-- <!-- 			     format.args = list(big.mark = ","), --> -->
+<!-- <!-- 			     sanitize.text.function = identity) --> -->
+
+<!-- <!-- ``` --> -->
+<!-- <!-- \hline --> -->
+<!-- <!-- \end{tabular} --> -->
+<!-- <!-- \end{table} --> -->
+
+
+# Figures {-}
+
+```{r wal, fig.align='center', fig.cap="Round weight (g) at shell height (mm) by district. Parameters are scaled to weight in tonnes.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/wal.png")
+```
+
+```{r maturityogive, fig.align='center', fig.cap="Probability of maturity as a function of shell height by district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/maturity_ogive.png")
+```
+
+
+# Literature Cited {-}
+
+\begin{hangparas}{.25in}{1}
+
+Anderson, DR, KP Burnham, and GC White (1998) Comparison of Akaike information criterion and consistent Akaike information criterion for model selection and statistical inference from capture-recapture studies. Journal of Applied Statistics 25: 263-282.
+
+Burt, R, M Byerly, A Hopkins, T Jackson, K McNeel (2021) Weathervane scallop dredge survey operational plan, 2021–2023. Alaska Department of Fish and Game, Division, Division of Commercial Fisheries, Regional Operational Plan No. ROP.CF.4K.2021.09, Kodiak.
+
+Cronin-Fine, L, AE Punt (2020) There is no best method for constructing size-transition matrices for size-structured stock assessments. ICES Journal of Marine Science 77: 136-147.
+
+Hennen, DR and DR Hart (2012) Shell height-to-weight relationships for Atlantic sea scallops ($Placopecten$ $magellanicus$) in offshore U.S. waters. Journal of Shellfish Research 31: 1133-1144.
+
+Kruse, GH, FC Funk (1995) Biological reference points for weathervane scallops in Alaska. Poster presented to the North Pacific Symposium on Invertebrate Stock Assessment and Management, Nanaimo, British Columbia, Canada, March 6-10, 1995. 
+
+Wood, S (2004) Stable and efficient multiple smoothing parameter estimation for generalized additive models. Journal of the American Statistical Association 99: 673-686.
+
+
+\end{hangparas}
+
+
