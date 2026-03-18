@@ -19,13 +19,14 @@ library(gmacsr)
 library(patchwork)
 library(xtable)
 
-knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.pos='H',
-                      out.height = "\\textheight", out.width = "\\textwidth")
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.pos='H', out.width = "\\textwidth")
 ```
   
 # Purpose {-}
 
-This analysis details development of a size structured, model-based stock assessment for Alaska weathervane scallops. Specifically, models were developed for surveyed areas including Kodiak Shelikof district (KSH), Kodiak Northeast district (KNE), West Kayak Island subsection (WKI), East Kayak Island subsection (EKI), Yakutat district combined (YAK). Reference points were computed using a combination approach for surveyed and non-surveyed areas presented to the Scallop Plan Team in March 2023.
+This analysis details development of a size structured population dynamics model for Alaska weathervane scallops. Specifically, models were developed for surveyed areas including Kodiak Shelikof district (KSH), Kodiak Northeast district (KNE), West Kayak Island subsection (WKI), East Kayak Island subsection (EKI), Yakutat district combined (YAK). 
+
+<!-- This modelling framework could be used in concert with existing NPFMC harvest control rules to develop reference points using a combination approach for surveyed and non-surveyed areas presented to the Scallop Plan Team in March 2023. -->
 
 # Data {-}
 
@@ -112,7 +113,7 @@ N_{obs} = \text{min}(500, N_{meas})
 
 ## Software {-}
 
-This analysis uses GMACS version 2.20.31 (\href{https://github.com/GMACS-project/GMACS_tpl-cpp_code/blob/devel-20250402}{\underline{GitHub Repository}}).
+This analysis uses GMACS version 2.20.34a (\href{https://github.com/GMACS-project/GMACS_tpl-cpp_code/blob/devel-20250402}{\underline{GitHub Repository}}).
 
 ## Model Dimensions {-}
 
@@ -140,9 +141,21 @@ The modeled 'scallop year' runs from May 1 to April 30 and includes five seasons
 
 ## Model Processes {-}
 
+Numbers at shell height ($N$) of scallops were updated each season ($s$) by 
+
+\begin{equation}
+N_{t,s+1, j} =  \sum_i{N_{t,s,i}e^{-Z_{t,s,i}}}X_{i,j} + R_{t,s,j}
+\end{equation}
+
+where $Z_{t,s,i}$ is the total mortality of size $i$, in season $s$ of year $t$, $X_{i_j}$ is growth from size $i$ to $j$ and $R_{t,s,j}$ is recruitment at that size and time step.
+
 ### Initial Conditions {-}
 
-Models started in a non-equilibrium state. N matrices were populated by estimating an initial recruitment ($R_{init}$) and N-at-size deviations with 101 - 110 mm as the reference size class.
+Models started in a non-equilibrium state. N matrices were populated by estimating an initial recruitment ($R_{init}$) and N-at-size deviations with 101 - 110 mm as the reference size class. A penalty on N-at-size deviations was defined as
+
+\begin{equation}
+LL^{N_{dev}} = \sum{N_{dev, i}^{2}}
+\end{equation}
 
 ### Weight at Shell Height {-}
 
@@ -166,7 +179,7 @@ A maturity ogive was input to GMACS based on the midpoint of each shell height c
 
 ### Natural Mortality {-}
 
-Natural mortality was $M$ = 0.13 yr$^{-1}$ and was time and size invariant. This mortality value was estimated by Kruse and Funk (1995) using a maximum age approach.
+Natural mortality was $M$ = 0.13 yr$^{-1}$ and was time and size invariant. This mortality value the median rate estimated Kruse and Funk (1995) using maximum age (Kaiser 1986; Hennick 1973), growth analysis (Alverson and Carney 1975), and catch curve analysis (Robson and Chapman 1961).
 
 ### Growth {-}
 
@@ -196,7 +209,7 @@ and $\sigma_{L_{\infty}}$ was transformed to a lognormal scale by $\sqrt{\text{l
 X_{i,j} = \int_{l_{i}^{-}}^{l_{i}^{+}}\int_{l_{j}^{-}}^{l_{j}^{+}}\int_{0}^{\infty}F(l_{1i},l_{2i},L_{\infty},\theta^{\prime})dL_{\infty}dl_{2i}dl_{1i}
 \end{equation}
 
-where $l_{1i}$ is the initial shell height within size class $i$, $l_{2j}$ is the shell height after one period of growth in resulting size class $j$, $F$ is the product of the probability distributions for growth variation and individuals within the initial size-class, and $\theta^\prime$ is a vector of parameters that define the probability distribution functions (Cronin-Fine and Punt 2020). Growth occurred for all individuals once annually, regardless of shell height.
+where $l_{1i}$ is the initial shell height within size class $i$, $l_{2j}$ is the shell height after one period of growth in resulting size class $j$, $F$ is the product of the probability distributions for growth variation and individuals within the initial size-class, and $\theta^\prime$ is a vector of parameters that define the probability distribution functions (Cronin-Fine and Punt 2020). Growth occurred for all individuals once annually, regardless of shell height. Size transition matrices and observed growth increment data are shown in Figure \ref{fig:growthmat}.
 
 ### Selectivity and Retention {-} 
 
@@ -216,19 +229,24 @@ Recruitment after the initial year was estimated as
 R_{t, i} = \bar{R}e^{\epsilon_t}\Omega_i
 \end{equation}
 
-where $\Omega_i$ is a normalized gamma function $\Gamma(l\mid\alpha,\beta)$ that describes the size distribution of recruits to the first four size classes. Annual recruitment deviations ($\epsilon_{t}$) are $\mathcal{N}(0, \sigma{\epsilon})$ on a log scale.
+where $\Omega_i$ is a normalized gamma function $\Gamma(l\mid\alpha,\beta)$ that describes the size distribution of recruits to the first four size classes. Annual recruitment deviations ($\epsilon_{t}$) are $\mathcal{N}(0, \sigma{\epsilon})$ on a log scale, with $\sigma{\epsilon}$ = 0.5. A smoothness penalty was specified for recruitment deviations as 
 
-### Likelihood Components {-}
+\begin{equation}
+LL^{Rpen} = \sum_{t}\frac{\epsilon_{t}^{2}}{2\sigma_{\epsilon}^{2}} + \text{ln}\sigma_{\epsilon} + \frac{\text{ln}2\pi}{2}
+\end{equation}
+
+
+## Likelihood Components {-}
 
 \textbf{Catch}   
 
 Retained catch biomass was estimated as 
 
 \begin{equation}
-C^{pre}_{t,i} = w_{i}N_{t,i} \frac{F_{t}S^{c}_{i}S^{r}_{i}(1-e^{Z_{t,i}})}{Z_{t,i}}     
+C^{pre}_{t,i} = w_{i}N_{t,i}e^{-M\gamma} \frac{F_{t}S^{c}_{i}S^{r}_{i}(1-e^{Z_{t,i}})}{Z_{t,i}}     
 \end{equation}
 
-where $w_{i}$ is the weight (t) at shell height $i$, $N_{t,i}$ is the number of scallops at shell height $i$, in year $t$, $S^{c}_{i}$ and $S^{r}_{i}$ are the selectivity and retention at shell height $i$, respectively, $F_{t}$ is the instantaneous rate of fishing mortality in year $t$, shell height $i$, and $Z_{t,i}$ is the total mortality in year $t$, shell height $i$ computed as
+where $w_{i}$ is the weight (t) at shell height $i$, $N_{t,i}$ is the number of scallops at shell height $i$, in year $t$ at the time of the fishery, $e^{-M\gamma}$ is the proportion of natural mortality between the start of the year and the fishery, $S^{c}_{i}$ and $S^{r}_{i}$ are the selectivity and retention at shell height $i$, respectively, $F_{t}$ is the instantaneous rate of fishing mortality in year $t$, shell height $i$, and $Z_{t,i}$ is the total mortality in year $t$, shell height $i$ computed as
 
 \begin{equation}
 Z_{t,i} = M+\sum_{i}{F_tS^{c}_{i}(S^{r}_{i} +(1-S^{r}_{i})h)} 
@@ -237,7 +255,7 @@ Z_{t,i} = M+\sum_{i}{F_tS^{c}_{i}(S^{r}_{i} +(1-S^{r}_{i})h)}
 where $h$ is handing mortality of discarded scallops, assumed to be $h$ = 0.2. Discarded catch biomass was estimated as
 
 \begin{equation}
-D^{pre}_{t,i} = w_{i}N_{t,i} \frac{F_{t}S^{c}_{i}(1-S^{r}_{i})(1-e^{Z_{t,i}})}{Z_{t,i}}
+D^{pre}_{t,i} = w_{i}N_{t,i}e^{-M\gamma} \frac{F_{t}S^{c}_{i}(1-S^{r}_{i})(1-e^{Z_{t,i}})}{Z_{t,i}}
 \end{equation}
 
 The likelihood component relating to retained catch and discards are
@@ -250,14 +268,18 @@ LL^{catch} = \lambda_{C} \sum_{t} \left[ \frac{(\text{ln} C^{obs}_{t} - \text{ln
 LL^{discards} = \lambda_{D} \sum_{t} \left[ \frac{(\text{ln} D^{obs}_{t} - \text{ln}D^{pre}_{t})^2}{2\sigma^{2}_{D}} + \text{ln}(\sigma_{D}\sqrt{2\pi}) \right]
 \end{equation}
 
-where $\lambda_{C}$ and $\lambda_{D}$ area weights used to assign emphasis to likelihood components.
+where $\lambda_{C}$ and $\lambda_{D}$ area weights used to assign emphasis to likelihood components, with values $\lambda_{C}$ = 4 and $\lambda_{D}$ = 2. A smoothness penalty was specified for $F$ deviations $\epsilon_{F, t}$ as 
+
+\begin{equation}
+LL^{Fpen} = 3 \sum{\epsilon_{F, t}^{2}}
+\end{equation}
 
 \textbf{Fishery CPUE}  
 
 Fishery CPUE ($U$) was estimated as 
 
 \begin{equation}
-U^{pre} = q \sum_i{w_i}N_{t,i}S^{c}_{i}S^{r}_{i} 
+U^{pre}_t = q \sum_i{w_i}N_{t,i}e^{-M\gamma}S^{c}_{i}S^{r}_{i}
 \end{equation}
 
 where $q$ is the scaling coefficient catchability. The fishery CPUE likelihood component is
@@ -266,46 +288,362 @@ where $q$ is the scaling coefficient catchability. The fishery CPUE likelihood c
 LL^{CPUE} = \lambda_U  \left[0.5\sum_t{\text{ln}(2\pi\sigma^{2}_{\tau, t})} + \sum_{t}{  \frac{(\text{ln} U^{obs}_{t} - \text{ln}U^{pre}_{t})^2}{2\sigma^{2}_{\tau, t} }} \right] 
 \end{equation}
 
-where $\sigma_{\tau, t} = \sigma_{U,t} + \sigma_{add}$, in which $\sigma_{U,t}$ is the uncertainty in CPUE in year, $t$, and $\sigma_{add}$ is estimated additional error.
+where $\sigma_{\tau, t} = \sigma_{U,t} + \sigma_{add}$, in which $\sigma_{U,t}$ is the uncertainty in CPUE in year, $t$, and $\sigma_{add}$ is estimated additional error.   
 
-<!-- # Tables {-} -->
+\textbf{Survey Biomass}  
 
-<!-- <!-- \begin{table}[H]   --> -->
-<!-- <!-- \centering --> -->
-<!-- <!-- \caption{Number of samples and estimates of the breakpoint, $\psi$, by subdistrict and data source, and all data sources combined. The last column is the optimum value based on a likelihood profile of $\psi$.} --> -->
-<!-- <!-- \label{table:psiest} --> -->
-<!-- <!-- \begin{tabular}{ccccccc} --> -->
-<!-- <!-- Subdistrict & Data Source & N & $\psi$ & 95$\%$ CI & $\psi$ (Profile)\\ --> -->
-<!-- <!-- \hline --> -->
-<!-- <!-- ```{r psiest, results='asis', eval = T} --> -->
-<!-- <!-- x <- read_csv("../../../AIGKC/output/maturity/psi_estimates_sept25.csv") --> -->
+Survey biomass was estimated as 
 
-<!-- <!-- x %>% --> -->
-<!-- <!--   arrange(subdistrict) %>%  --> -->
-<!-- <!--   mutate(source = ifelse(is.na(source), "All Data", source), --> -->
-<!-- <!--          source = I(gsub("ADFG", "ADF\\\\&G", source)), --> -->
-<!-- <!--          subdistrict = c("EAG", NA, NA, NA, "WAG", NA, NA, NA), --> -->
-<!-- <!--          ci = paste0("(", round(l95, 1), ", ", round(u95, 1),")")) %>% --> -->
-<!-- <!--   transmute(subdistrict, source, n, psi, ci, lik_psi) -> x --> -->
+\begin{equation}
+I^{pre}_t = \sum_i{w_{i}{N_{t,i}S^{s}_{i}}}
+\end{equation}
+
+where $N_{t,i}$ is the numbers at shell height on May 1 (i.e., the start of the year) and $S^{s}_{i}$ refers to selectivity by shell height specific to the ADF$\&$G dredge survey. Survey catchability is assumed to be $q$ = 1. The survey biomass likelihood component is 
+
+\begin{equation}
+LL^{survey} = \lambda_I  \left[0.5\sum_t{\text{ln}(2\pi\sigma^{2}_{I,t})} + \sum_{t}{  \frac{(\text{ln} I^{obs}_{t} - \text{ln}I^{pre}_{t})^2}{2\sigma^{2}_{I,t} }} \right] 
+\end{equation}
+
+where $\sigma_{I,t}$ is the standard error of survey biomass in $t$.
+
+\textbf{Shell Height Compositions}
+
+Predicted shell height compositions ($P^{pre}_{t,i}$) were the normalized catch or survey biomass at shell height 
+
+\begin{equation}
+P^{pre}_{t,i} = \frac{C_{t,i}}{\sum_i{C_{t,i}}}
+\end{equation}
+
+where $C_{t,i}$ is either the predicted retained catch ($C^{pre}_{t,i}$), discarded catch ($D^{pre}_{t,i}$), or survey biomass ($I^{pre}_{t,i}$) in terms of numbers of scallops (i.e., by dividing by $w_i$). Likelihood components for size composition data were based on the Dirichlet multinomial as 
+
+\begin{equation}
+LL^{sh} = \sum_t \frac{\Gamma(n_t+1)}{\prod_{i}{\Gamma(n_t P^{obs}_{t,i} + 1)}}\frac{\Gamma(\theta n_t)}{\Gamma(n_t + \theta n_t)}\prod_{i}{\frac{\Gamma(n_tP^{obs}_{t,i} + \theta n_t P^{pre}_{t,i})}{\Gamma(\theta n_tP^{pre}_{t,i})}}
+\end{equation}
+
+where $n$ is the input sample size and $\theta$ is a parameter accounting for overdispersion (Thorson et al., 2017). The estimated effective sample size $n_{eff}$ is given by
+
+\begin{equation}
+n_{eff,t} = \frac{1 + \theta n_t}{1 + \theta}
+\end{equation}
+
+\textbf{Objective Function}  
+
+The objective function $\mathcal{Q}$ was the sum of likelihood components
+
+\begin{equation}
+\mathcal{Q} = LL^{catch} + LL^{discards}+ LL^{Fpen} + LL^{CPUE} + LL^{survey} + \sum_{i}{LL^{sh}_i} + LL^{Rpen} + LL^{N_{dev}}
+\end{equation}
 
 
-<!-- <!-- # print table --> -->
-<!-- <!-- print(xtable(x, align="ccccccc", digits=c(0,0,0,0,1,0,1)), --> -->
-<!-- <!-- 			     only.contents=TRUE, --> -->
-<!-- <!-- 			     include.rownames=FALSE, --> -->
-<!-- <!-- 			     floating=FALSE, --> -->
-<!-- <!-- 			     include.colnames=FALSE, --> -->
-<!-- <!-- 			     hline.after=NULL, --> -->
-<!-- <!-- 			     format.args = list(big.mark = ","), --> -->
-<!-- <!-- 			     sanitize.text.function = identity) --> -->
+# Results and Discussion {-}
 
-<!-- <!-- ``` --> -->
-<!-- <!-- \hline --> -->
-<!-- <!-- \end{tabular} --> -->
-<!-- <!-- \end{table} --> -->
+## Convergence {-}
 
+All models produced a jitter run that converged to the putative MLE with a positive definite Hessian. Multiple local minima were identified for all models. The majority of jitter runs in KNE and YAK converged to the MLE, whereas more runs converged to local minima for KSH, EKI, and WKI. Jittering results are detailed in Tables \ref{table:jitterksh} - \ref{table:jitteryak}. All models had maximum gradients < 0.0001 (KSH = 2e$^{-8}$, ln $\bar{R}$; KNE = 4.9$^{-6}$, ln $\bar{R}$; WKI = 1.87e$^{-6}$, ln $R_{init}$; EKI = 1.73e$^{-6}$, ln $\bar{R}$; YAK = 1.33e$^{-5}$, $\epsilon_{R,2016}$). All parameters were estimated within bounds, except dredge survey size at 50\% selectivity which was at its lower bound. Dredge survey selectivity was estimated poorly in all districts besides YAK (see below, Table \ref{table:pars}).
+
+## Fits to Data Components {-}
+
+The model fit retained catch data well in all districts fairly well. Fits to discarded catch were also fairly accurate in more heavily fished districts (KSH, KNE, and YAK), but less so in WKI and EKI (Figure \ref{fig:fitcatch}). 
+
+The model tended to fit standardized CPUE data somewhat poorly (Figure \ref{fig:fitcpue}). In KSH, predicted CPUE generally follows the observed trend, but over predicts CPUE considerably in years before 2003/04. Predicted CPUE in KNE misses the early observed data in a similar way. In addition, predicted CPUE in KNE follows the recently occurring rebound in CPUE, but underpredicted CPUE during 2019 - 2021. Predicted CPUE trends in WKI and EKI fail to capture the contrast in the observed data, while in YAK the model did not capture the trend of the observed CPUE until $\sim$ 2016 (Figure \ref{fig:fitcpue}). Survey biomass estimates are few and do not indicate much trend in WKI, EKI, or YAK. The model fit increased in survey biomass observed in KSH and KNE, but generally averaged across smaller changes from year to year. In WKI, EKI, and YAK, predicted CPUE mostly captured the average (Figure \ref{fig:fitsurveybiomass}).
+
+Aggregated retained and discarded size distributions were captured adequately well, though large residual patterns or mischaracterized distributions were evident in several years. Among the retained catch compositions, the model tended to under-predict the mode size and over-predict the largest size bins in most years. Estimated discarded size compositions had similar issues, but also over-predicted smaller size bins in several years in all districts (Figure \ref{fig:fitfishsizeagg} - \ref{fig:osafishqq}). Fits to dredge survey size compositions were relatively poor for Kodiak districts. The model failed to pick up on several prominent size cohorts in both KSH and KNE. Survey size compositions were better approximated in WKI, EKI, and YAK (Figure \ref{fig:fitsurveysizeagg} - \ref{fig:osasurvey}).
+
+Contribution of likelihood components are detailed in Table \ref{table:lik} and selected parameter estimates are in Table \ref{table:pars}.
+
+## Selectivity {-}
+
+Fishery selectivities were fairly steep after 80 mm shell height. Selectivity in WKI and EKI never appeared to reach an asymptotic maximum within the size range, especially for EKI which may have not reached near-full selectivity had the plus group not been forced to 1 (Figure \ref{fig:selectivity}). Dredge survey selectivity was not well defined (i.e., as indicated by very large standard errors) and effectively reduced to full selectivity over the size range for KSH, KNE, WKI, and EKI. Near-full selectivity may be plausible given that the dredge has a 1.5" (38 mm) polyurethane mesh liner inside the 4" (101 mm) ring mesh (Burt et al. 2021). Additionally, recruitment deviations may be flexible enough to fit observed size composition data without size dependent selectivity in these districts. Conversely, the YAK model estimated nearly linear selectivity over the size range (Figure \ref{fig:selectivity}). Again, selectivity in the plus group is forced to 1, but it is also worth noting that annual size compositions tend in YAK to be left skewed compared with other districts (except for EKI) that have more clearly defined recruitment pulses (Figure \ref{fig:fitsurveysize}).
+
+## Recruitment and Spawning Stock Biomass {-}
+
+Recruitment variability was high in all districts, but comparatively less so in WKI and EKI (Figure \ref{fig:recruitment}). Kodiak districts (KSH, KNE) underwent a period of low recruitment during the mid-2000s to mid-2010s, after which estimated recruitment returned to previous levels in KSH and a time series high in KNE (2018). Estimated recruitment in has been low roughly stationary since 2015 in WKI and 2000 in EKI (Figure \ref{fig:recruitment}). The YAK model suggests frequent spikes in recruitment throughout the time series, with the last large pulse occurring in 2018 (Figure \ref{fig:recruitment}). 
+
+Estimated spawning stock biomass (SSB) in KSH and KNE decreased from the beginning of the time series before rebounding swiftly after 2016 (Figure \ref{fig:ssb}). WKI SSB reached its minimum in the mid-2010s before rebounding to the most recent high period in from 2015 - 2020. Since 2020, WKI SSB has been on a downward trend. EKI SSB has been stationary at low levels since 2011, while YAK SSB has been stationary and high since the late-2000s (Figure \ref{fig:ssb}). 
+
+KSH and KNE models both had large, positive retrospective patterns in SSB (Figure \ref{fig:ssbretro}). Retrospective patterns highlight heavy reliance on the short, sparse survey time series. Even with only five peels, there is considerable loss of information driving abundance and size composition in the latter part of the time series. Additionally, changes in survey information appear to have a strong influence on recruitment and estimability of dredge survey selectivity, at least in KSH (Figure \ref{fig:recretro} and \ref{fig:slxretro}). As a result, retrospective patterns as presented here may more so be diagnosing data sensitivity rather than structural misspecification.
+
+
+# Conclusions {-}
+
+Alaska weathervane scallop beds have undergone a wide range of different fishing histories, mortality events, and recruitment patterns, so a one-size-fits-all approach to modeling population dynamics is difficult to achieve without compromising resolution. The model structure used here adequately captured the observed population dynamics without undue complexity. Some clear structural misspecification exists (e.g., dredge survey selectivity), which can be revisited should the SPT continue to pursue a model-based stock assessment. 
+
+The analysis presented here stopped short of applying a harvest control rule to determine biological reference points. Following the existing framework used by the NPFMC Crab and Groundfish Plan Teams, a harvest control that assumes maximum F$_{\text{OFL}}$ = $M$ is likely the most suitable given availability of a stock biomass estimate informed by integrated fishery and survey data, though life history and reproductive information are lacking. The value of $M$ assumed here was based on an analysis by Kruse and Funk (1995) which considered a variety of estimation methods including maximum age (Kaiser 1986; Hennick 1973), growth analysis (Alverson and Carney 1975), and catch curve analysis (Robson and Chapman 1961). The resulting median estimate ($M$ = 0.13) was used as the basis for optimum yield in the FMP (NPFMC 1996....FMP). It may be worthwhile to revisit $M$ using a more modern age-based method (Dureuil and Froese 2021), an index of clappers (i.e., empty shells) (EAST COAST CITATION), or this population dynamic model.
+
+
+# Table {-}
+
+<!-- cpue standardization -->
+
+\begin{table}[H]
+\centering
+\caption{Results of CPUE standardization model selection by district. The first line of each district details the best model, followed by the change in AIC, deviance explained, and degrees of freedom for each additional covariate.}
+
+\label{table:gamres}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{llcccc}
+District & Model Terms & AIC & Deviance Explained & Degrees of Freedom\\
+\hline
+```{r cpueres, results='asis', eval = T}
+x <- read_csv("../../output/observer/2025/std_cpue_res.csv") 
+
+# print table
+print(xtable(x, align="llcccc", digits=c(0, 0, 0, 0, 3, 3)),
+      only.contents=TRUE,
+      include.rownames=FALSE,
+      floating=FALSE,
+      include.colnames=FALSE,
+      hline.after=NULL,
+      format.args = list(big.mark = ","))
+```
+\hline
+\end{tabular}
+}
+\end{table}
+
+<!-- jitter results -->
+
+\begin{table}[H]
+\centering
+\caption{Objective function, number of runs reaching a specific outcome, and maxiimum gradient compoent for 200 KSH jitter runs.}
+
+\label{table:jitterksh}
+\begin{tabular}{lccc}
+Objective Function & Number of Runs & Maximum Gradient\\
+\hline
+```{r jitksh, results='asis', eval = T}
+x <- read_csv("../../output/assessment_models/2026/jitter.csv") %>%
+  filter(model == "ksh") %>%
+  dplyr::select(2:4) %>%
+  mutate(obj_function = sprintf("%.5f", obj_function),
+         obj_function = ifelse(obj_function == "NA", "Undefined", obj_function),
+         max_gradient = ifelse(obj_function == "Undefined", "", max_gradient),
+         max_gradient = format(max_gradient, scientific = T, digits = 2))
+
+# print table
+print(xtable(x, align="lccc", digits=0),
+      only.contents=TRUE,
+      include.rownames=FALSE,
+      floating=FALSE,
+      include.colnames=FALSE,
+      hline.after=NULL,
+      format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Objective function, number of runs reaching a specific outcome, and maxiimum gradient compoent for 200 KNE jitter runs.}
+
+\label{table:jitterkne}
+\begin{tabular}{lccc}
+Objective Function & Number of Runs & Maximum Gradient\\
+\hline
+```{r jitkne, results='asis', eval = T}
+x <- read_csv("../../output/assessment_models/2026/jitter.csv") %>%
+  filter(model == "kne") %>%
+  dplyr::select(2:4) %>%
+  mutate(obj_function = sprintf("%.5f", obj_function),
+         obj_function = ifelse(obj_function == "NA", "Undefined", obj_function),
+         max_gradient = ifelse(obj_function == "Undefined", "", max_gradient),
+         max_gradient = format(max_gradient, scientific = T, digits = 2))
+
+# print table
+print(xtable(x, align="lccc", digits=0),
+      only.contents=TRUE,
+      include.rownames=FALSE,
+      floating=FALSE,
+      include.colnames=FALSE,
+      hline.after=NULL,
+      format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Objective function, number of runs reaching a specific outcome, and maxiimum gradient compoent for 200 WKI jitter runs.}
+
+\label{table:jitterwki}
+\begin{tabular}{lccc}
+Objective Function & Number of Runs & Maximum Gradient\\
+\hline
+```{r jitwki, results='asis', eval = T}
+x <- read_csv("../../output/assessment_models/2026/jitter.csv") %>%
+  filter(model == "wki") %>%
+  dplyr::select(2:4) %>%
+  mutate(obj_function = sprintf("%.5f", obj_function),
+         obj_function = ifelse(obj_function == "NA", "Undefined", obj_function),
+         max_gradient = ifelse(obj_function == "Undefined", "", max_gradient),
+         max_gradient = format(max_gradient, scientific = T, digits = 2))
+
+# print table
+print(xtable(x, align="lccc", digits=0),
+      only.contents=TRUE,
+      include.rownames=FALSE,
+      floating=FALSE,
+      include.colnames=FALSE,
+      hline.after=NULL,
+      format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Objective function, number of runs reaching a specific outcome, and maxiimum gradient compoent for 200 EKI jitter runs.}
+
+\label{table:jittereki}
+\begin{tabular}{lccc}
+Objective Function & Number of Runs & Maximum Gradient\\
+\hline
+```{r jiteki, results='asis', eval = T}
+x <- read_csv("../../output/assessment_models/2026/jitter.csv") %>%
+  filter(model == "eki") %>%
+  dplyr::select(2:4) %>%
+  mutate(obj_function = sprintf("%.5f", obj_function),
+         obj_function = ifelse(obj_function == "NA", "Undefined", obj_function),
+         max_gradient = ifelse(obj_function == "Undefined", "", max_gradient),
+         max_gradient = format(max_gradient, scientific = T, digits = 2))
+
+# print table
+print(xtable(x, align="lccc", digits=0),
+      only.contents=TRUE,
+      include.rownames=FALSE,
+      floating=FALSE,
+      include.colnames=FALSE,
+      hline.after=NULL,
+      format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Objective function, number of runs reaching a specific outcome, and maxiimum gradient compoent for 200 YAK jitter runs.}
+
+\label{table:jitteryak}
+\begin{tabular}{lccc}
+Objective Function & Number of Runs & Maximum Gradient\\
+\hline
+```{r jityak, results='asis', eval = T}
+x <- read_csv("../../output/assessment_models/2026/jitter.csv") %>%
+  filter(model == "yak") %>%
+  dplyr::select(2:4) %>%
+  mutate(obj_function = sprintf("%.5f", obj_function),
+         obj_function = ifelse(obj_function == "NA", "Undefined", obj_function),
+         max_gradient = ifelse(obj_function == "Undefined", "", max_gradient),
+         max_gradient = format(max_gradient, scientific = T, digits = 2))
+
+# print table
+print(xtable(x, align="lccc", digits=0),
+      only.contents=TRUE,
+      include.rownames=FALSE,
+      floating=FALSE,
+      include.colnames=FALSE,
+      hline.after=NULL,
+      format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Comparision of likelihood components and number of parameters by district model.}
+
+\label{table:lik}
+\begin{tabular}{lcccccc}
+Component & KSH & KNE & WKI & EKI & YAK\\
+\hline
+```{r lik, results='asis', eval = T}
+x <- read_csv("../../output/assessment_models/2026/likelihood.csv") 
+
+# print table
+print(xtable(x, align="lcccccc", digits=3),
+      only.contents=TRUE,
+      include.rownames=FALSE,
+      floating=FALSE,
+      include.colnames=FALSE,
+      hline.after=NULL,
+      sanitize.text.function = identity,
+      format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Select parameter estimates and associated standard errors for each district model.}
+
+\label{table:pars}
+\resizebox{\textwidth}{!}{
+\begin{tabular}{lcccccc}
+Parameter & KSH & KNE & WKI & EKI & YAK\\
+\hline
+```{r pars, results='asis', eval = T}
+x <- read_csv("../../output/assessment_models/2026/parameters.csv") 
+
+# print table
+print(xtable(x, align="lcccccc", digits=0),
+      only.contents=TRUE,
+      include.rownames=FALSE,
+      floating=FALSE,
+      include.colnames=FALSE,
+      hline.after=NULL,
+      sanitize.text.function = identity,
+      format.args = list(big.mark = ","))
+
+```
+\hline
+\end{tabular}
+}
+\end{table}
 
 # Figures {-}
+
+```{r ksheffects, fig.align='center', fig.cap="Marginal effect of month based on 'best' GAM fit to KSH CPUE. ", eval = T, out.width = "50%"}
+knitr::include_graphics("../../figures/observer/2025/assessment_cpue_std_ksh_effects.png")
+```
+
+```{r kneeffects, fig.align='center', fig.cap="Marginal effect of month, bed, and smoothed depth based on 'best' GAM fit to KNE CPUE. ", eval = T}
+knitr::include_graphics("../../figures/observer/2025/assessment_cpue_std_kne_effects.png")
+```
+
+```{r wkieffects, fig.align='center', fig.cap="Marginal effect of smoothed depth based on 'best' GAM fit to WKI CPUE. ", eval = T, out.width = "50%"}
+knitr::include_graphics("../../figures/observer/2025/assessment_cpue_std_wki_effects.png")
+```
+
+```{r ekieffects, fig.align='center', fig.cap="Marginal effect of month based on 'best' GAM fit to EKI CPUE. ", eval = T, out.width = "50%"}
+knitr::include_graphics("../../figures/observer/2025/assessment_cpue_std_eki_effects.png")
+```
+
+```{r yakeffects, fig.align='center', fig.cap="Marginal effect of smoothed depth, bed, vessel, month, and dredge width based on 'best' GAM fit to YAK CPUE.", eval = T}
+knitr::include_graphics("../../figures/observer/2025/assessment_cpue_std_yak_effects.png")
+```
+
+
+
+
+
+
 
 ```{r wal, fig.align='center', fig.cap="Round weight (g) at shell height (mm) by district. Parameters are scaled to weight in tonnes.", eval = T}
 knitr::include_graphics("../../figures/assessment_models/2026/wal.png")
@@ -315,6 +653,120 @@ knitr::include_graphics("../../figures/assessment_models/2026/wal.png")
 knitr::include_graphics("../../figures/assessment_models/2026/maturity_ogive.png")
 ```
 
+```{r growthmat, fig.align='center', fig.cap="Shell height growth increment data and growth transition matrices (yellow violins) estimated outside of GMACS.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_growth.png")
+```
+
+
+
+
+
+```{r fitcatch, fig.align='center', fig.cap="Fit to retained and discard catch data (t) by district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_catch.png")
+```
+
+```{r fitcpue, fig.align='center', fig.cap="Fit to standardized fishery CPUE by district.", eval = T,  out.width = "60%"}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_cpue.png")
+```
+
+```{r fitsurveybiomass, fig.align='center', fig.cap="Fit to standardized fishery CPUE by district.", eval = T,  out.width = "60%"}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_biomass.png")
+```
+
+
+```{r fitfishsizeagg, fig.align='center', fig.cap="Fit to retained and discarded catch size composition data aggregated by district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_agg_fish_size.png")
+```
+
+```{r fitfishsizekshret, fig.align='center', fig.cap="Fit to retained catch size composition data by year in the KSH district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_ret_size_year_ksh.png")
+```
+
+```{r fitfishsizekshdisc, fig.align='center', fig.cap="Fit to discardeded catch size composition data by year in the KSH district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_disc_size_year_ksh.png")
+```
+
+```{r fitfishsizekneret, fig.align='center', fig.cap="Fit to retained catch size composition data by year in the KNE district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_ret_size_year_kne.png")
+```
+
+```{r fitfishsizeknedisc, fig.align='center', fig.cap="Fit to discardeded catch size composition data by year in the KNE district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_disc_size_year_kne.png")
+```
+
+```{r fitfishsizewkiret, fig.align='center', fig.cap="Fit to retained catch size composition data by year in the WKI district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_ret_size_year_wki.png")
+```
+
+```{r fitfishsizewkidisc, fig.align='center', fig.cap="Fit to discardeded catch size composition data by year in the WKI district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_disc_size_year_wki.png")
+```
+
+```{r fitfishsizeekiret, fig.align='center', fig.cap="Fit to retained catch size composition data by year in the EKI district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_ret_size_year_eki.png")
+```
+
+```{r fitfishsizeekidisc, fig.align='center', fig.cap="Fit to discardeded catch size composition data by year in the EKI district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_disc_size_year_eki.png")
+```
+
+```{r fitfishsizeyakret, fig.align='center', fig.cap="Fit to retained catch size composition data by year in the YAK district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_ret_size_year_yak.png")
+```
+
+```{r fitfishsizeyakdisc, fig.align='center', fig.cap="Fit to discardeded catch size composition data by year in the YAK district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_disc_size_year_yak.png")
+```
+
+```{r osafishqq, fig.align='center', fig.cap="QQ plots of one-step-ahead residuals for retained and discarded catch size composition data by district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_qq_fish_size.png")
+```
+
+```{r osafishdot, fig.align='center', fig.cap="One-step-ahead residuals for retained and discarded catch size composition data by district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_dot_fish_size.png")
+```
+
+
+
+```{r fitsurveysizeagg, fig.align='center', fig.cap="Fit to dredge survey size composition data aggregated by district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_agg_survey_size.png")
+```
+
+```{r fitsurveysize, fig.align='center', fig.cap="Fit to dredge survey size composition data by year and district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_survey_size.png")
+```
+
+```{r osasurvey, fig.align='center', fig.cap="One-step-ahead residuals (right) and associated QQ plots (left) for dredge survey size composition data by district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_fit_qq_survey_osa.png")
+```
+
+
+```{r selectivity, fig.align='center', fig.cap="Estimated retention and selectivity for the directed fishery and dredge survey by district.", eval = T}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_slx.png")
+```
+
+
+
+```{r recruitment, fig.align='center', fig.cap="Estimated recreuitment and associated 95\\% confidence interval by district.", eval = T, out.width = "80%"}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_recruitment.png")
+```
+
+```{r ssb, fig.align='center', fig.cap="Estimated spawning stock biomass and associated 95\\% confidence interval by district.", eval = T, out.width = "80%"}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_ssb.png")
+```
+
+
+```{r ssbretro, fig.align='center', fig.cap="Retrospective pattern in spawning stock biomass and associated Mohn's rho given five peels by district.", eval = T, out.width = "80%"}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_retrospective.png")
+```
+
+```{r recretro, fig.align='center', fig.cap="Retrospective pattern in recruitment given five peels by district.", eval = T, out.width = "80%"}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_retrospective_recruit.png")
+```
+
+```{r slxretro, fig.align='center', fig.cap="Retrospective pattern in selectivity given five peels by district.", eval = T, out.width = "80%"}
+knitr::include_graphics("../../figures/assessment_models/2026/gmacs_retrospective_slx.png")
+```
 
 # Literature Cited {-}
 
@@ -329,6 +781,8 @@ Cronin-Fine, L, AE Punt (2020) There is no best method for constructing size-tra
 Hennen, DR and DR Hart (2012) Shell height-to-weight relationships for Atlantic sea scallops ($Placopecten$ $magellanicus$) in offshore U.S. waters. Journal of Shellfish Research 31: 1133-1144.
 
 Kruse, GH, FC Funk (1995) Biological reference points for weathervane scallops in Alaska. Poster presented to the North Pacific Symposium on Invertebrate Stock Assessment and Management, Nanaimo, British Columbia, Canada, March 6-10, 1995. 
+
+Thorson, JT, KF Johnson, RD Methot, IG Taylor (2017) Model-based estimates of effective sample size in stock assessment models using the Dirichlet-multinomial distribution. Fisheries Research 192: 84-93.
 
 Wood, S (2004) Stable and efficient multiple smoothing parameter estimation for generalized additive models. Journal of the American Statistical Association 99: 673-686.
 

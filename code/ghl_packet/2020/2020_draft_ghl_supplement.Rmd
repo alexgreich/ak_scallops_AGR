@@ -1,0 +1,2025 @@
+---
+title: "2020 Alaska Statewide Weathervane Scallop GHL Supplement"
+author:  |
+  | Tyler Jackson
+  | Alaska Department of Fish and Game, Commercial Fisheries Division, Kodiak, Alaska
+output:
+  bookdown::pdf_document2:
+    toc: yes
+header-includes:
+   - \usepackage{float}
+   - \usepackage{hanging}
+---
+
+```{r, echo = F, message = F, warning = F}
+library(tidyverse)
+library(xtable)
+
+knitr::opts_chunk$set(echo=FALSE, message=FALSE, warning=FALSE, fig.pos='H')
+```
+
+# Background
+This document summarizes weathervane scallop *Patinopecten caurinus* fishery dependent and fishery independent data to aid in setting guideline harvest levels (GHLs) for the 2020/21 scallop season, scheduled to begin July 1. Amendment 3 to the Fishery Management Plan for the Scallop Fishery off Alaska (FMP) delegated authority to manage all aspects of the federal waters scallop fishery except limited access to the State of Alaska. ADF\&G sets GHLs prior to each season, opens and closes scallop fishing areas and districts, oversees the onboard observer program, monitors scallop fishery catch and bycatch inseason, summarizes scallop management activities in department publications, and participates in the federal management process through the North Pacific Fishery Management Council (NPFMC) and Scallop Plan Team (SPT) (NPFMC 2014).
+
+Amendment 13 of the weathervane scallop FMP to incorporate Annual Catch Limits (ACLs) required by the 2006 reauthorization of the Magnuson-Stevens Act redefined the statewide overfishing level (OFL) from 1.24 million lb to 1.29 million lb of shucked scallop meats (NPFMC 2014). The change was made to account for all sources of fishing mortality including harvest, discarded scallop catch in the directed fishery, bycatch in other fisheries, and survey catches. The annual ACL will equal 90\% of OFL, or 1.161 million lb of shucked meats, subject to annual approval by the NPFMC. For the ACL amendment analysis leading to the new OFL definition, mortality of scallops discarded in the fishery was assumed to be 20\%, and meat recovery was set at 10\% of scallop round weight (NPFMC 2014).
+
+The state's vessel-based limited entry program for the state-waters scallop fishery sunsetted on December 31, 2013.
+Subsequently, the Alaska Board of Fisheries (BOF) passed a new state waters scallop fishery management plan (FMP).
+Details on the  BOF action are available at  **\url{http://www.adfg.alaska.gov/index.cfm?adfg=fisheriesboard.meetinginfo&date=01-07-2014&meeting=kodiak}**.
+
+# Data sources and updates
+## Fishery Data
+Fishery data presented in this document include logbook information completed by vessel captains and data collection by observers during sampled dredges. All fishery data can be accessed on the Kodiak Wiki via the following link **\url{http://kodweb.fishgame.state.ak.us/index/Data_Access:Scallop_Observer:}**. Although scallop vessel operators sign waivers that allow ADF\&G to publish data collected by the onboard observer program, material included in this report such as individual vessel fishing locations, catches, and catch rates are **\textit{Confidential}** and should not be released to the public.
+
+Beds are the most basic population unit, and appear to undergo different dynamics even within the same district. As a result, bed specific data summaries are important to understanding interannual trends in fishing performance and biological characteristics of the fished stock. Beginning with this document, logbook information was assigned a bed code based on start locations of dredges (i.e., longitude, latitude). Most dredges could be assigned to a bed, but there are many that were outside of known bed boundaries throughout all seasons (for example exploratory effort) (Figure \ref{fig:knebedmap} - \ref{fig:yakbedmap}). Bed designations are preliminary and will be refined as appropriate bed boudaries are determined, and decision points are made regarding "unknown" locations. In the KSW district, bed was assigned for CPUE standardization (see below) as being north or south of 57.1$^{\circ}$ latitude (Figure \ref{fig:kswbedmap}).
+
+Recent changes in management boundaries include the reclassification of the Karluk scallop beds to the Kodiak Southwest district (from Kodiak Shelikof), and merging of Yakutat Districts (previously D16 and D). Logbook data presented here that included both bed and location information here have been revised to reflect current management boundaries. This includes effort and retained catch analyses. Discard and Bycatch data are not summarized at the bed level in the database, and do not include location information in the current form of the data query. As a result, I was unable to revise timeseries to relfect current management reclassifications in the KSW and KSH district. **Discard and bycatch data of Karluk beds are presented here in the Kodiak Shelikof district as opposed to the Kodiak Southwest district**. Bycatch estimates for both historical Yakutat districts were combined.
+
+Catch per unit effort (CPUE) estimates presented in this document include nominal (i.e., raw) meat weight CPUE, round weight CPUE, and standardized round weight CPUE. **All CPUE estimates presented here area nominal values unless stated otherwise**.
+
+````{r knebedmap, fig.align='center', fig.cap="All dredge locations since the 2009/10 season in the KNE district by bed designation.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/all_yr_dredge_map_KNE.png")
+```
+
+````{r kshbedmap, fig.align='center', fig.cap="All dredge locations since the 2009/10 season in the KSH district by bed designation.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/all_yr_dredge_map_KSH.png")
+```
+
+````{r kswbedmap, fig.align='center', fig.cap="All dredge locations since the 2009/10 season in the KSW district by bed designation. For CPUE standardization bed was assigned as being north or south of 57.1 degrees latitude. ", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/all_yr_dredge_map_KSW.png")
+```
+
+````{r mbedmap, fig.align='center', fig.cap="All dredge locations since the 2009/10 season in area M by bed designation.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/all_yr_dredge_map_M.png")
+```
+
+````{r obedmap, fig.align='center', fig.cap="All dredge locations since the 2009/10 season in area O by bed designation.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/all_yr_dredge_map_O.png")
+```
+
+````{r qbedmap, fig.align='center', fig.cap="All dredge locations since the 2009/10 season in area Q by bed designation.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/all_yr_dredge_map_Q.png")
+```
+
+````{r yakbedmap, fig.align='center', fig.cap="All dredge locations since the 2009/10 season in area D by bed designation.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/all_yr_dredge_map_YAK.png")
+```
+
+## Survey Data
+Available recent survey data include the Statewide Weathervane Scallop Dredge survey (henceforth dredge survey) (Smith et al., 2016), the Westward Region Large-Mesh Bottom Trawl Survey (henceforth trawl survey) (Spalinger 2015), and the NMFS RACE EBS Bottom Trawl Survey (referred to as trawl survey for area Q only). For dredge survey data access, contact Ryan Burt (ryan.burt@alaska.gov). Trawl survey data can be accessed on the Kodiak Wiki via the following link \url{http://kodweb.fishgame.state.ak.us/index/Data_Access:Trawl_Survey:Large_Mesh:}. EBS trawl survey data are available via AKFIN. Dredge survey results are presented elsewhere and can be found in the most recently published survey report (Williams et al. 2017; Jackson $in$ $prep$) or annual NPFMC SAFE reports (NPFMC 2017; NPFMC 2018; NPFMC 2019; NPFMC 2020).  
+
+Trawl survey tows were assigned to scallop management districts using spatial polygons constructed from district boundary lines and shorelines. It is important to note that fisheries independent data presented here do not represent direct estimates of abundance or biomass, rather indices that inform relative trends in those metrics. Further, trawl survey methods and gear configuration are not deisgned for sampling scallops and catchability of scallops ($q$) is unknown, though it's likely less than $q$ = 1. While trawl survey data are presented here in comparision with fishery data, interpretation of these data should be done so conservatively.
+
+# Analyses
+## Spatial extent of catch
+The spatial scale of the fishery effort and catch provides necessary insight to intrepretting trends in fishing performance. For instance, good fishing performance corresponding to intense effort in a small area does not necessarily indicate good health of the stock as a whole, or vice versa. Here, spatial extent of the fishery catch was computed as the average pairwise distance among dredge start locations. Using this approach, both the range and density of fishing effort are considered in characterizing spatial extent. Units are decimal degrees of latitude and longitude, thus the value of spatial extent is not directly interpretable, rather it serves as a relative index over the fishery timeseries. Only hauls contritubing the top 90\% of a season's catch where included in this analysis, so not to include "exploratory" fishing effort that was not fruitful.
+
+## CPUE standardization
+Interpretation of CPUE estimates as an index of abundance is reliant upon a fundamental relationship in fisheries analysis
+
+\begin{equation}
+C_{t}/E_{t}=qN_{t}
+\end{equation}
+
+where $C_t$ is catch at time $t$, $E_t$ is the effort expended at time $t$, $N_t$ is abundance at time $t$, and $q$ is the portion of the stock captured by one unit of effort (catchability coefficient). 
+Provided $q$ is constant over time, CPUE is proportional to abundance, though it is rare that $q$ is constant over the entire exploitation history. 
+
+Fishery statistics presented in this report are affected by many factors. In particular, these data are influenced by the spatial structure of the Alaska scallop population and non-random allocation of fishing effort. Scallop CPUE is affected by each vessel's choice of fishing location as well as weather, currents, sea state, captain and crew performance, gear tuning, processing capacity, markets, etc. Scallop shell height distributions from observer sampling are likewise affected by fishing locations and discarding as well as by the 4" diameter rings required by Alaska regulations that retain small scallops with lower efficiency than large scallops. 
+
+Standardizing CPUE (controlling for variables that affect catch aside from population abundance) is a difficult process, which may be subject to improvements over time. Standardized CPUE estimates presented in this document represent the most current standardization method (presented at the 2020 SPT meeting, Kodiak), which uses a generalized additive model (GAM) in the form of 
+
+\begin{equation}
+(cpue+ \gamma) = f_1(depth~\cdot~Bed) + f_2(longitude\cdot~Bed) + Month + Vessel + Season\cdot~Bed +  \epsilon
+\end{equation}
+
+where $f_i$ are smoothing functions, and month, vessel, season, and bed are parametric effects, with an interaction between season and bed (to allow for beds to undergo different interannual trends in abundance). All standardization models were fit with a gamma response distribution and log-link. A small modifier ($\gamma$) was added to CPUE estimates to avoid zero values.
+
+## Discard estimation
+Round weight and count of scallop discards, and number of clappers, is recorded by observers during every sampled dredge. Total discarded scallops ($D$) is estimated as
+
+\begin{equation}
+D = \frac{\sum_{i = 1}^{n} d_{i}}{\sum_{i = 1}^{n} s_{i}} \times \sum_{i = 1}^{n} h_{i}
+\end{equation}
+
+where $d_{i}$ is the number, or round weight, of discards (or clappers), $s_{i}$ is total observer sample hours, and $h_{i}$ is total dredge hours in day $i$ of the fishery. Discarded scallop count data is only available for intact scallop and not broken scallops. Therefore, **counts of scallop discards presented in this document should be interpreted as intact scallops only, whereas round weight of scallop discards includes both intact and broken scallops.** The ratio of intact to broken scallops in total discard weight is presented separately. Discard mortality is estimated to be 20% of total round weight or count of intact scallops, though additional research should be conducted to inform this analysis.
+
+## Bycatch estimation
+Bycatch of Tanner crab ($Chionoecetes$ $bairdi$), snow crab ($Chionoecetes$ $opilio$), and red king crab ($Paralithodes$  $camtschaticus$) is closely tracked in-season relative to a predetermined crab bycatch limit (CBL). All registration areas except for Yakutat utilize CBLs for at least one of these species. Other non-target species of interest include Dungeness crab ($Metacarcinus$ $magister$) and Pacific halibut ($Hippoglossus$ $stenolepis$), though no bycatch limits exist for those species. Total bycatch ($C$) of each species for a season is estimated as 
+
+\begin{equation}
+C = \frac{\sum_{i = 1}^{n} c_{i}}{\sum_{i = 1}^{n} s_{i}} \times \sum_{i = 1}^{n} h_{i}
+\end{equation}
+
+where $c_{i}$ is the catch (count) of a species, $s_{i}$ is total observer sample hours, and $h_{i}$ is total dredge hours in day $i$ of the fishery. Total bycatch of red king crab is reported in fishery logbooks, thus no expansion calculation is necessary. In bycatch analyses presented by day, days without observer sampling are assigned the average bycatch rate for the season, in that district.
+
+## Fishery biological information
+Shell height is measured for 40 retained and 40 discarded scallops during every observer sampled tow. Shell height distribution observed over the entire season is estimated by weighting the shell height composition of a given tow by the round weight catch of retained and discarded scallops of that tow, relative to all tows in the season.
+
+Since the 2018/19 season, observers have collected individual meats from a subset of measured scallops per tow. The relationship between shell height and meat weight is allometric in the form of 
+
+\begin{equation}
+W = \alpha L^{\beta}
+\end{equation}
+
+where $W$ is meat weight (g), $L$ is shell height (mm), while $\alpha$ and $\beta$ are shape and scale parameters of the allometric function, respectively. The meat weight \~ shell height relationship and the effect of season were evaluated among registration areas. Allometric growth parameters, $\alpha$ and $\beta$, were estimated via linear regression using the linearized form of the equation above with the addition of an interaction with season
+
+\begin{equation}
+\ln{W} = \ln{\alpha_{1}} + \beta_{1} \ln{L} + \ln{\alpha_{2}Season} + \beta_{2} \ln{L \cdot Season} + \epsilon
+\end{equation}
+
+In the Kodiak (K) and Yakutat (D) registration areas, allometry varies slightly by district and/or bed. For these areas, the above model equation was fit with random effects on $\alpha$ by district in area K and by bed in area D.
+
+
+# Kodiak Registration Area (K)  
+The Kodiak registration area (K) contains five districts: Northeast (KNE), Shelikof (KSH), Southwest (KSW), Southeat (KSE), and Semidi Islands (KSEM). All districts were fished within GHLs during the 2020 except for KSEM, which has had zero fishing effort since the 2013/14 season, and KSE was has only been fished during the 2018/19 season. Accordingly, no fishery information regarding KSEM and KSE are presented in district specific analyses here. The most recent dredge surveys in area K were conducted in 2016 (KSH), 2017 (KSH, KNE), 2018 (KSH), and 2020 (KSH, KNE). The trawl survey is conducted within area K on an annual basis. 
+
+## Fishery performance
+### KNE District
+The 2019/20 Kodiak Northeast District scallop fishery opened on July 1, 2019 with a GHL of 15,000 lbs of scallop meats. Two vessels particpated in the fishery harvesting 15,070 lbs scallop meat with a CPUE of 73.3 lbs meat/dredge hour. Total round weight of retained scallops was 165,989 lbs with a nominal CPUE of 807 lbs/dredge hour (Table \ref{table:knet1}). Fishing effort was restricted to two beds in the southern portion of the district, making the spatial extent of effort within the district the smallest since the 2016/17 season (Figures \ref{fig:kneeffortmap} - \ref{fig:kneextent}). Round weight CPUE increased from the 2018/19 season, however, most beds within the district (except KNE5) continue on a decreasing long-term trend (Table \ref{table:knestdcpue}, Figures \ref{fig:kneeffects} - \ref{fig:knecpue}).
+
+\begin{table}[H]
+\centering
+\caption{KNE district catch summary. Meat and round weight CPUE represent nominal values.}
+   
+\label{table:knet1}
+\begin{tabular}{lcrrcccc}
+&& \multicolumn{2}{c}{Retained catch} & Dredge & Number & Meat wt & Round wt\\
+Year & GHL & (lb meat) & (lb round) & hours & hauls & cpue$^a$ & cpue$^b$\\ 
+\hline	
+1993/94 & & 155,187 & 2,208,487 & 6,940 & 4,099 & 22 & 318\\
+1994/95 & & 35,517 & 384,052 &	1,773 &	986 &	20 & 217\\
+1995/96 & closed & & & & & &\\
+1996/97 & & 11,430 & 147,269 & 581 & 319 & 20 &	253\\
+1997/98 & & 95,858 & 1,144,405 & 2,604 & 1,418 & 37 &	439\\
+1998/99 & & 120,010 & 1,366,648 & 2,747 & 1,331 &	44 & 498\\
+1999/00 & 75,000 & 77,119 & 952,972 & 1,383 &	673 & 56 & 689\\
+2000/01 & 80,000 & 79,965 & 681,198 &	1,101 &	556 & 73 & 619\\
+2001/02 & 80,000 & 80,470 & 822,110 &	1,142 &	591 & 70 & 720\\
+2002/03 & 80,000 & 80,000 &	871,918 &	1,350 &	725 & 59 & 646\\
+2003/04 & 80,000 & 79,965 &	747,517 &	1,248 &	684 & 64 & 599\\
+2004/05 & 80,000 & 80,105 &	848,527 &	1,227 &	662 & 65 & 692\\
+2005/06 & 80,000 & 79,990 &	831,378 &	1,759 &	881 & 46 & 473\\
+2006/07 & 90,000 & 75,150 &	703,388 &	1,168 &	688 & 64 & 602\\
+2007/08 & 90,000 & 75,105 &	822,697 &	1,170 &	671 & 63 & 703\\
+2008/09 & 90,000 & 74,863 &	808,277 &	1,356 &	793 & 55 & 596\\
+```{r midtblkne, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/fish_stats_KNE.csv") -> x
+			print(xtable(x,align="llcrrcccc", digits=0), 
+			      only.contents=TRUE, 
+			      include.rownames=FALSE, 
+			      floating=FALSE, 
+			      include.colnames=FALSE, 
+			      hline.after=NULL, 
+			      format.args = list(big.mark = ","))
+```
+\hline	
+\multicolumn{3}{l}{$^a$lb scallop meat/dredge hour}	\\
+\multicolumn{3}{l}{$^b$lb scallop round/dredge hour}\\
+\end{tabular} 
+\end{table}
+
+````{r kneeffortmap, fig.align='center', fig.cap="Heat map of fishing effort within the KNE district. Warmer colors indicate areas accounting for a greater proportion of fishing effort.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/effort_map_KNE.png")
+```
+
+````{r kneextent, fig.align='center', fig.cap="Nominal CPUE (round lbs / dredge hr) (solid line) and relative spatial extent of fishing effort (dotted line) within the KNE district by season", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/cpue_extent_KNE.png")
+```   
+
+\begin{table}[H]
+\centering
+\caption{KNE district nominal and standardized CPUE estimates (round lbs / dredge hour) by season.}
+   
+\label{table:knestdcpue}
+\begin{tabular}{lccccc}
+& \multicolumn{3}{c}{Nominal CPUE} &\\
+Season & (total) & (median) & (sd) & Standardized CPUE\\ 
+\hline
+```{r knestdcpue, results = 'asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/standardized_cpue_season_KNE.csv") -> x
+			print(xtable(x,align = "lccccc", digits = 2), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+```
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r kneeffects, fig.align ='center', fig.cap = "Partial effects of Month, Vessel, Season, and Bed on CPUE within the KNE district. Season values represent the last two digits of the year the fishery opened.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/std_cpue_effects_KNE.png")
+``` 
+
+````{r knecpue, fig.align ='center', fig.cap = "Boxplots of nominal CPUE (round lbs / dredge hr) overlaid with standardized CPUE (round lbs / dredge hr) by season (black line) (top) and standardized CPUE by bed and season (bottom) within the KNE district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/standardized_cpue_KNE.png")
+``` 
+
+### KSH District 
+The 2019/20 Kodiak Shelikof District scallop fishery opened on July 1, 2019 with a GHL of 20,000 lbs of scallop meats. Two vessels particpated in the fishery harvesting 20,125 lbs scallop meat with a nominal CPUE of 53.0 lbs meat/dredge hour. Total round weight of retained scallops was 249,287 lbs with a nominal CPUE of 657 lbs/dredge hour (Table \ref{table:ksht1}). Fishing effort was the most spatially concentrated it has been since the 2009/10 season, and nominal CPUE was the highest in the entire timeseries (since the 1993/94 season) (Table \ref{table:ksht1} -  \ref{table:kshstdcpue}, Figures \ref{fig:ksheffortmap} - \ref{fig:kshcpue}).
+
+\begin{table}[H]
+\centering
+\caption{KSH district catch summary. Meat and round weight CPUE represent nominal values.}
+\label{table:ksht1}
+\begin{tabular}{lcrrcccc}
+& & \multicolumn{2}{c}{Retained catch} & Dredge  & Numer  & Meat wt  & Round wt\\ 
+Year & GHL & (lb meat) & (lb round) & hours & hauls & cpue$^a$ & cpue$^b$\\ 
+\hline	
+1993/94 & &	105,017 & 1,169,664	&	2,491	& 1,684	& 42 & 542\\
+1994/95 &	&	320,111 & 3,452,842	&	8,662	& 5,204	& 37 & 565\\
+1995/96 &	closed & & & & & &\\
+1996/97 &	& 219,305 & 1,877,268	& 3,466	& 1,914	& 63 & 542\\
+1997/98 &	& 258,346 & 3,097,992	& 5,488	& 3,042	& 47 & 565\\
+1998/99 &	& 179,870 & 2,128,025	& 4,076	& 2,109	& 44 & 522\\
+1999/00 &	180,000	&	187,963	& 1,901,953	& 4,295	& 2,004	& 44 & 443\\
+2000/01 &	180,000	&	180,087	& 1,768,376	& 2,905	& 1,403	& 62 & 609\\
+2001/02 &	180,000	&	177,112	& 1,830,265	& 3,398	& 1,830	& 53 & 539\\
+2002/03 &	180,000	&	180,580	& 1,857,466	& 3,799	& 2,071	& 47 & 489\\
+2003/04 &	180,000	&	180,011	& 1,724,498	& 3,258	& 1,722	& 64 & 529\\
+2004/05 &	180,000	&	174,622	& 1,641,608	& 3,467	& 1,793	& 50 & 474\\
+2005/06 &	160,000	&	159,941	& 1,453,656	& 2,278	& 1,217	& 70 & 638\\
+2006/07 &	160,000	&	162,537	& 1,404,134	& 2,181	& 1,280	& 74 & 644\\
+2007/08 &	170,000	&	169,968	& 1,695,563	& 2,937	& 1,736	& 58 & 577\\
+2008/09	& 150,000	& 13,761 &	2,053,912 & 3,286 & 1,825 & 46 & 625\\
+```{r midtblksh, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/fish_stats_KSH.csv") -> x
+			print(xtable(x,align="llcrrcccc", digits=0), 
+			      only.contents=TRUE, 
+			      include.rownames=FALSE, 
+			      floating=FALSE, 
+			      include.colnames=FALSE, 
+			      hline.after=NULL, 
+			      format.args = list(big.mark = ","))
+```
+\hline	
+\multicolumn{3}{l}{$^a$lb scallop meat wt/dredge hour}\\
+\multicolumn{3}{l}{$^b$lb scallop round wt/dredge hour}\\
+\multicolumn{8}{l}{$^c$GHLs in prior to 2019/20 were based on the inclusion of scallops beds adjacent to the}\\
+\multicolumn{4}{l}{Karluk River}\\
+\multicolumn{8}{l}{$^d$2008/09 inseason closure at due to Tanner crab bycatch}\\
+\multicolumn{8}{l}{$^e$2014/15, 2015/16 inseason closure due to poor fishing performance}\\
+\end{tabular} 
+\end{table}
+
+````{r ksheffortmap, fig.align='center', fig.cap="Heat map of fishing effort within the KSH district. Warmer colors indicate areas accounting for a greater proportion of fishing effort.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/effort_map_KSH.png")
+```
+
+````{r kshextent, fig.align='center', fig.cap="Nominal CPUE (round lbs / dredge hr) (solid line) and relative spatial extent of fishing effort (dotted line) within the KSH district by season", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/cpue_extent_KSH.png")
+```   
+     
+\begin{table}[H]
+\centering
+\caption{KSH district nominal and standardized CPUE estimates (round lbs / dredge hour) by season.}
+   
+\label{table:kshstdcpue}
+\begin{tabular}{lccccc}
+& \multicolumn{3}{c}{Nominal CPUE} &\\
+Season & (total) & (median) & (sd) & Standardized CPUE\\ 
+\hline
+```{r kshstdcpue, results = 'asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/standardized_cpue_season_KSH.csv") -> x
+			print(xtable(x,align = "lccccc", digits = 2), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+```
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r ksheffects, fig.align ='center', fig.cap = "Partial effects of Month, Vessel, Season, and Bed on CPUE within the KSH district. Season values represent the last two digits of the year the fishery opened.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/std_cpue_effects_KSH.png")
+``` 
+
+````{r kshcpue, fig.align ='center', fig.cap = "Boxplots of nominal CPUE (round lbs / dredge hr) overlaid with standardized CPUE (round lbs / dredge hr) by season (black line) (top) and standardized CPUE by bed and season (bottom) within the KSH district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/standardized_cpue_KSH.png")
+```    
+
+### KSW District
+The 2019/20 Kodiak Southwest District scallop fishery opened on July 1, 2019 with a GHL of 35,000 lbs of scallop meats. Two vessels particpated in the fishery harvesting 35,010 lbs scallop meat with a nominal CPUE of 55.1 lbs meat/dredge hour. Total round weight of retained scallops was 450,976 lbs with a nominal CPUE of 709 lbs/dredge hour (Table \ref{table:kswt1}). Fishing effort occured over a broader spatial area than in recent seasons (Figure \ref{fig:ksweffortmap}), though the spatial extent of the resulting catch was smaller than in 2018/19 (Figure \ref{fig:kswextent}). Standardized round weight CPUE suggests fishing performance within the district slightly improved from the 2018/19 season (Table \ref{table:kswstdcpue}, Figure \ref{fig:kswcpue}), despite a decreasing 'season' effect in the model (Figure \ref{fig:ksweffects}), though the KSW1 bed specifically underwent a slight decrease in fishing performance (Figure \ref{fig:kswcpue}). 
+
+\begin{table}[H]
+\centering
+\caption{KSW district catch summary. Meat and round weight CPUE represent nominal values.}
+   
+\label{table:kswt1}
+\begin{tabular}{lcrrcccc}
+&&  \multicolumn{2}{c}{Retained catch} & Dredge & Numer & Meat wt & Round wt\\ 
+Year & GHL & (lb meat) & (lb round) & hours & hauls & cpue$^a$ & cpue$^b$\\ 
+\hline	
+```{r midtblksw, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/fish_stats_KSW.csv") -> x
+			print(xtable(x,align="llcrrcccc", digits=0), 
+			      only.contents=TRUE, 
+			      include.rownames=FALSE, 
+			      floating=FALSE, 
+			      include.colnames=FALSE, 
+			      hline.after=NULL, 
+			      format.args = list(big.mark = ","))
+```
+\hline	
+\multicolumn{3}{l}{$^a$lb scallop meat wt/dredge hour}\\
+\multicolumn{3}{l}{$^b$lb scallop round wt/dredge hour}\\
+\multicolumn{8}{l}{$^c$GHLs in prior to 2019/20 were not based on the inclusion of scallops beds adjacent to}\\
+\multicolumn{4}{l}{the Karluk River}\\
+\multicolumn{4}{l}{$^d$2015/16 Inseason closure due to Tanner bycatch}\\
+\end{tabular} 
+\end{table}
+   
+````{r ksweffortmap, fig.align='center', fig.cap="Heat map of fishing effort within the KSW district. Warmer colors indicate areas accounting for a greater proportion of fishing effort.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/effort_map_KSW.png")
+```
+
+````{r kswextent, fig.align='center', fig.cap="Nominal CPUE (round lbs / dredge hr) (solid line) and relative spatial extent of fishing effort (dotted line) within the KSW district by season", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/cpue_extent_KSW.png")
+``` 
+
+\begin{table}[H]
+\centering
+\caption{KSW district nominal and standardized CPUE estimates (round lbs / dredge hour) by season.}
+   
+\label{table:kswstdcpue}
+\begin{tabular}{lccccc}
+& \multicolumn{3}{c}{Nominal CPUE} &\\
+Season & (total) & (median) & (sd) & Standardized CPUE\\ 
+\hline
+```{r kswstdcpue, results = 'asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/standardized_cpue_season_KSW.csv") -> x
+			print(xtable(x,align = "lccccc", digits = 2), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+```
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r ksweffects, fig.align ='center', fig.cap = "Partial effects of Month, Vessel, Season, and Bed on CPUE within the KSW district. Season values represent the last two digits of the year the fishery opened.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/std_cpue_effects_KSW.png")
+``` 
+
+````{r kswcpue, fig.align ='center', fig.cap = "Boxplots of nominal CPUE (round lbs / dredge hr) overlaid with standardized CPUE (round lbs / dredge hr) by season (black line) (top) and standardized CPUE by bed and season (bottom) within the KSW district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/standardized_cpue_KSW.png")
+``` 
+
+
+## Fishery discards
+Estimated scallop discards during the 2019/20 season were 46,604 round weight lbs (134,494 intact scallops) in the KNE district (Table \ref{table:knedisc}), 114,800 lbs (437,154 intact scallops) in the KSH district (Table \ref{table:kshdisc}), and 86,988 (212,173 intact scallops) in the KSW district (Table \ref{table:kswdisc}, Figure \ref{fig:areakdiscards}). KSH had the highest discard ratio (lbs discarded:retained) (0.46), followed by KNE (0.28), and KSW (0.19) (Figure \ref{fig:areakdiscardratio}). The catch rate of clappers in all districts increased markedly from the 2018/19 season (Tables \ref{table:kneclap} - \ref{table:kswclap}, Figure \ref{fig:areakclappers}). Intact scallops outweighed broken scallops in most hauls in all districts (Figure \ref{fig:kneintactatio} - \ref{fig:kswintactatio}).
+
+\begin{table}[H]
+\centering
+\caption{KNE discard summary including total retained catch (round weight), total estimated discards (round weight and count), discard ratio (lbs discarded : lbs retained), associated discard rates (lbs or count per dredge hr), and estimated discard mortality.}
+   
+\label{table:knedisc}
+\begin{tabular}{lccccccccc}
+& Retained & \multicolumn{2}{c}{Discarded} & & \multicolumn{2}{c}{Discard rate} & \multicolumn{2}{c}{Discard mortality}\\
+Season & (lbs) & (lbs) & (count) & Discard ratio & (lbs) & (count) & (lbs) & (count)\\
+\hline
+```{r midknedisc, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/discard_summary_KNE.csv") -> x
+			print(xtable(x, align = "lccccccccc", digits = c(0,0,0,0,0,2,0,0,0,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{KSH discard summary including total retained catch (round weight), total estimated discards (round weight and count), discard ratio (lbs discarded : lbs retained), associated discard rates (lbs or count per dredge hr), and estimated discard mortality.}
+   
+\label{table:kshdisc}
+\begin{tabular}{lccccccccc}
+& Retained & \multicolumn{2}{c}{Discarded} & & \multicolumn{2}{c}{Discard rate} & \multicolumn{2}{c}{Discard mortality}\\
+Season & (lbs) & (lbs) & (count) & Discard ratio & (lbs) & (count) & (lbs) & (count)\\
+\hline
+```{r midkshdisc, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/discard_summary_KSH.csv") -> x
+			print(xtable(x, align = "lccccccccc", digits = c(0,0,0,0,0,2,0,0,0,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{KSW discard summary including total retained catch (round weight), total estimated discards (round weight and count), discard ratio (lbs discarded : lbs retained), associated discard rates (lbs or count per dredge hr), and estimated discard mortality.}
+   
+\label{table:kswdisc}
+\begin{tabular}{lccccccccc}
+& Retained & \multicolumn{2}{c}{Discarded} & & \multicolumn{2}{c}{Discard rate} & \multicolumn{2}{c}{Discard mortality}\\
+Season & (lbs) & (lbs) & (count) & Discard ratio & (lbs) & (count) & (lbs) & (count)\\
+\hline
+```{r midkswdisc, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/discard_summary_KSW.csv") -> x
+			print(xtable(x, align = "lccccccccc", digits = c(0,0,0,0,0,2,0,0,0,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{KNE district clapper summary including total dredge hours, clapper rate, and total estimated clappers (count) by season.}
+   
+\label{table:kneclap}
+\begin{tabular}{lcccc}
+& & \multicolumn{2}{c}{Clappers}\\
+Season & Dredge hours & (rate) & (count)\\
+\hline
+```{r midkneclap, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/clappers_area_K.csv") %>%
+  filter(District == "KNE") %>%
+  dplyr::select(-District) -> x
+			print(xtable(x, align = "lcccc", digits = c(0,0,0,2,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{KSH district clapper summary including total dredge hours, clapper rate, and total estimated clappers (count) by season.}
+   
+\label{table:kshclap}
+\begin{tabular}{lcccc}
+& & \multicolumn{2}{c}{Clappers}\\
+Season & Dredge hours & (rate) & (count)\\
+\hline
+```{r midkshclap, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/clappers_area_K.csv") %>%
+  filter(District == "KSH") %>%
+  dplyr::select(-District) -> x
+			print(xtable(x, align = "lcccc", digits = c(0,0,0,2,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{KSW district clapper summary including total dredge hours, clapper rate, and total estimated clappers (count) by season.}
+   
+\label{table:kswclap}
+\begin{tabular}{lcccc}
+& & \multicolumn{2}{c}{Clappers}\\
+Season & Dredge hours & (rate) & (count)\\
+\hline
+```{r midkswclap, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/clappers_area_K.csv") %>%
+  filter(District == "KSW") %>%
+  dplyr::select(-District) -> x
+			print(xtable(x, align = "lcccc", digits = c(0,0,0,2,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r areakdiscards, fig.align = 'center', fig.cap = "Total discarded scallops as round weight (top) and number of count (bottom) for each district by season.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discards_area_K.png")
+```
+
+````{r areakdiscardratio, fig.align = 'center', fig.cap = "Scallop discard ratio (round weight discarded : retained) for each district by season.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discard_ratio_area_K.png")
+```
+
+````{r areakclappers,  fig.align = 'center', fig.cap = "Rate of clapper catch for each district by season in area K.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/clappers_area_K.png")
+```
+
+````{r kneintactatio, fig.align = 'center', fig.cap = "Boxplots of the ratio between intact and broken scallop discards in every haul within the KNE district. The dotted line represents a 1:1 ratio.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discard_broken_intact_ratio_KNE.png")
+```
+
+````{r kshintactatio, fig.align = 'center', fig.cap = "Boxplots of the ratio between intact and broken scallop discards in every haul within the KSH district. The dotted line represents a 1:1 ratio.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discard_broken_intact_ratio_KSH.png")
+```
+
+````{r kswintactatio, fig.align = 'center', fig.cap = "Boxplots of the ratio between intact and broken scallop discards in every haul within the KSW district. The dotted line represents a 1:1 ratio.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discard_broken_intact_ratio_KSW.png")
+```
+
+## Fishery bycatch
+Area K utilizes CBLs for Tanner crab and red king crab. During the 2019/20 season, the Tanner crab CBL was 9,000 crab in KNE, 10,000 crab in KSH, 17,500 crab in KSW, and 9,000 crab in KSE (Table \ref{table:knecrab} - \ref{table:kswcrab}). The red king crab CBL for all districts was 25 crab. No district exceeded the CBL for either species, nor were any districts closed prior to meeting the GHL in anticipation of exceeding the CBL (Table \ref{table:knecrab} - \ref{table:kswcrab}). Tanner crab bycatch ratio (crab:lbs retained scallop meat) was highest in KSW (0.312), followed by KNE (0.21), and KSH (0.08) (Figure \ref{fig:areakbycatchratio}).
+
+````{r areakbycatchratio, fig.align ='center', fig.cap = "Bycatch ratio, expressed as number of Tanner crab per pound of scallop meat weight, by year and district within area K", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/tanner_bycatch_ratio_area_K.png")
+```
+
+### KNE District
+Bycatch of Tanner crab and Pacific halibut decreased from the 2018/19 season, and no red king crab or Dungeness crab were caught. Dungeness crab have not been caught in the KNE district during any season in the timeseries (Table \ref{table:knecrab}, Figure \ref{fig:knebycatchtot}). The remaining allowable crab bycatch remained safely above the remaining GHL of scallops for the entirety of the season (Figure \ref{fig:knedailycbl}). Tanner crab bycatch included mostly small, immature crab (Figure \ref{fig:knetansize}).
+
+\begin{table}[H]
+\centering
+\caption{KNE bycatch summary including total number caught for each species as well as the ratio of number caught to meat weight of scallops retained. No Dungeness crab were caught during any season in the timeseries.}
+   
+\label{table:knecrab}
+\begin{tabular}{lcccccccc}
+& Scallop & Tanner crab & \multicolumn{2}{c}{Tanner crab} & \multicolumn{2}{c}{Red king crab} & \multicolumn{2}{c}{Pacific halibut}\\
+Season & GHL & CBL & (total) & (ratio) & (total) & (ratio) & (total) & (ratio)\\ 
+\hline	
+```{r midknecrab, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/bycatch_summary_KNE.csv") -> x
+			print(xtable(x, align = "lccccccccc", digits = c(0,0,0,0,0,2,0,2,0,2)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r knebycatchtot, fig.align='center', fig.cap="Total bycatch of Tanner crab, red king crab, and Pacific halibut by fishing season within the KNE district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/bycatch_totals_KNE.png")
+```
+
+````{r knedailycbl, fig.align='center', fig.cap="Percent reduction in scallop GHL and Tanner crab CBL throughout recent seasons within the KNE district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/daily_tanner_cbl_KNE.png")
+```
+
+````{r knetansize, fig.align = 'center', fig.cap = "Size frequency histogram of the number of Tanner crab caught by sex during each season in the KNE district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/tanner_size_KNE.png")
+```
+
+### KSH District
+Bycatch of Tanner crab and Pacific halibut slightly decreased, while Dungeness crab bycatch sharply increased from the 2018/19 season. No red king crab were caught in the 2019/20 season (Table \ref{table:kshcrab}, Figure \ref{fig:kshbycatchtot}). The remaining allowable crab bycatch remained safely above the remaining GHL of scallops for the entirety of the season (Figure \ref{fig:kshdailycbl}). Tanner crab bycatch included mostly small, immature crab (Figure \ref{fig:kshtansize}).
+
+\begin{table}[H]
+\centering
+\caption{KSH bycatch summary including total number caught for each species as well as the ratio of number caught to meat weight of scallops retained. }
+   
+\label{table:kshcrab}
+\begin{tabular}{lcccccccccc}
+& Scallop & Tanner crab & \multicolumn{2}{c}{Tanner crab} & \multicolumn{2}{c}{Red king crab} & \multicolumn{2}{c}{Dungeness cab} & \multicolumn{2}{c}{Pacific halibut}\\
+Season & GHL & CBL & (total) & (ratio) & (total) & (ratio) & (total) & (ratio) & (total) & (ratio)\\ 
+\hline	
+```{r midkshcrab, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/bycatch_summary_KSH.csv") -> x
+			print(xtable(x, align = "lccccccccccc", digits = c(0,0,0,0,0,2,0,2,0,2,0,2)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r kshbycatchtot, fig.align='center', fig.cap="Total bycatch of Tanner crab, red king crab, and Pacific halibut by fishing season within the KSH district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/bycatch_totals_KSH.png")
+```
+
+````{r kshdailycbl, fig.align='center', fig.cap="Percent reduction in scallop GHL and Tanner crab CBL throughout recent seasons within the KSH district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/daily_tanner_cbl_KSH.png")
+```
+````{r kshtansize, fig.align = 'center', fig.cap = "Size frequency histogram of the number of Tanner crab caught by sex during each season in the KSH district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/tanner_size_KSH.png")
+```
+
+### KSW District
+Bycatch of of all crab species increased from the 2018/19, while Pacific halibut bycatch slightly dereased (Table \ref{table:kshcrab}, Figure \ref{fig:kshbycatchtot}).The proportion of crab bycatch limit remaining was below the proportion of scallop GHL remaining during several days in late July, but ended the season well above the limit (Figure \ref{fig:kswdailycbl}). Tanner crab bycatch included mostly small, immature crab, but more crab between 90 - 120 mm than in KNE and KSH (Figure \ref{fig:kswtansize}).
+
+\begin{table}[H]
+\centering
+\caption{KSW bycatch summary including total number caught for each species as well as the ratio of number caught to meat weight of scallops retained.}
+   
+\label{table:kswcrab}
+\begin{tabular}{lcccccccccc}
+& Scallop & Tanner crab & \multicolumn{2}{c}{Tanner crab} & \multicolumn{2}{c}{Red king crab} & \multicolumn{2}{c}{Dungeness cab} & \multicolumn{2}{c}{Pacific halibut}\\
+Season & GHL & CBL & (total) & (ratio) & (total) & (ratio) & (total) & (ratio) & (total) & (ratio)\\ 
+\hline	
+```{r midkswcrab, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/bycatch_summary_KSW.csv") -> x
+			print(xtable(x, align = "lccccccccccc", digits = c(0,0,0,0,0,2,0,2,0,2,0,2)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\multicolumn{4}{l}{$^a$2015/16 Inseason closure due to Tanner bycatch}\\
+\end{tabular} 
+\end{table}
+
+
+````{r kswbycatchtot, fig.align='center', fig.cap="Total bycatch of Tanner crab, red king crab, and Pacific halibut by fishing season within the KSW district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/bycatch_totals_KSW.png")
+```
+
+````{r kswdailycbl, fig.align='center', fig.cap="Percent reduction in scallop GHL and Tanner crab CBL throughout recent seasons within the KSW district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/daily_tanner_cbl_KSW.png")
+```
+
+
+````{r kswtansize, fig.align = 'center', fig.cap = "Size frequency histogram of the number of Tanner crab caught by sex during each season in the KSW district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/tanner_size_KSW.png")
+```
+
+
+## Fishery biological information
+Shell height composition of catch in the KNE district suggests the presence of three distinct cohorts in the KNE district, one of retained size and two of discarded size (Figure \ref{fig:knesh}). In the KSH district, there appears to be a prominent discarded cohort \~ 95 mm, a cohort that was split retained/discarded, and a weak trailing cohort of large scallops (Figure \ref{fig:kshsh}). Smaller cohorts present in KNE and KSH were absent from KSW. Most scallops caught in KSW were between 100 - 130 mm, and there appears to be a strong cohort of large scallops \~ 155 mm tht was lacking in KNE and KSH (Figure \ref{fig:kswsh}).
+
+````{r knesh, fig.align ='center', fig.cap = "Shell height compostion of scallops caught within the KNE district in 5mm bins expressed as a weighted probability density function.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/sh_comp_KNE.png")
+```
+
+````{r kshsh, fig.align ='center', fig.cap = "Shell height compostion of scallops caught within the KSH district in 5mm bins expressed as a weighted probability density function.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/sh_comp_KSH.png")
+```
+
+````{r kswsh, fig.align ='center', fig.cap = "Shell height compostion of scallops caught within the KSW district in 5mm bins expressed as a weighted probability density function.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/sh_comp_KSW.png")
+```
+
+The effect of season on allometric growth parameters of the meat weight \~ shell height relationship was significant without random effects ($\alpha_{2}$, $p$ = 0.01; $\beta_{2}$, $p$ < 0.01), but not after incorportating random effects on $\alpha$ by district ($\sigma$ = 0.18) ($\alpha_{2}$, $p$ = 0.12; $\beta_{2}$, $p$ = 0.06). Still, the observed shift in allometry between seasons is clear and was visible by fisherman in the field, thus it is likely biologically relevant (Table \ref{table:kparams}, Figure \ref{fig:areakmwsh} - \ref{fig:areakranef}).
+
+\begin{table}[H]
+\centering
+\caption{Allometric growth parameters characterizing the meat weight, shell height relationship in area K by season.}
+\label{table:kparams}
+\begin{tabular}{lccc}
+Season & $\alpha$ & $\beta$\\
+\hline
+```{r midkparams, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/mw_sh_coefs_area_K.csv") %>%
+  mutate(alpha = exp(alpha),
+         alpha = formatC(alpha, format = "e", digits = 2)) -> x
+			print(xtable(x, align = "lccc", digits = c(0,3,3,3)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r areakmwsh, fig.align ='center', fig.cap = "Individual meat weight (g) as a function of shell height (mm) for scallops caught in area K during the 2018/19 and 2019/20 seasons, by district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/mw_sh_area_K.png")
+```
+
+````{r areakranef, fig.align ='center', fig.cap = "Random effects on the parameter $\\alpha$ by district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/mw_sh_area_K_ranef.png")
+```
+
+
+````{r knesex, fig.align ='center', fig.cap = "Proportion by sex in the KNE district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/sex_ratio_KNE.png")
+```
+
+````{r kshsex, fig.align ='center', fig.cap = "Proportion by sex in the KSH district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/sex_ratio_KSH.png")
+```
+
+````{r kswsex, fig.align ='center', fig.cap = "Proportion by sex in the KSW district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/sex_ratio_KSW.png")
+```
+
+````{r knegonad, fig.align ='center', fig.cap = "Proportion by gonad condition in the KNE district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/gonad_KNE.png")
+```
+
+````{r kshgonad, fig.align ='center', fig.cap = "Proportion by gonad condition in the KSH district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/gonad_KSH.png")
+```
+
+````{r kswgonad, fig.align ='center', fig.cap = "Proportion by gonad condition in the KSW district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/gonad_KSW.png")
+```
+
+## Fishery independent information
+### Trawl survey
+In 2019, the trawl survey completed 210 hauls within area K (Figure \ref{fig:areaktrawlstations}). The trawl survey spans each district except for KSEM. Data summary figures shown below (Figures \ref{fig:ktrawlcpuemap} - \ref{fig:ksetrawlsize}). 
+
+```{r areaktrawlstations, fig.align = 'center', fig.cap = "Trawl survey haul locations (blue) in comparison to the location of fishing effort (green) in area K from 2015 - 2019.", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/trawl_survey_vs_fishery_locations_area_K.png")
+```
+
+````{r ktrawlcpuemap, fig.align = 'center', fig.cap = "Trawl survey CPUE (kg / sq nm).", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/trawl_survey_cpue_map_area_K.png")
+```
+
+````{r knetrawlcpue, fig.align = 'center', fig.cap = "Trawl survey CPUE (+/- 95$\\%$ confidence interval) (blue) in comparision to standardized fishery CPUE within the KNE district. Both indices are scaled to a standard normal distribution to compare trends.", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/scaled_cpue_KNE.png")
+```
+
+````{r knetrawlsize, fig.align = 'center', fig.cap = "Size composition of scallops caught in the trawl survey from 2015 to 2019 in the KNE district", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/trawl_survey_KNE_size_comp.png")
+```
+
+````{r kshtrawlcpue, fig.align = 'center', fig.cap = "Trawl survey CPUE (+/- 95$\\%$ confidence interval) (blue) in comparision to standardized fishery CPUE within the KSH district. Both indices are scaled to a standard normal distribution to compare trends.", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/scaled_cpue_KSH.png")
+```
+
+````{r kshtrawlsize, fig.align = 'center', fig.cap = "Size composition of scallops caught in the trawl survey from 2015 to 2019 in the KSH district", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/trawl_survey_KSH_size_comp.png")
+```
+
+````{r kswtrawlcpue, fig.align = 'center', fig.cap = "Trawl survey CPUE (+/- 95$\\%$ confidence interval) (blue) in comparision to standardized fishery CPUE within the KSW district. Both indices are scaled to a standard normal distribution to compare trends.", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/scaled_cpue_KSW.png")
+```
+
+````{r kswtrawlsize, fig.align = 'center', fig.cap = "Size composition of scallops caught in the trawl survey from 2015 to 2019 in the KSW district", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/trawl_survey_KSW_size_comp.png")
+```
+
+````{r ksetrawlcpue, fig.align = 'center', fig.cap = "Trawl survey CPUE (+/- 95$\\%$ confidence interval) (blue) in comparision to standardized fishery CPUE within the KSE district. Both indices are scaled to a standard normal distribution to compare trends.", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/scaled_cpue_KSE.png")
+```
+
+````{r ksetrawlsize, fig.align = 'center', fig.cap = "Size composition of scallops caught in the trawl survey from 2015 to 2019 in the KSE district", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/trawl_survey_KSE_size_comp.png")
+```
+
+
+
+# Alaska Penninsula Registration Area (M) 
+The Alaska Penninsula registration area (M) contains three districts: Unimak Bight (UB), Central (C), and West Chignik (WC). GHLs for the 2019/20 season were set for the UB district (7,500 lbs) and waters between 160$^{\circ}$W - 161$^{\circ}$W longitude (7,500 lbs), which is within the C district (Table \ref{table:mt1}). Fishery statistics within area M are presented here with all districts combined, unless otherwise noted. Area M has never been included in the dredge survey, though several trawl survey stations within area M are sampled on an annual basis.
+
+## Fishery performance
+The 2019/20 Unimak Bight District scallop fishery opened on July 1, 2019 with a GHL of 7,500 lbs of scallop meats in the Unimak Bight district and waters between 160$^{\circ}$W - 161$^{\circ}$W longitude. One vessel particpated in the fishery harvesting 5,740 lbs scallop meat with a CPUE of 48.7 lbs meat/dredge hour, and the fishery closed prior to achieving the GHL due to high Tanner crab bycatch. All effort occured in the UB district. Total round weight of retained scallops was 63,937 lbs with a nominal CPUE of 542 lbs/dredge hour (Table \ref{table:mt1}). Fishing effort was restricted to a small area within the UB district (Figure \ref{fig:meffortmap}), and the resulting catch came from the smallest spatial area within the UB district since the 2012/13 season (Figure \ref{fig:mextent}). Round weight CPUE was standardized without a covariate for bed due to inconsistent or limited fishing effort, despite some catch occuring throughout the management area. Despite a slight increase in nominal CPUE from the 2018/19 season, standardized CPUE continues a decreasing trend (Table  \ref{table:mstdcpue}, Figure \ref{fig:mcpue}), which may be becuase fishing occured during the month of October, the effect of which is negative compared to months July through September (i.e., poorer fishing performance in prior seasons occured during October, and the model fits the data accordingly) (Figure \ref{fig:meffects}).
+
+\begin{table}[H]
+\centering
+\caption{Area M catch summary. Meat and round weight CPUE represent nominal values.}
+\label{table:mt1}
+\begin{tabular}{lcrrcccc}
+&&\multicolumn{2}{c}{Retained catch} & Dredge  & Numer  & Meat wt  & Round wt\\ 
+Year & GHL & (lb meat) & (lb round) & hours & hauls & cpue$^a$ & cpue$^b$\\ 
+\hline	
+1993/94 & &	112,087	&	& 1,847	&	957	&	61	&\\
+1994/95 & & 65,282 & & 1,664 &	1,115	&	39	&\\
+1995/96 &	closed & & & & & &\\
+1996/97 &	200,000 &	12,560 & 128,800 & 327 & 177 & 38	& 394\\
+1997/98 &	200,000 &	51,616 & 597,546 & 1,752 & 1,050 & 29 & 341\\
+1998/99 &	200,000 &	63,290 & 617,039 & 1,612 & 681 & 39 & 383\\
+1999/00 &	200,000 &	75,535 & 778,838 & 2,025 & 1,099 & 37 & 385\\
+2000/01 &	33,000 & 7,660 & 92,874 & 320	&	188	& 24 & 290\\
+2001/02 &	closed & & & & & &\\
+2002/03 &	closed & & & & & &\\
+2003/04 &	closed & & & & & &\\			
+2004/05 &	closed & & & & & &\\		
+2005/06 &	10,000 & No Effort & & & & &\\		
+2006/07 &	25,000 & 155 & 2,936 & 64 &	73 & 2 & 99\\
+2007/08 &	10,000 & No Effort & & & & &\\	
+2008/09 & 10,000 & 2,460 & 31,870	&	154	&	114	&	16 & 207\\
+2009/10 & closed & & & & & &\\
+2010/11 & closed & & & & & &\\
+2011/12 & closed & & & & & &\\
+```{r midtblm, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/fish_stats_M.csv") -> x
+			print(xtable(x,align="llcrrcccc",digits=0), only.contents=TRUE, include.rownames=FALSE, 
+					floating=FALSE, include.colnames=FALSE, hline.after=NULL, format.args = list(big.mark = ","))
+```
+\hline
+\multicolumn{3}{l}{$^a$lb scallop meat wt/dredge hour}\\
+\multicolumn{3}{l}{$^b$lb scallop round wt/dredge hour}\\
+\multicolumn{4}{l}{$^c$2019/20 Inseason closure due to Tanner bycatch}\\
+\end{tabular}
+\end{table}
+
+````{r meffortmap, fig.align='center', fig.cap="Heat map of fishing effort within area M. Warmer colors indicate areas accounting for a greater proportion of fishing effort.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/effort_map_M.png")
+```
+
+````{r mextent, fig.align='center', fig.cap="Nominal CPUE (round lbs / dredge hr) (solid line) and relative spatial extent of fishing effort (dotted line) within the UB district by season. The C district did not have enough catch in most years to compute relative extent.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/cpue_extent_UB.png")
+```   
+
+\begin{table}[H]
+\centering
+\caption{Area M district nominal and standardized CPUE estimates (round lbs / dredge hour) by season.}
+   
+\label{table:mstdcpue}
+\begin{tabular}{lccccc}
+& \multicolumn{3}{c}{Nominal CPUE} &\\
+Season & (total) & (median) & (sd) & Standardized CPUE\\ 
+\hline
+```{r mstdcpue, results = 'asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/standardized_cpue_season_M.csv") -> x
+			print(xtable(x,align = "lccccc", digits = 2), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+```
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r meffects, fig.align ='center', fig.cap = "Partial effects of Month, Vessel, Season, and Bed on CPUE within the KNE district. Season values represent the last two digits of the year the fishery opened.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/std_cpue_effects_M.png")
+``` 
+
+````{r mcpue, fig.align ='center', fig.cap = "Boxplots of nominal CPUE (round lbs / dredge hr) overlaid with standardized CPUE (round lbs / dredge hr) by season (black line) (top) and standardized CPUE by bed and season (bottom) within the M district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/standardized_cpue_M.png")
+``` 
+
+
+## Fishery discards
+Estimated scallop discards during the 2019/20 season were 25,917 round weight lbs (84,153 scallops) in the UB district (Table \ref{table:ubdisc}, Figure \ref{fig:areamdiscards}). The most recent fishing effort in the C district (2018/19 season) saw no retained catch, and 139 round weight lbs of discards (450 scallops) (Table \ref{table:cdisc}). Discard ratio (lbs discarded:lbs retained) in the UB district continued an increasing trend since the 2015/16 season to > 0.4 lbs discards per pound of retained scallops (i.e., close to a 1:2 ratio) in the 2019/20 season (Table \ref{table:ubdisc}, Figure \ref{fig:areamdiscardratio}). The rate of clapper catch nearly tripled from the 2018/19 season (Tables \ref{table:ubclap} - \ref{table:cclap}, Figure \ref{fig:areamclappers}). Intact scallops outweighted broken scallops in all hauls (Figure \ref{fig:mintactatio})
+
+
+\begin{table}[H]
+\centering
+\caption{UB district discard summary including total retained catch (round weight), total estimated discards (round weight and count), discard ratio (lbs discarded : lbs retained), and associated discard rates (lbs or count per dredge hr).}
+   
+\label{table:ubdisc}
+\begin{tabular}{lccccccccc}
+& Retained & \multicolumn{2}{c}{Discarded} & & \multicolumn{2}{c}{Discard rate} & \multicolumn{2}{c}{Discard mortality}\\
+Season & (lbs) & (lbs) & (count) & Discard ratio & (lbs) & (count) & (lbs) & (count)\\ 
+\hline
+```{r midubdisc, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/discard_summary_UB.csv") -> x
+			print(xtable(x, align = "lccccccccc", digits = c(0,0,0,0,0,2,0,0,0,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{C district discard summary including total retained catch (round weight), total estimated discards (round weight and count), discard ratio (lbs discarded : lbs retained), and associated discard rates (lbs or count per dredge hr). Discard ratio was not computed for seasons with no retained catch.}
+   
+\label{table:cdisc}
+\begin{tabular}{lccccccccc}
+& Retained & \multicolumn{2}{c}{Discarded} & & \multicolumn{2}{c}{Discard rate} & \multicolumn{2}{c}{Discard mortality}\\
+Season & (lbs) & (lbs) & (count) & Discard ratio & (lbs) & (count) & (lbs) & (count)\\ 
+\hline
+```{r midcdisc, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/discard_summary_C.csv") %>%
+  mutate(discard_num = ifelse(discard_lb == 0, 0, discard_num),
+         discard_ratio = ifelse(round_weight == 0, "", discard_ratio),
+         discard_rate_num = ifelse(discard_lb == 0, 0, discard_rate_num)) -> x
+			print(xtable(x, align = "lccccccccc", digits = c(0,0,0,0,0,2,0,0,0,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{UB district clapper summary including total dredge hours, clapper rate, and total estimated clappers (count) by season.}
+   
+\label{table:ubclap}
+\begin{tabular}{lcccc}
+& & \multicolumn{2}{c}{Clappers}\\
+Season & Dredge hours & (rate) & (count)\\
+\hline
+```{r midubclap, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/clappers_area_M.csv") %>%
+  filter(District == "UB") %>%
+  dplyr::select(-District) -> x
+			print(xtable(x, align = "lcccc", digits = c(0,0,0,2,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{C district clapper summary including total dredge hours, clapper rate, and total estimated clappers (count) by season.}
+   
+\label{table:cclap}
+\begin{tabular}{lcccc}
+& & \multicolumn{2}{c}{Clappers}\\
+Season & Dredge hours & (rate) & (count)\\
+\hline
+```{r midcclap, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/clappers_area_M.csv") %>%
+  filter(District == "C") %>%
+  dplyr::select(-District) -> x
+			print(xtable(x, align = "lcccc", digits = c(0,0,0,2,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+
+````{r areamdiscards, fig.align = 'center', fig.cap = "Total discarded scallops as round weight (top) and number of count (bottom) for each district by season.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discards_area_M.png")
+```
+
+````{r areamdiscardratio, fig.align = 'center', fig.cap = "Scallop discard ratio (round weight discarded : retained) for each district by season.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discard_ratio_area_M.png")
+```
+
+````{r areamclappers, fig.align = 'center', fig.cap = "Rate of clapper catch for each district by season in area M.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/clappers_area_M.png")
+```
+
+````{r mintactatio, fig.align = 'center', fig.cap = "Boxplots of the ratio between intact and broken scallop discards in every haul within area M. The dotted line represents a 1:1 ratio.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discard_broken_intact_ratio_M.png")
+```
+
+
+
+## Fishery bycatch
+
+Area M utilizes CBLs for Tanner crab and red king crab. During the 2019/20 season, the Tanner crab CBL was 3,750 crab in both UB district and waters waters between 160$^{\circ}$W - 161$^{\circ}$W longitude (Table \ref{table:ubcrab}). The red king crab CBL for both districts was 25 crab.  
+
+Bycatch of Tanner crab and Pacific halibut increased markedly from the 2018/19 season, and no red king crab or Dungeness crab were caught (Table \ref{table:ubcrab}, Figure \ref{fig:ubbycatchtot} - \ref{fig:ubcatchratio}). Four snow crab (3 female, 1 male, < 55 mm) were caught in observer sampled dredges in two consecutive days, though bycatch expansion estimates likely overinflate this occurance. Bycatch of snow crab in the UB district is certainly odd, but not unfeasible given the proximity of the UB district to the Bering Sea. Species identification was not confirmed by photo, and it is worth noting that sampling protocols do not differentiate between snow crab and snow-Tanner crab hybrids. Tanner crab bycatch exceeded the CBL during the second day (October 5, 2019) of fishing, and the fishery was subsequently closed by emergency order after achieving only 75\% of the GHL (Table \ref{table:ubcrab}, Figure \ref{fig:ubdailycbl}). Crab bycatch (both Tanner and potential snow crab) included mostly small, immature crab, predominately under 50 mm (Figure \ref{fig:ubtansize}).
+
+\begin{table}[H]
+\centering
+\caption{UB bycatch summary including total number caught for each species. No Dungeness crab or red king crab have been caught in any season since the fishery reopened in the 2012/13.}
+   
+\label{table:ubcrab}
+\begin{tabular}{lccccccccc}
+& Scallop & Tanner crab & \multicolumn{2}{c}{Tanner crab} & \multicolumn{2}{c}{Snow crab} & \multicolumn{2}{c}{Pacific halibut}\\
+Season & GHL & CBL & (total) & (ratio) & (total) & (ratio) & (total) & (ratio)\\ 
+\hline	
+```{r midubcrab, results = 'asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/bycatch_summary_UB.csv") -> x
+x %>%
+  dplyr::select(1:7, 12:13) -> x
+			print(xtable(x, align = "lccccccccc", digits = c(0,0,0,0,0,2,0,2,0,2)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r ubbycatchtot, fig.align='center', fig.cap="Total bycatch of Tanner crab, snow crab, and Pacific halibut by fishing season within the UB district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/bycatch_totals_UB.png")
+```
+
+````{r ubcatchratio, fig.align ='center', fig.cap = "Bycatch ratio, expressed as number of Tanner crab per pound of scallop meat weight, by year and district within the UB district", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/tanner_bycatch_ratio_UB.png")
+```
+
+````{r ubdailycbl, fig.align='center', fig.cap="Percent reduction in scallop GHL and Tanner crab CBL throughout recent seasons within the UB district.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/daily_tanner_cbl_UB.png")
+```
+
+````{r ubtansize, fig.align = 'center', fig.cap = "Size frequency histogram of the number of Tanner crab caught by sex during each season in the UB district. Includes four potential snow crab.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/tanner_size_UB.png")
+```
+
+## Fishery biological information
+Shell height composition of catch in area M (i.e., the UB disrict) indicated two potential strong cohorts which overlap in shell size. Retained scallops were between \~ 115 - 160 mm, and discarded scallops were mostly > 100 mm (Figure \ref{fig:msh}). Though data from the 2019/20 season were limited, there was no visible difference in the meat weight \~ shell height relationship between seasons (Table \ref{table:mparams}, Figure \ref{fig:areammwsh}).
+
+````{r msh, fig.align ='center', fig.cap = "Shell height compostion of scallops caught within area M in 5mm bins expressed as a weighted probability density function.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/sh_comp_M.png")
+```
+
+\begin{table}[H]
+\centering
+\caption{Allometric growth parameters characterizing the meat weight, shell height relationship in area M by season.}
+\label{table:mparams}
+\begin{tabular}{lccc}
+Season & $\alpha$ & $\beta$\\
+\hline
+```{r midmparams, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/mw_sh_coefs_area_M.csv") %>%
+  mutate(alpha = exp(alpha),
+         alpha = formatC(alpha, format = "e", digits = 2)) -> x
+			print(xtable(x, align = "lccc", digits = c(0,3,3,3)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r areammwsh, fig.align ='center', fig.cap = "Individual meat weight (g) as a function of shell height (mm) for scallops caught in area M during the 2018/19 and 2019/20 seasons.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/mw_sh_area_M.png")
+```
+
+````{r msex, fig.align ='center', fig.cap = "Proportion by sex in area M.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/sex_ratio_M.png")
+```
+
+````{r mgonad, fig.align ='center', fig.cap = "Proportion by gonad condition in area M.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/gonad_M.png")
+```
+
+## Fishery independent information
+### Trawl survey
+In 2019, the trawl survey completed 137 hauls within area M (Figure \ref{fig:areamtrawlstations}). Since scallop catch across the management area is low, C and WC districts were summarized together. The trawl survey does not include any stations in the UB district.
+
+````{r areamtrawlstations, fig.align = 'center', fig.cap = "Trawl survey haul locations (blue) in comparison to the location of fishing effort (green) in area M from 2015 - 2019.", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/trawl_survey_vs_fishery_locations_area_M.png")
+```
+
+````{r mtrawlcpuemap, fig.align = 'center', fig.cap = "Trawl survey CPUE (kg / sq nm).", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/trawl_survey_cpue_map_area_M.png")
+```
+
+````{r mtrawlcpue, fig.align = 'center', fig.cap = "Trawl survey CPUE (+/- 95$\\%$ confidence interval) (blue) in comparision to standardized fishery CPUE within area M. Both indices are scaled to a standard normal distribution to compare trends.", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/scaled_cpue_M.png")
+```
+
+````{r mtrawlsize, fig.align = 'center', fig.cap = "Size composition of scallops caught in the trawl survey from 2015 to 2019 in area M", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/trawl_survey_M_size_comp.png")
+```
+
+# Dutch Harbor Registration Area (O) 
+The Dutch Harbor registration area (O) consists of a single district, but is managed on the basis of beds, one on the Bering Sea side and one on the Pacific Ocean side of Unalaska Island. During the 2019/20 season, the Pacific Ocean side was closed and the Bering Sea side was fished within a monitoring GHL of 5,000 lbs. During the 2018/19 season the observer did not collect an average whole basket weight, and thus retained round weight could not be extrapolated from the catch with empirical data from that season. Instead, the average basket weight from 2009/10 - 2017/18 (54.1 lbs) was used to estimate retained round weight. Area O has never been included in the dredge survey, though several trawl survey stations within area O are sampled on an annual basis.
+
+## Fishery performance
+The 2019/20 Dutch Harbor District scallop fishery opened on July 1, 2019 with a GHL of 5,000 lbs of scallop meats on the Bering Sea side of Unalaska Island. One vessel particpated in the fishery harvesting 2,625 lbs scallop meat with a nominal CPUE of 20.1 lbs meat/dredge hour. Total round weight of retained scallops was 24,739 lbs with a nominal CPUE of 189 lbs/dredge hour (Table \ref{table:ot1}). As during the 2018/19 season, fishing effort was resticted to a single bay on the north side of Unmak Island (Figure \ref{fig:oeffortmap}). Despite geographically restricted effort, the spatial extent of 90\% of the retained catch was similar to years with more widespread effort (Figure \ref{fig:oextent}). Round weight CPUE increased from the 2018/19 season, though the long-term trend since the 2013/14 season has been decreasing (Table  \ref{table:ostdcpue}, Figure \ref{fig:oeffects} - \ref{fig:ocpue}).
+
+\begin{table}[H]
+\centering
+\caption{Area O catch summary. Meat and round weight CPUE represent nominal values.}
+\label{table:ot1}
+\begin{tabular}{lcrrcccc}
+& & \multicolumn{2}{c}{Retained catch} & Dredge & Number & Meat wt & Round wt\\ 
+Year & GHL & (lb meat) & (lb round) & hours & hauls & cpue$^a$ & cpue$^b$\\ 
+\hline	
+1993/94 & 170,000 & 38,731 & & 838 & & 46 &\\
+1994/95 & 170,000 & 1,931 & & 81 & & 24 &\\
+1995/96 & 170,000 & 26,950 & & 1,047 & & 26 &\\
+1996/97 & 170,000 & & & & & &\\
+1997/98 & 170,000 & 5,790 & 55,350 & 160 & & 36 & 345\\
+1998/99	& 110,000 & 46,462 & 424,028 & 941 & & 49 & 451\\
+1999/00	& 110,000 & 6,465 & 66,420 & 278 & & 23 & 268\\
+2000/01	&	closed & & & & & &\\
+2001/02	&	closed & & & & & &\\
+2002/03	&	10,000 & 6,000 & 59,066 & 177 &	& 33 & 333\\
+2003/04	&	closed & & & & & &\\
+2004/05	&	closed & & & & & &\\
+2005/06	&	closed & & & & & &\\
+2006/07	&	closed & & & & & &\\
+2007/08	&	closed & & & & & &\\
+2008/09	&	10,000 & 10,040 & 93,077 & 191 & & 53 & 488\\
+```{r midot1, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/fish_stats_O.csv") -> x
+			print(xtable(x,align="llcrrcccc",digits=0), only.contents=TRUE, include.rownames=FALSE, 
+					floating=FALSE, include.colnames=FALSE, hline.after=NULL, format.args = list(big.mark = ","))
+```
+\hline	
+\multicolumn{3}{l}{$^a$lb scallop meat/dredge hour}	\\
+\multicolumn{3}{l}{$^b$lb scallop round/dredge hour}\\
+\end{tabular} 
+\end{table}
+
+````{r oeffortmap, fig.align='center', fig.cap="Heat map of fishing effort within area O. Warmer colors indicate areas accounting for a greater proportion of fishing effort.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/effort_map_O.png")
+```
+
+````{r oextent, fig.align='center', fig.cap="Nominal CPUE (round lbs / dredge hr) (solid line) and relative spatial extent of fishing effort (dotted line) within the UB district by season", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/cpue_extent_O.png")
+```   
+
+\begin{table}[H]
+\centering
+\caption{Area O nominal and standardized CPUE estimates (round lbs / dredge hour) by season.}
+   
+\label{table:ostdcpue}
+\begin{tabular}{lccccc}
+& \multicolumn{3}{c}{Nominal CPUE} &\\
+Season & (total) & (median) & (sd) & Standardized CPUE\\ 
+\hline
+```{r ostdcpue, results = 'asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/standardized_cpue_season_O.csv") -> x
+			print(xtable(x,align = "lccccc", digits = 2), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+```
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r oeffects, fig.align ='center', fig.cap = "Partial effects of Month, Vessel, Season, and Bed on CPUE within area O. Season values represent the last two digits of the year the fishery opened.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/std_cpue_effects_O.png")
+``` 
+
+````{r ocpue, fig.align ='center', fig.cap = "Boxplots of nominal CPUE (round lbs / dredge hr) overlaid with standardized CPUE (round lbs / dredge hr) by season (black line) (top) and standardized CPUE by bed and season (bottom) within area O.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/standardized_cpue_O.png")
+``` 
+
+
+## Fishery discards
+Estimated scallop discards during the 2019/20 season were 3,199 round weight lbs (3,250 scallops) in area O (Table \ref{table:odisc}, Figure \ref{fig:areaodiscards}). Discard ratio (lbs discarded:lbs retained, 0.13) saw a substantial increase since te most previous season with retained catch (2017/18) and was the highest observed value since the 2009/10 season (Table \ref{table:odisc}, Figure \ref{fig:areaodiscardratio}). The rate of clapper catch was comparabe to the 2018/19 season (Tables \ref{table:oclap}, Figure \ref{fig:areaoclappers}). Intact discards outweighed broken discards in most hauls (Figure \ref{fig:ointactatio}).
+
+
+\begin{table}[H]
+\centering
+\caption{Area O discard summary including total retained catch (round weight), total estimated discards (round weight and count), discard ratio (lbs discarded : lbs retained), associated discard rates (lbs or count per dredge hr), and estimated discard mortality.}
+   
+\label{table:odisc}
+\begin{tabular}{lccccccccc}
+& Retained & \multicolumn{2}{c}{Discarded} & & \multicolumn{2}{c}{Discard rate} & \multicolumn{2}{c}{Discard mortality}\\
+Season & (lbs) & (lbs) & (count) & Discard ratio & (lbs) & (count) & (lbs) & (count)\\
+\hline
+```{r midodisc, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/discard_summary_O.csv") %>%
+  mutate(discard_ratio = ifelse(round_weight == 0, NA, discard_ratio),
+         round_weight = ifelse(round_weight == 0, NA, round_weight)) -> x
+			print(xtable(x, align = "lccccccccc", digits = c(0,0,0,0,0,2,0,0,0,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Area O clapper summary including total dredge hours, clapper rate, and total estimated clappers (count) by season.}
+   
+\label{table:oclap}
+\begin{tabular}{lcccc}
+& & \multicolumn{2}{c}{Clappers}\\
+Season & Dredge hours & (rate) & (count)\\
+\hline
+```{r midoclap, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/clappers_area_O.csv") %>%
+  dplyr::select(-District) -> x
+			print(xtable(x, align = "lcccc", digits = c(0,0,0,2,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+
+
+````{r areaodiscards, fig.align = 'center', fig.cap = "Total discarded scallops as round weight (top) and number of count (bottom) for each district by season.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discards_area_O.png")
+```
+
+````{r areaodiscardratio, fig.align = 'center', fig.cap = "Scallop discard ratio (round weight discarded : retained) for each district by season.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discard_ratio_area_O.png")
+```
+
+````{r areaoclappers, fig.align = 'center', fig.cap = "Rate of clapper catch by season in area O.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/clappers_area_O.png")
+```
+
+````{r ointactatio, fig.align = 'center', fig.cap = "Boxplots of the ratio between intact and broken scallop discards in every haul within area O. The dotted line represents a 1:1 ratio.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discard_broken_intact_ratio_O.png")
+```
+
+
+## Fishery bycatch
+Area O utilizes CBLs for Tanner crab and red king crab. During the 2019/20 season, CBLs on the Pacific Ocean side of Unalaska Island were 5,000 Tanner crab and 10 red king crab (Table \ref{table:ocrab}). Bycatch of Tanner crab increased from the 2018/19 season, though the ratio of Tanner crab caught to scallop meats retained decreased (Table \ref{table:ocrab}, Figure \ref{fig:obycatchtot} - \ref{fig:obycatchratio}). Bycatch of Pacific halibut decreased, and no red king crab or Dungeness crab were caught (Table \ref{table:ocrab}, Figure \ref{fig:obycatchtot}). Progress towards achieving the GHL remained ahead the remaining Tanner crab CBL for the entire season (Figure \ref{fig:odailycbl}). Tanner crab bycatch included mostly crab between 60 - 90 mm, and some smaller crab less than 50 mm (Figure \ref{fig:otansize}).
+
+\begin{table}[H]
+\centering
+\caption{Area O bycatch summary including total number caught for each species.}
+   
+\label{table:ocrab}
+\begin{tabular}{lccccccccccc}
+& Scallop & Tanner crab & \multicolumn{2}{c}{Tanner crab} & \multicolumn{2}{c}{Red King crab} & \multicolumn{2}{c}{Dungeness crab} & \multicolumn{2}{c}{Pacific halibut}\\
+Season & GHL & CBL & (total) & (ratio) & (total) & (ratio) & (total) & (ratio) & (total) & (ratio)\\ 
+\hline	
+```{r midocrab, results = 'asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/bycatch_summary_O.csv") -> x
+			print(xtable(x, align = "lccccccccccc", digits = c(0,0,0,0,0,2,0,2,0,2,0,2)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline
+\end{tabular} 
+\end{table}
+
+````{r obycatchtot, fig.align='center', fig.cap="Total bycatch of Tanner crab, red king crab, Dungeness crab, and Pacific halibut by fishing season within area O.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/bycatch_totals_O.png")
+```
+
+````{r obycatchratio, fig.align ='center', fig.cap = "Bycatch ratio, expressed as number of Tanner crab per pound of scallop meat weight, by year and district within area O", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/tanner_bycatch_ratio_area_O.png")
+```
+
+````{r odailycbl, fig.align='center', fig.cap="Percent reduction in scallop GHL and Tanner crab CBL throughout recent seasons within area O. Area O was only fished a single day during the 2018/19 season.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/daily_tanner_cbl_O.png")
+```
+
+````{r otansize, fig.align = 'center', fig.cap = "Size frequency histogram of the number of Tanner crab caught by sex during each season in area O.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/tanner_size_O.png")
+```
+
+## Fishery biological information
+Retained scallops in area O were all 150 mm shell height or larger, and nearly all discarded scallops were larger than 100 mm (Figure \ref{fig:osh}). Individual meat weight data was limited in both 2018/19 and 2019/20, but there doesn't appear to be any shift in the meat weight \~ shell height relationship between seasons (Table \ref{table:oparams}, Figure \ref{fig:areaomwsh}).
+
+````{r osh, fig.align ='center', fig.cap = "Shell height compostion of scallops caught within area O in 5mm bins expressed as a weighted probability density function.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/sh_comp_O.png")
+```
+
+\begin{table}[H]
+\centering
+\caption{Allometric growth parameters characterizing the meat weight, shell height relationship in area O by season.}
+\label{table:oparams}
+\begin{tabular}{lccc}
+Season & $\alpha$ & $\beta$\\
+\hline
+```{r midoparams, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/mw_sh_coefs_area_O.csv") %>%
+  mutate(alpha = exp(alpha),
+         alpha = formatC(alpha, format = "e", digits = 2)) -> x
+			print(xtable(x, align = "lccc", digits = c(0,3,3,3)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r areaomwsh, fig.align ='center', fig.cap = "Individual meat weight (g) as a function of shell height (mm) for scallops caught in area O during the 2018/19 and 2019/20 seasons.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/mw_sh_area_O.png")
+```
+
+````{r osex, fig.align ='center', fig.cap = "Proportion by sex in area O.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/sex_ratio_O.png")
+```
+
+````{r ogonad, fig.align ='center', fig.cap = "Proportion by gonad condition in area O.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/gonad_O.png")
+```
+
+## Fishery independent information 
+### Trawl survey
+The trawl survey does not typically overlap with scallop fishing grounds in area O, and catches very few scallops (i.e., only 4 in 2019) (Figure \ref{fig:areaotrawlstations} - \ref{fig:otrawlcpuemap}).
+
+````{r areaotrawlstations, fig.align = 'center', fig.cap = "Trawl survey haul locations (blue) in comparison to the location of fishing effort (green) in area O from 2015 - 2019.", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/trawl_survey_vs_fishery_locations_area_O.png")
+```
+````{r otrawlcpuemap, fig.align = 'center', fig.cap = "Trawl survey CPUE (kg / sq nm).", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/trawl_survey_cpue_map_area_O.png")
+```
+
+# Bering Sea Registration Area (Q) 
+The Bering Sea registration area (Q) consists of a single district, with fishing effort predominately occuring north of Unimak Island. Area Q used to contribute a substantial proportion of the statewide harvest until the 2014/15 season, when scallop meat quality began suffering from weak meats. Since then, minimal GHL's have been used to maintain availability of fishery data. The GHL for the 2019/20 survey was 7,500 lbs. The NMFS RACE EBS shelf bottom trawl survey is conducted in this district on an annual basis, but area Q has never been included in the dredge survey.
+
+
+## Fishery performance
+The 2019/20 Bering Sea scallop fishery opened on July 1, 2019 with a GHL of 7,500 lbs of scallop meats. One vessel particpated in the fishery harvesting 7,130 lbs scallop meat with a CPUE of 19.5 lbs meat/dredge hour. Total round weight of retained scallops was 106,177 lbs with a nominal CPUE of 291 lbs/dredge hour (Table \ref{table:qt1}). Fishing effort was the most concentrated it has been since the 2009/10 season, and as a result had the smallest spatial extent of catch during that time period (Figures \ref{fig:qeffortmap} - \ref{fig:qextent}). Round weight CPUE continued on a long term decline since the 2012/13 season (Table \ref{table:qstdcpue}, Figures \ref{fig:qeffects} - \ref{fig:qcpue}). 
+
+\begin{table}[H]
+\centering
+\caption{Area Q catch summary. Meat and round weight CPUE represent nominal values.}
+\label{table:qt1}
+\begin{tabular}{lcrrcccc}
+&&  \multicolumn{2}{c}{Retained catch} & Dredge  & Number  & Meat wt  & Round wt\\ 
+Year	&GHL&(lb meat)  & (lb round)              & hours   & hauls   & cpue$^a$ & cpue$^b$    \\ 
+\hline	
+1993/94 &	&	284,414	&	&	5,764	&	3,326	& 49 &\\
+1994/95 &	&	505,439	&	&	11,113 & 6,508 & 45 &\\
+1995/96 &	closed & & & & & &\\
+1996/97 &	600,000	&	150,295	& 1,428,060 &	2,313	&	951	& 65 & 620\\
+1997/98 &	600,000	&	97,002 & 1,077,150 & 2,246 & 1,280 & 43 & 492\\
+1998/99	&	400,000	&	96,795 & 1,189,021 & 2,319 & 1,178 & 42 & 526\\
+1999/00	&	400,000	&	164,481	& 1,844,765 &	3,294	&	1,514	& 50 & 563\\
+2000/01	&	200,000	&	205,520	& 2,376,601 &	3,355	&	1,564	& 61 & 710\\
+2001/02	&	200,000	&	140,871	& 1,700,500 &	3,072	&	1,401	& 46 & 559\\
+2002/03	&	105,000	&	92,240 & 951,938 & 2,038 & 1,010 & 44 & 468\\
+2003/04	&	105,000	&	42,590 & 537,552 & 1,020 & 517 & 41 & 527\\
+2004/05	&	50,000 & 10,050	& 128,128 &	275	&	145	& 37 & 475\\
+2005/06	&	50,000 & 23,220	& 231,700 &	602	&	303	& 39 & 386\\
+2006/07	&	50,000 & 48,246	& 529,590 &	1,138	&	583	& 43 & 466\\
+2007/08	&	50,000 & 49,995	& 697,288 &	1,084	&	540	& 46 & 647\\
+2008/09	&	50,000 & 49,995	& 502,450 &	960	&	642	& 52 & 525\\
+```{r midqt1, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/fish_stats_Q.csv") -> x
+			print(xtable(x,align="llcrrcccc",digits=0), only.contents=TRUE, include.rownames=FALSE, 
+					floating=FALSE, include.colnames=FALSE, hline.after=NULL, format.args = list(big.mark = ","))
+```
+\hline	
+\multicolumn{3}{l}{$^a$lb scallop meat wt/dredge hour}	\\
+\multicolumn{3}{l}{$^b$lb scallop round wt/dredge hour}	\\
+\end{tabular} 
+\end{table}
+
+````{r qeffortmap, fig.align='center', fig.cap="Heat map of fishing effort within area Q. Warmer colors indicate areas accounting for a greater proportion of fishing effort.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/effort_map_Q.png")
+```
+
+````{r qextent, fig.align='center', fig.cap="Nominal CPUE (round lbs / dredge hr) (solid line) and relative spatial extent of fishing effort (dotted line) within area Q by season", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/cpue_extent_Q.png")
+```   
+
+\begin{table}[H]
+\centering
+\caption{Area Q nominal and standardized CPUE estimates (round lbs / dredge hour) by season.}
+   
+\label{table:qstdcpue}
+\begin{tabular}{lccccc}
+& \multicolumn{3}{c}{Nominal CPUE} &\\
+Season & (total) & (median) & (sd) & Standardized CPUE\\ 
+\hline
+```{r qstdcpue, results = 'asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/standardized_cpue_season_Q.csv") -> x
+			print(xtable(x,align = "lccccc", digits = 2), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+```
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r qeffects, fig.align ='center', fig.cap = "Partial effects of Month, Vessel, Season, and Bed on CPUE within area Q. Season values represent the last two digits of the year the fishery opened.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/std_cpue_effects_Q.png")
+``` 
+
+````{r qcpue, fig.align ='center', fig.cap = "Boxplots of nominal CPUE (round lbs / dredge hr) overlaid with standardized CPUE (round lbs / dredge hr) by season (black line) (top) and standardized CPUE by bed and season (bottom) within area Q.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/standardized_cpue_Q.png")
+``` 
+
+
+## Fishery discards
+Estimated scallop discards during the 2019/20 season were 6,139 round weight lbs (4,973 scallops) in area Q (Table \ref{table:qdisc}, Figure \ref{fig:areaqdiscards}). Discard ratio (lbs discarded:lbs retained, 0.06) increased from the 2018/19 season (0.03) (Table \ref{table:qdisc}, Figure \ref{fig:areaqdiscardratio}). The rate of clapper catch continued an increase from the 2017/18 season (Tables \ref{table:qclap}, Figure \ref{fig:areaqclappers}). Broken discards outweighed intact discards in all hauls (Figure \ref{fig:qintactatio}).
+
+
+\begin{table}[H]
+\centering
+\caption{Area Q discard summary including total retained catch (round weight), total estimated discards (round weight and count), discard ratio (lbs discarded : lbs retained), associated discard rates (lbs or count per dredge hr), and estimated discard mortality.}
+   
+\label{table:qdisc}
+\begin{tabular}{lccccccccc}
+& Retained & \multicolumn{2}{c}{Discarded} & & \multicolumn{2}{c}{Discard rate} & \multicolumn{2}{c}{Discard mortality}\\
+Season & (lbs) & (lbs) & (count) & Discard ratio & (lbs) & (count) & (lbs) & (count)\\
+\hline
+```{r midqdisc, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/discard_summary_Q.csv") %>%
+  mutate(discard_ratio = ifelse(round_weight == 0, NA, discard_ratio)) -> x
+			print(xtable(x, align = "lccccccccc", digits = c(0,0,0,0,0,2,0,0,0,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Area Q clapper summary including total dredge hours, clapper rate, and total estimated clappers (count) by season.}
+   
+\label{table:qclap}
+\begin{tabular}{lcccc}
+& & \multicolumn{2}{c}{Clappers}\\
+Season & Dredge hours & (rate) & (count)\\
+\hline
+```{r midqclap, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/clappers_area_Q.csv") %>%
+  dplyr::select(-District) -> x
+			print(xtable(x, align = "lcccc", digits = c(0,0,0,2,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r areaqdiscards, fig.align = 'center', fig.cap = "Total discarded scallops as round weight (top) and number of count (bottom) for each district by season.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discards_area_Q.png")
+```
+
+````{r areaqdiscardratio, fig.align = 'center', fig.cap = "Scallop discard ratio (round weight discarded : retained) for each district by season.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discard_ratio_area_Q.png")
+```
+
+````{r areaqclappers, fig.align = 'center', fig.cap = "Rate of clapper catch by season in area Q.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/clappers_area_Q.png")
+```
+
+````{r qintactatio, fig.align = 'center', fig.cap = "Boxplots of the ratio between intact and broken scallop discards in every haul within area Q. The dotted line represents a 1:1 ratio.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discard_broken_intact_ratio_Q.png")
+```
+
+## Fishery bycatch
+Area Q utilizes CBLs for Tanner crab, snow crab (including snow-Tanner hybrids), and red king crab. During the 2019/20 season, CBLs were 65,000 Tanner crab, 300,000 snow crab, and 500 red king crab (Table \ref{table:qcrab}). 
+
+Bycatch of Tanner crab was similar to the 2018/19 season, while snow crab bycatch increased (Table \ref{table:qcrab}, Figure \ref{fig:qbycatchtot} - \ref{fig:qbycatchratio}). Bycatch of Pacific halibut decreased, and no red king crab were caught for the third consectutive seasno (Table \ref{table:qcrab}, Figure \ref{fig:qbycatchtot}). Crab bycatch rates never exceeded progress towards achieving the GHL at any point in the season (Figure \ref{fig:qdailycbl}). Tanner crab bycatch included all size classes, though was dominated by crab less than 100 mm (Figure \ref{fig:qtansize}). The same is true for snow crab, though proportionately, more commercially targeted males were caught (Figure \ref{fig:qsnowsize}).
+
+\begin{table}[H]
+\centering
+\caption{Area Q bycatch summary including total number caught for each species.}
+   
+\label{table:qcrab}
+\begin{tabular}{lcccccccccccc}
+& Scallop & Tanner crab & Snow crab & \multicolumn{2}{c}{Tanner crab} & \multicolumn{2}{c}{Snow crab} & \multicolumn{2}{c}{Red king crab} & \multicolumn{2}{c}{Pacific halibut}\\
+Season & GHL & CBL & CBL & (total) & (ratio) & (total) & (ratio) & (total) & (ratio) & (total) & (ratio)\\ 
+\hline	
+```{r midqcrab, results = 'asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/bycatch_summary_Q.csv") %>%
+  dplyr::select(-total_dungeness, -dungeness_ratio) -> x
+			print(xtable(x, align = "lcccccccccccc", digits = c(0,0,0,0,2,0,2,0,2,0,2,0,2)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r qbycatchtot, fig.align='center', fig.cap="Total bycatch of Tanner crab, snow crab, red king crab, and Pacific halibut by fishing season within area Q.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/bycatch_totals_Q.png")
+```
+
+````{r qbycatchratio, fig.align ='center', fig.cap = "Bycatch ratio, expressed as number of Tanner or snow crab per pound of scallop meat weight, by year and district within area Q", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/tanner_bycatch_ratio_area_Q.png")
+```
+
+````{r qdailycbl, fig.align='center', fig.cap="Percent reduction in scallop GHL and Tanner or snow crab CBL throughout recent seasons within area Q.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/daily_tanner_cbl_Q.png")
+```
+
+````{r qtansize, fig.align = 'center', fig.cap = "Size frequency histogram of the number of Tanner crab caught by sex during each season in area Q.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/tanner_size_Q.png")
+```
+
+````{r qsnowsize, fig.align = 'center', fig.cap = "Size frequency histogram of the number of snow crab caught by sex during each season in area Q.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/snow_size_Q.png")
+```
+
+## Fishery biological information
+Retained scallops in area Q appear to consist of a single strong cohort 150 mm shell height or larger. Most discarded scallops were larger than 100 mm (Figure \ref{fig:qsh}). There doesn't appear to be any shift in the meat weight \~ shell height relationship between seasons (Table \ref{table:qparams}, Figure \ref{fig:areaqmwsh}).
+
+````{r qsh, fig.align ='center', fig.cap = "Shell height compostion of scallops caught within area Q in 5mm bins expressed as a weighted probability density function.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/sh_comp_Q.png")
+```
+
+\begin{table}[H]
+\centering
+\caption{Allometric growth parameters characterizing the meat weight, shell height relationship in area Q by season.}
+\label{table:qparams}
+\begin{tabular}{lccc}
+Season & $\alpha$ & $\beta$\\
+\hline
+```{r midqparams, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/mw_sh_coefs_area_Q.csv") %>%
+  mutate(alpha = exp(alpha),
+         alpha = formatC(alpha, format = "e", digits = 2)) -> x
+			print(xtable(x, align = "lccc", digits = c(0,3,3,3)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r areaqmwsh, fig.align ='center', fig.cap = "Individual meat weight (g) as a function of shell height (mm) for scallops caught in area Q during the 2018/19 and 2019/20 seasons.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/mw_sh_area_Q.png")
+```
+````{r qsex, fig.align ='center', fig.cap = "Proportion by sex in area Q.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/sex_ratio_Q.png")
+```
+
+````{r qgonad, fig.align ='center', fig.cap = "Proportion by gonad condition in area Q.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/gonad_Q.png")
+```
+
+## Fishery independent information 
+### Trawl survey
+The EBS trawl survey overlaps the area Q fishing grounds (Figure \ref{fig:areaqtrawlstations}), but also includes a much broader geographic range over which scallops are not typically encountered. The survey takes place annually, sampling 376 stations. Shell height composition of scallops caught is not collected.
+
+```{r areaqtrawlstations, fig.align = 'center', fig.cap = "Trawl survey haul locations (blue) in comparison to the location of fishing effort (green) in area Q from 2015 - 2019.", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/trawl_survey_vs_fishery_locations_area_K.png")
+```
+
+````{r qtrawlcpuemap, fig.align = 'center', fig.cap = "Trawl survey CPUE (kg / sq nm).", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/trawl_survey_cpue_map_area_Q.png")
+```
+
+````{r qtrawlcpue, fig.align = 'center', fig.cap = "Trawl survey CPUE (+/- 95$\\%$ confidence interval) (blue) in comparision to standardized fishery CPUE within area Q. Both indices are scaled to a standard normal distribution to compare trends.", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/scaled_cpue_Q.png")
+```
+
+# Cook Inlet Registration Area H
+The Cook Inlet Registration Area (H) consists of two beds: Kamishak North (KAMN) and South (KAMS). KAMN has been closed since the 2018 season (with no effort occuring under a 10,000 lbs GHL in the 2017 season). KAMS has been effectively closed since the 2005 season (with no effort occuring under a 5,000 lbs GHL in the 2007 - 2008 seasons). A dredge survey is conducted in area H on an annual basis. In this document, only results from the 2019 survey are presented.
+
+## Fishery independent information
+### Dredge survey
+ADF\&G Central Region staff began a dredge survey of KAMN from September 13 - 14, 2019 and finished the survey on October 12, 2019. The survey covered 29 stations (Figure \ref{fig:kamnmap}). The estimated density of large (> 100 mm) scallops was 11,842 scallops / nm$^{2}$ with a coefficient of variation (CV) of 18\%, while the density of small (< 100 mm) scallops was 16,449 scallops / nm$^{2}$ with a CV of 35\%. Large scallop abundance and biomass were estimated to be 1,068,248 scallops [708,610, 1,481,044] and 505.1 t [340.5, 682.2], respectively. Small scallop abundance and biomass were estimated to be 1,483,839 scallops [570,035, 2,548,580] and 45.7 t [8.1, 107.4], respectively (Table \ref{table:kamnabund} - \ref{table:kamnbiomass}, Figure \ref{fig:kamnabundbiomass}). Shell height composition indicate five potential distinct size classes present in KAMN, with the most abundant being under 50 mm or over 150 mm (Figure \ref{fig:kamnsh}). Individual meat weight followed the anticipated allometric relationship with shell height (Figure \ref{fig:kamnmwsh}), though estimation of growth parameters ($\alpha$ and $\beta$) is hindered by the lack of data collected on scallops between approximately 125 mm - 150 mm, thus estimates should be interpretted as $approximate$ (Table \ref{table:kamnparams}). The relationship between individual meat weight and round weight varied around 10\% and appears to asymptote at around 400 g (Figure \ref{fig:kamnmwrw}). Additional biological information (e.g., meat condition, gonad consition, mud blisters, shell shell worm presence) will be presented in a forthcoming 2019-2020 statewde dredge survey Fishery Data Series report.  
+
+
+\begin{table}[H]
+\centering
+\caption{Estimated scallop density (scallops/nm$^{2}$), coefficient of variation (CV), and abundance a 95\% confidence interval computed via bootstrap resampling ($i$ = 1,000).}
+   
+\label{table:kamnabund}
+\begin{tabular}{lcccccc}
+Size group & Density (count/nm$^{2}$) & CV & Abundance & Lower 95\% CI & Upper 95\% CI\\
+\hline
+```{r midkamnabund, results='asis', eval = T}	
+read_csv("../../output/fishery_independent/2019/2019_dredge_abundance_KAMN.csv") -> x
+			print(xtable(x, align = "lcccccc", digits = c(0,2,2,2,0,0,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Estimated scallop density (t/nm$^{2}$), coefficient of variation (CV), and biomass (t) a 95\% confidence interval computed via bootstrap resampling ($i$ = 1,000).}
+  
+\label{table:kamnbiomass}
+\begin{tabular}{lcccccc}
+Size group & Density (t/nm$^{2}$) & CV & Biomass (t) & Lower 95\% CI & Upper 95\% CI\\
+\hline
+```{r midkamnbiomass, results='asis', eval = T}	
+read_csv("../../output/fishery_independent/2019/2019_dredge_biomass_KAMN.csv") -> x
+			print(xtable(x, align = "lcccccc", digits = c(0,2,2,2,1,1,1)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+
+\begin{table}[H]
+\centering
+\caption{Allometric growth parameters characterizing the meat weight, shell height relationship estimated from 2019 survey data.}
+  
+\label{table:kamnparams}
+\begin{tabular}{ccc}
+$\alpha$ & $\beta$\\
+\hline
+```{r midkamnparams, results='asis', eval = T}	
+read_csv("../../output/fishery_independent/2019/2019_mw_sh_parameters_KAMN.csv") %>%
+  pivot_wider(., names_from = "parameter", values_from = "est") %>%
+  mutate(a = exp(a),
+         a = formatC(a, format = "e", digits = 2)) -> x
+			print(xtable(x, align = "ccc", digits = c(3,3,3)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r kamnmap, fig.align='center', fig.cap="Map of area H bed survey grids. Red X's mark stations within the KAMN bed that were sampled in 2019.", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2019/KAMN_survey_map.png")
+````
+
+````{r kamnabundbiomass, fig.align='center', fig.cap="Abundance and biomass (t) estimates for KAMN in 2019. Error bars represent 95\\% confidence intervals constructed via bootstrapping.", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2019/KAMN_abundance_biomass.png")
+````
+
+````{r kamnsh, fig.align='center', fig.cap="Shell height (mm) composition of scallops caught during the 2019 KAMN dredge survey.", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2019/KAMN_sh_comp.png")
+````
+
+````{r kamnmwsh, fig.align='center', fig.cap="individual meat weight (g) as a function of shell height (mm) for scallops caught during the 2019 KAMN dredge survey.", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2019/KAMN_mw_sh.png")
+````
+
+````{r kamnmwrw, fig.align='center', fig.cap="individual meat weight (g) as a function of round weight (g) for scallops caught during the 2019 KAMN dredge survey. The dotted line represents a 10\\% meat:round weight ratio, and the solid line is a LOESS curve fitting the data.", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2019/KAMN_mw_rw.png")
+````
+
+# Prince William Sound Registration Area (E)
+The Prince William Sound Registration area (E) consists of the West Kayak Island (WKI) and East Kayak Island (EKI) Subsections. Both subsections were closed during the 2019/20 season. WKI was sampled during the 2019 dredge survey, results can be found in the 2020 Weathervane Scallop SAFE report (NPFMC 2020).
+
+# Yakutat Registration Area (D)
+The Yakutat Registration Area (D) is historically consisted of two districts (D16 and D), but was combined into a single unit for management purpposes in 2018. Area D was fished within the GHLS during the 2019/20 season. The dredge survey was conducted in area D from 2017 - 2019 within select beds.
+
+## Fishery performance
+The 2019/20 Yakutat scallop fishery opened on July 1, 2019 with a GHL of 155,000 lbs of scallop meats. Two vessels particpated in the fishery harvesting 144,245 lbs scallop meat with a CPUE of 43.8 lbs meat/dredge hour. Total round weight of retained scallops was 1,989,202 lbs with a nominal CPUE of 604 lbs/dredge hour (Table \ref{table:yakt1}). Fishing effort was spread throughout much of the district, though most occured within beds YAK4 and YAK5 (Figure \ref{fig:yakeffortmap}), and the spatial extent of the catch was considerably lower than the preceding seasons (Figure \ref{fig:yakextent}). Round weight CPUE decreased from the 2018/19 season across all beds, except for YAKB (Table \ref{table:yakstdcpue}, Figures \ref{fig:yakeffects} - \ref{fig:yakcpue}).
+
+\begin{table}[H]
+\centering
+\caption{Yakutat District catch summary. Meat and round weight CPUE represent nominal values.}
+\label{table:yakt1}
+\begin{tabular}{lcrrcccc}
+&& \multicolumn{2}{c}{Retained catch} & Dredge & Number & Meat wt & Round wt\\ 
+Year	& GHL & (lb meat) & (lb round) & hours & hauls & cpue$^a$ & cpue$^b$\\ 
+\hline	
+1995 & & 242,491 & 3,214,968 & 4,712 & 2,597 & 51 & 682\\ 
+1996 & & 238,736 & 3,195,254 & 3,982 & 2,102 & 60 & 802\\ 
+1997/98	& & 242,940 & 3,282,860 & 3,956 & 1,958 & 61 & 830\\
+1998/99	& & 241,678 & 3,475,996 & 4,192 & 2,193 & 58 & 830\\
+1999/00	& & 249,681 & 3,119,103 & 3,840 & 1,720 & 65 & 812\\
+2000/01	& 250,000	& 195,699 & 2,734,559 & 4,241 & 2,111 & 46 & 645\\
+2001/02	& 200,000	& 103,800 & 1,521,537 & 2,406 & 1,096 &	43 & 632\\
+2002/03	& 200,000	& 122,718 & 1,541,867 & 2,439 & 1,243 &	50 & 632\\
+2003/04	& 200,000	& 160,918 & 1,939,004 & 3,358 & 1,716 & 48 & 577\\
+2004/05	& 200,000	& 86,950  & 1,262,499 & 2,134 & 1,194 &	41 & 592\\
+2005/06	& 200,000	& 199,351 & 2,662,031 & 5,089 & 2,585 & 39 & 523\\
+2006/07	& 150,000	& 150,041 & 1,771,229 &	2,817 & 1,533 & 54 & 629\\
+2007/08	& 150,000	& 125,960 & 1,593,223 &	2,601 & 1,416 &	48 & 613\\
+2008/09	& 150,000	& 150,289 & 2,053,912 &	3,286 & 1,825 & 46 & 625\\
+```{r midyakt1, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/fish_stats_YAK.csv") -> x
+			print(xtable(x,align="llcrrcccc",digits=0), only.contents=TRUE, include.rownames=FALSE, 
+					floating=FALSE, include.colnames=FALSE, hline.after=NULL, format.args = list(big.mark = ","))
+```
+\hline	
+\multicolumn{3}{l}{$^a$lb scallop meat/dredge hour}\\
+\multicolumn{3}{l}{$^b$lb scallop round/dredge hour}\\
+\end{tabular} 
+\end{table}
+
+````{r yakeffortmap, fig.align='center', fig.cap="Heat map of fishing effort within area D. Warmer colors indicate areas accounting for a greater proportion of fishing effort.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/effort_map_YAK.png")
+```
+
+````{r yakextent, fig.align='center', fig.cap="Nominal CPUE (round lbs / dredge hr) (solid line) and relative spatial extent of fishing effort (dotted line) within area D district by season", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/cpue_extent_YAK.png")
+```   
+
+\begin{table}[H]
+\centering
+\caption{Area D nominal and standardized CPUE estimates (round lbs / dredge hour) by season.}
+   
+\label{table:yakstdcpue}
+\begin{tabular}{lccccc}
+& \multicolumn{3}{c}{Nominal CPUE} &\\
+Season & (total) & (median) & (sd) & Standardized CPUE\\ 
+\hline
+```{r yakstdcpue, results = 'asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/standardized_cpue_season_YAK.csv") -> x
+			print(xtable(x,align = "lccccc", digits = 2), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+```
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r yakeffects, fig.align ='center', fig.cap = "Partial effects of Month, Vessel, Season, and Bed on CPUE within area D. Season values represent the last two digits of the year the fishery opened.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/std_cpue_effects_YAK.png")
+``` 
+
+````{r yakcpue, fig.align ='center', fig.cap = "Boxplots of nominal CPUE (round lbs / dredge hr) overlaid with standardized CPUE (round lbs / dredge hr) by season (black line) (top) and standardized CPUE by bed and season (bottom) within area D.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/standardized_cpue_YAK.png")
+``` 
+
+
+
+## Fishery discards
+Estimated scallop discards during the 2019/20 season were 564,085 round weight lbs (1,704,553 scallops) in area D (Table \ref{table:yakdisc}, Figure \ref{fig:yakdiscards}). Discard ratio (lbs discarded:lbs retained, 0.28) doubled from the 2018/19 season (0.11) (Table \ref{table:yakdisc}, Figure \ref{fig:yakdiscardratio}). The rate of clapper catch increased substantially from the 2018/19 season (Tables \ref{table:yakclap}, Figure \ref{fig:areayakclappers}). Intact discards outweighed broken discards in most hauls (Figure \ref{fig:yakintactatio}).
+
+
+\begin{table}[H]
+\centering
+\caption{Area D discard summary including total retained catch (round weight), total estimated discards (round weight and count), discard ratio (lbs discarded : lbs retained), associated discard rates (lbs or count per dredge hr), and estimated discard mortality.}
+   
+\label{table:yakdisc}
+\begin{tabular}{lccccccccc}
+& Retained & \multicolumn{2}{c}{Discarded} & & \multicolumn{2}{c}{Discard rate} & \multicolumn{2}{c}{Discard mortality}\\
+Season & (lbs) & (lbs) & (count) & Discard ratio & (lbs) & (count) & (lbs) & (count)\\
+\hline
+```{r midyakdisc, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/discard_summary_YAK.csv") %>%
+  mutate(discard_ratio = ifelse(round_weight == 0, NA, discard_ratio)) -> x
+			print(xtable(x, align = "lccccccccc", digits = c(0,0,0,0,0,2,0,0,0,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+\begin{table}[H]
+\centering
+\caption{Area D clapper summary including total dredge hours, clapper rate, and total estimated clappers (count) by season.}
+
+\label{table:yakclap}
+\begin{tabular}{lcccc}
+& & \multicolumn{2}{c}{Clappers}\\
+Season & Dredge hours & (rate) & (count)\\
+\hline
+```{r midyakclap, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/clappers_area_YAK.csv") %>%
+  dplyr::select(-District) -> x
+			print(xtable(x, align = "lcccc", digits = c(0,0,0,2,0)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r yakdiscards, fig.align = 'center', fig.cap = "Total discarded scallops as round weight (top) and number of count (bottom) for each district by season.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discards_area_YAK.png")
+```
+
+````{r yakdiscardratio, fig.align = 'center', fig.cap = "Scallop discard ratio (round weight discarded : retained) for each district by season.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discard_ratio_area_YAK.png")
+```
+
+````{r areayakclappers, fig.align = 'center', fig.cap = "Rate of clapper catch by season in area D.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/clappers_area_YAK.png")
+```
+````{r yakintactatio, fig.align = 'center', fig.cap = "Boxplots of the ratio between intact and broken scallop discards in every haul within area D. The dotted line represents a 1:1 ratio.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/scallop_discard_broken_intact_ratio_YAK.png")
+```
+
+## Fishery bycatch
+Area D does not utilize crab bycatch limits for any species. Halibut and Dungeness crab experienced the greatest total bycatch during the 2019/20 season, though historically, Tanner crab has dominated bycatch (Table \ref{table:yakcrab}, Figure \ref{fig:yakbycatchtot} - \ref{fig:yakbycatchratio}). No red king crab were caught during the 2019/20 season. Overall, bycatch ratios (bycatch count:lbs retained meats) were low for all species (< 0.01) (Table \ref{table:yakcrab}, Figure \ref{fig:yakbycatchratio}). Only $Chionoecetes$ crabs are measured for carapace width. Tanner crab bycatch was composed of all small, immature crab (Figure \ref{fig:yaktansize}).
+
+\begin{table}[H]
+\centering
+\caption{Area D bycatch summary including total number caught for each species.}
+   
+\label{table:yakcrab}
+\begin{tabular}{lcccccccccc}
+& Scallop & \multicolumn{2}{c}{Tanner crab} & \multicolumn{2}{c}{Red King crab} & \multicolumn{2}{c}{Dungeness crab} & \multicolumn{2}{c}{Pacific halibut}\\
+Season & GHL & (total) & (ratio) & (total) & (ratio) & (total) & (ratio) & (total) & (ratio)\\ 
+\hline	
+```{r midyakcrab, results = 'asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/bycatch_summary_YAK.csv") -> x
+			print(xtable(x, align = "lcccccccccc", digits = c(0,0,0,0,2,0,2,0,2,0,2)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r yakbycatchtot, fig.align='center', fig.cap="Total bycatch of Tanner crab, red king crab, Dungeness crab, and Pacific halibut by fishing season within area D.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/bycatch_totals_YAK.png")
+```
+
+````{r yakbycatchratio, fig.align ='center', fig.cap = "Bycatch ratio, expressed as number of Tanner crab, Dungeness crab, or Pacific halibut per pound of scallop meat weight, by year and district within area D", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/bycatch_ratio_YAK.png")
+```
+
+````{r yaktansize, fig.align = 'center', fig.cap = "Size frequency histogram of the number of Tanner crab caught by sex during each season in area D.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/tanner_size_YAK.png")
+```
+
+## Fishery biological information
+Shell height composition of catch in area D remained similar to what was observed in 2018/19, one or possibly two strong cohorts overlapping in size between 100 - 150 mm (Figure \ref{fig:dsh}).
+
+````{r dsh, fig.align ='center', fig.cap = "Shell height compostion of scallops caught within area D in 5mm bins expressed as a weighted probability density function.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/sh_comp_YAK.png")
+```
+
+As with area K, the effect of season on allometric growth parameters of the meat weight \~ shell height relationship in area D was significant without random effects ($\alpha_{2}$, $p$ = 0.03; $\beta_{2}$, $p$ = 0.02), but not after incorportating random effects on $\alpha$ by bed ($\sigma$ = 0.08) ($\alpha_{2}$, $p$ = 0.16; $\beta_{2}$, $p$ = 0.12). The shift in this relationship was less obvious than observed in area K, though it was noted by fisherman and was corroborated by data collected during the 2019 dredge survey (Table \ref{table:dparams}, Figure \ref{fig:areadmwsh} - \ref{fig:areadranef}).
+
+\begin{table}[H]
+\centering
+\caption{Allometric growth parameters characterizing the meat weight, shell height relationship in area D by season.}
+\label{table:dparams}
+\begin{tabular}{lccc}
+Season & $\alpha$ & $\beta$\\
+\hline
+```{r middparams, results='asis', eval = T}	
+read_csv("../../data/observer_data_summary/2020/mw_sh_coefs_area_D_lme.csv") %>%
+  mutate(alpha = exp(alpha),
+         alpha = formatC(alpha, format = "e", digits = 2)) -> x
+			print(xtable(x, align = "lccc", digits = c(0,3,3,3)), 
+			      only.contents = TRUE, 
+			      include.rownames = FALSE, 
+			      floating = FALSE, 
+			      include.colnames = FALSE, 
+			      hline.after = NULL, 
+			      format.args = list(big.mark = ","))
+``` 
+\hline	
+\end{tabular} 
+\end{table}
+
+````{r areadmwsh, fig.align ='center', fig.cap = "Individual meat weight (g) as a function of shell height (mm) for scallops caught in area D during the 2018/19 and 2019/20 seasons, by bed.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/mw_sh_YAK_lme.png")
+```
+
+````{r areadranef, fig.align ='center', fig.cap = "Random effects on the parameter $\\alpha$ by bed.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/mw_sh_YAK_ranef.png")
+```
+
+````{r dsex, fig.align ='center', fig.cap = "Proportion by sex in area D.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/sex_ratio_YAK.png")
+```
+
+````{r dgonad, fig.align ='center', fig.cap = "Proportion by gonad condition in area D.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/gonad_YAK.png")
+```
+
+# Statewide 
+## Catch and GHL units: meat weight vs round weight
+The weathervane scallops fishery is currently managed in units of shucked meat weights, though there is interest in giving additional consideration to round weight and/or number of animals in management decision making, as those metrics more accurately represent total biomass (or number of animals) caught during the fishery. As a general conversion, individual meat weight is roughly assumed to be 10\% of round weight (NPFMC 2014). Individual weights of whole animals and shucked meats from the ADF\&G Statewide dredge survey (2016 - 2019), suggests 10\% may be a slight over estimate of meat weight with the actual ratio (using all available data) is approximately 9.1\% (Figure \ref{fig:surveymwrw}). 
+
+In fishery data collection, round weight of each haul is estimated by extrapolating the number of full bushels of retained scallops record by either the vessel captain or onboard observer, by the average weight of a full bushel as measured by the observer. Meat weight of each haul is estimated by dispersing the daily total retained meats to individual hauls proportional to retained round weight of each haul. Preliminary examination of this data suggest that on average retained meats account for less than 10\% of retained round weight (Figure \ref{fig:fisherymwrw}), suggesting that not all shucked meats are retained, or, that weight is lost during onboard processing that is not lost during sample preservation on the dredge survey. The exact ratio is variable by haul, season, and district (Figure \ref{fig:fisheryviolinmwrw}). Moving towards a stock assessment based on round weight biomass and translating biological reference points to management decisions will require refined analysis of the meat weight \~ round weight relationship. 
+
+````{r surveymwrw, fig.align = 'center', fig.cap = "Individual meat weight (g) as a function of round weight (g) for all scallops weighted during the dredge survey from 2016 - 2019. The dashed line represents a ratio of 0.1 and the solid blue line is a LOESS curve fitting the data.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/dredge_survey_mw_rw_scatterplot.png")
+```
+
+````{r fisherymwrw, fig.align = 'center', fig.cap = "Retained meat weight (lbs) as a function of round weight (lbs) for all hauls in the statewide scallop fishery from 2009/10 - 2019/20. The dashed line represents a ratio of 0.1 and the solid blue line is a LOESS curve fitting the data.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/mw_rw_scatterplot.png")
+```
+
+````{r fisheryviolinmwrw, fig.align = 'center', fig.cap = "Violin plots of retained meat weight (lbs):round weight (lbs) for all hauls in the statewide scallop fishery from 2009/10 - 2019/20, by district and season. District C and KSEM are excluded from this figure. The dashed line represents a ratio of 0.1.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/mw_rw_violin.png")
+```
+
+
+## Fishery Performance
+Fishery performance among all districts is below the statewide 11 year timeseries (2009/10 - 2019/20) average, but the trend appears stationary (Figure \ref{fig:statewidecpue}). The statewide average discard ratio (rounds lbs dicarded:retained) has increased since the 2014/15 season (Figure \ref{fig:statewidediscrat} - \ref{fig:statewideshcomp}).
+
+````{r statewidecpue, fig.align = 'center', fig.cap = "Standardized CPUE (round lbs / dredge hour) estimates for each district fished from 2009/10 - 2019/20. The dashed line respresents the timeseries mean, and the solid line represents a LOESS curve fit to the data.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/statewide_cpue_trend.png")
+```
+
+````{r statewidediscrat, fig.align = 'center', fig.cap = "Discard ratio (round lbs discarded:retained) estimates for each district fished from 2009/10 - 2019/20. The dashed line respresents the timeseries mean, and the solid line represents a LOESS curve fit to the data.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/statewide_disc_ratio.png")
+```
+
+````{r statewideshcomp, fig.align = 'center', fig.cap = "Statewide shell height (mm) composition from 2009/10 - 2019/20.", eval = T}
+knitr::include_graphics("../../figures/ghl_supplement/2020/sh_comp_statewide.png")
+```
+
+
+## Ecosystem
+The most recent Ecosystem Status Report for the Gulf of Alaska was published in 2019 (Zador and Yasumiishi 2019). The full document and executive summary can be found at **\url{https://access.afsc.noaa.gov/REFM/REEM/ecoweb/}**. Below are several bullets from this document relevant to the status of weathervane scallops and the associated community:
+\begin{itemize}
+\item Echinoderms have declined in the Shumagin and Chirikof areas during 2019 but appear relatively stable in the other regions. 
+\item Motile epifauna biomass including eelpouts, octopi, crab, sea stars, brittle stars, sea urchins, sand dollars, sea cucumbers, snails, and hermit crabs has increased from 2017.
+\item Summer sea surface temperature has increased.  
+\item GOA groundfish fisheries bycatch of assorted invertebrates (including bivalves) is trending down.
+\end{itemize}
+
+Data collected specific to scallop and bivalve communites is sparse. Average summer bottom temperature recorded during the NMFS RACE Gulf of Alaska survey in 2019 was higher than average for all scallop districts (Figures \ref{fig:goabt} - \ref{fig:goabtanomaly}).
+````{r goabt, fig.align = 'center', fig.cap = "Bottom temperature as measured during the NMFS RACE Gulf of Alaska survey.", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/goa_bt_timeseries.png")
+```
+
+````{r goabtanomaly, fig.align = 'center', fig.cap = "Bottom temperature anomaly based on the full timeseries average (1984 - 2019).", eval = T}
+knitr::include_graphics("../../figures/fishery_independent/2020/goa_bt_anomaly.png")
+```
+# Acknowledgements
+Thank you to the ADF\&G Shellfish Observer program staff (Ryan Burt, Alyssa Hopkins, Bo Whiteside, Mark Stichert), Joe Chaszar, 2019/20 observers (Alex Hoover and Sean Rogers), Ric Shepard, Ben Williams, Katie Palof, as well as ADF\&G research biologists (Mike Byrely, Chris Russ) and fishery managers (Nat Nichols, Miranda Westphal, Andrew Olson, Natura Richardson, Ethan Nichols, Asia Beder) for without whom this document would not be possible. Finally, thank you to the F/V Provider and F/V Ocean Hunter for releasing fishery data.  
+
+# Literature Cited
+
+\begin{hangparas}{.25in}{1}
+
+North Pacific Fishery Management Council (NPFMC). 2014. Fishery management plan for the Scallop Fishery off Alaska.
+
+North Pacific Fishery Management Council (NPFMC). 2017. Stock assessment and fishery evaluation report for the scallop fishery off Alaska. Anchorage, AK.
+
+North Pacific Fishery Management Council (NPFMC). 2018. Stock assessment and fishery evaluation report for the scallop fishery off Alaska. Anchorage, AK.
+
+North Pacific Fishery Management Council (NPFMC). 2019. Stock assessment and fishery evaluation report for the scallop fishery off Alaska. Anchorage, AK.
+
+North Pacific Fishery Management Council (NPFMC). 2020. Stock assessment and fishery evaluation report for the scallop fishery off Alaska. Anchorage, AK.
+
+Smith, Q., B. Williams, and R. Burt. 2016. Statewide Weathervane Scallop survey operational plan, 2016 through 2018. Alaska Department of Fish and Game, Alaska Department of Fish and Game, Regional Operational Plan ROP.CF.1J.2016.07, Juneau.
+
+Spalinger, K. 2015. Operational plan: Large-mesh bottom trawl survey of crab and groundfish: Kodiak, Chignik, South Peninsula, and Eastern Aleutian management districts–standard protocol, 2015–2019. Alaska Department of Fish and Game, Regional Operational Plan ROP.CF.4K.2015.20, Kodiak.
+
+Williams, B., Q. Smith, K. Palof, and J. Mumm. 2017. 2016 Statewide weathervane scallop dredge survey report. Alaska Department of Fish and Game, Fishery Data Series No. 17-09, Anchorage.
+
+Zador, S., and Yasumiishi, E. 2019. Ecosystem Status Report 2019: Gulf of Alaska, Stock Assessment and Fishery Evaluation Report, North Pacific Fishery Management Council, 605 W 4th Ave, Suite 306, Anchorage, AK 99501
+
+\end{hangparas}
+

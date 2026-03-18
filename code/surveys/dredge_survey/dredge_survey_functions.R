@@ -118,6 +118,7 @@ f_load_clean_logbook <- function(file_path = "./data/dredge_survey/logbook/Dredg
 
 f_load_clean_catch <- function(file_path = "./data/dredge_survey/catch/DredgeSurvey_CatchData_RegularSurveyHauls.csv",
                                tows,
+                               q = 0.83,
                                spp = NULL) {
   x <- read.csv(file_path)
   
@@ -164,8 +165,8 @@ f_load_clean_catch <- function(file_path = "./data/dredge_survey/catch/DredgeSur
     replace_na(list(samp_wt = 0)) %>%
     mutate(samp_cnt = ifelse(samp_wt == 0, 0, samp_cnt)) %>%
     right_join(tows, by = "tow") %>%
-    mutate(cpue_cnt = ifelse(rcode %in% c(74120, 74120 + 9999999), samp_cnt / (0.83*area_swept), samp_cnt / area_swept),
-           cpue_kg = ifelse(rcode %in% c(74120, 74120 + 9999999), samp_wt / (0.83*area_swept), samp_wt / area_swept)) %>%
+    mutate(cpue_cnt = ifelse(rcode %in% c(74120, 74120 + 9999999), samp_cnt / (q*area_swept), samp_cnt / area_swept),
+           cpue_kg = ifelse(rcode %in% c(74120, 74120 + 9999999), samp_wt / (q*area_swept), samp_wt / area_swept)) %>%
     ungroup %>%
     dplyr::select(6, 7, 1, 8:16, 2, 5, 3:4, 17:18) %>%
     # change rcode of small scallops back

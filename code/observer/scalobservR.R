@@ -373,7 +373,7 @@ get_discards <- function(data, by = NULL, units = "lb") {
               disc_rw = (disc_wt + broken_wt + rem_disc_wt) * units_conversion,
               disc_n = ifelse(disc_count > 0, (disc_count / (disc_wt + broken_wt)) * (disc_wt + broken_wt + rem_disc_wt), 0),
               disc_cpue_rw = disc_rw / sample_hrs,
-              disc_cpue_n = disc_n / sample_hrs) %>%
+              disc_cpue_n = disc_n / sample_hrs) %>% 
     # get observer average discards
     summarise(disc_cpue_rw_bar = mean(disc_cpue_rw),
               disc_cpue_rw_var = var(disc_cpue_rw) / n(),
