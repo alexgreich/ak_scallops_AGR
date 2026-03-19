@@ -89,15 +89,15 @@ Retained catch is simply the sum of round and meat weight or number of scallops 
 
 Discarded catch ($\hat{D}$) is computed as 
 
-\[
+$$
 \hat{D} = A(\frac{1}{n}\sum^{n}_{i=1}{\frac{d_i}{a_i}})
-\]
+$$
 
 where $d_i$ is the discarded round weight and $a_i$ is the dredge hours corresponding to the sampled dredge in tow $i$, $n$ is the number of observed tows in the fishery, and $A$ is the total fishery dredge hours. Standard errors for discards were estimated directly as
 
-\[
+$$
 \sigma_{D} = \sqrt{A^{2}(\frac{1}{n}\text{Var}(\frac{d_i}{a_i}))}
-\]
+$$
 
 
 
