@@ -126,6 +126,7 @@ where $l_{j}$ is the retained or discarded number at shell height $j$, and $\ome
 The CPUE standardization is documented in modelling efforts presented to the NPFMC. The method has not changed in a long time and is just updated with new data. From NPFMC documents:
 
 <blockquote>
+
 CPUE standardization was derived from at-sea observer data from the 1996/7 - 2024/25 seasons. CPUE was defined as the total round weight of the catch per dredge-hour. Prior to analysis, fishery log-book data were filtered so that core data only included hauls that employed 13 or 15 ft dredges and adequate dredge performance. Zero catches were removed since they are typically rare and indicate poor gear performance. Hauls were also limited to the inner 95% of CPUE and depth.
 
 CPUE standardization models were fit using general additive models (GAM) as implemented in the R package $mgcv$ (Wood 2004). All models assumed a Gamma error distribution with log-link. Null models by district included only year (of season opening) as an explanatory variable
@@ -149,7 +150,8 @@ $$
 $$
 
 and $n_j$ is the number of levels in the year variable. Nominal CPUE was scaled by the same method for comparison.
-<blockquote>
+
+</blockquote>
 
 In practice this uses a custom function Tyler wrote for forward and backward selection of $mgcv$ style GAMs called ```f_step_gam()``` within a for loop to standardize CPUE for each ditrict that was fished in the previous season. There is no need to updated this index for areas that were not fished. The code produces plots of DHARMa residuals, but those don't need to be in the GHL packet.  
 
