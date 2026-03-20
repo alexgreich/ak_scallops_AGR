@@ -55,7 +55,9 @@ Haul composition and daily production log data are also available, but not neede
 
 ## GHL and Crab Bycatch Limit Data
 
-Annual GHL (lb of meat) and crab bycatch limits by district. Not all districts use crab bycatch limits. 
+Annual GHL (lb of meat) and crab bycatch limits by district. Not all districts use crab bycatch limits. Opening this link downloads the data. It is all years, all districts.
+
+[GHL Download](http://kodweb.fishgame.state.ak.us/apps/dda/scallop/ghls/ghlData?)
 
 Store these data in ./data/observer/metadata
 
@@ -66,6 +68,8 @@ Store these data in ./data/observer/metadata
 The analysis to produce figures and tables for the GHL packet are found here: [Observer Data Report](https://github.com/commfish/ak_scallops/tree/main/code/observer/observer_report). Files are named by year - 'YYYY_observer_report_analysis.R'.
 
 ## scalobservR.R
+
+[```scalobservR.R```](https://github.com/commfish/ak_scallops/blob/main/code/observer/scalobservR.R)
 
 I (Tyler) started writing functions for an R package to download and analysis observer data analogous to the one I had written for BSAI crab observer data, but since the scallop data have an audience of one, it probably suffices to leave it as an R script. The purpose was to put a lot of the data wrangling, management, and math behind the scenes so you can write more succinct code. ```2025_observer_report_analysis.R``` includes all of what the ```scalobservR.R``` do, but I produced the GHL packet in enough haste that I didn't update the script to actually use the new functions. I'll explain them as I go. FYI, the database pull functionality is not implemented, may never be implemented.  
 
@@ -119,10 +123,10 @@ where $l_{j}$ is the retained or discarded number at shell height $j$, and $\ome
 
 ## CPUE Standardization
 
-The CPUE standardization is documented in modelling efforts presented to the NPFMC. The method has not changed since 2024 is just updated with new data. From NPFMC documents:
+The CPUE standardization is documented in modelling efforts presented to the NPFMC. The method has not changed in a long time and is just updated with new data. From NPFMC documents:
 
-<div>
-CPUE standardization was derived from at-sea observer data from the 1996/7 - 2024/25 seasons. CPUE was defined as the total round weight of the catch per dredge-hour. Prior to analysis, fishery log-book data were filtered so that core data only included hauls that employed 13 or 15 ft dredges and adequate dredge performance. Zero catches were removed since they are typically rare and indicate poor gear performance. Hauls were also limited to the inner 95$\%$ of CPUE and depth.
+<blockquote>
+CPUE standardization was derived from at-sea observer data from the 1996/7 - 2024/25 seasons. CPUE was defined as the total round weight of the catch per dredge-hour. Prior to analysis, fishery log-book data were filtered so that core data only included hauls that employed 13 or 15 ft dredges and adequate dredge performance. Zero catches were removed since they are typically rare and indicate poor gear performance. Hauls were also limited to the inner 95% of CPUE and depth.
 
 CPUE standardization models were fit using general additive models (GAM) as implemented in the R package $mgcv$ (Wood 2004). All models assumed a Gamma error distribution with log-link. Null models by district included only year (of season opening) as an explanatory variable
 
@@ -130,7 +134,7 @@ $$
 \text{ln}(CPUE_{i}) = Year_{y,i}
 $$
 
-The full scope of models evaluated included vessel, depth, dredge width, month and bed. Bed was not included for WKI District, since it only contains a single bed. Depth was fit as a thin plate regression spline, with smoothness determined by generalized cross-validation (Wood 2004). All other variables were fit as factors. The effects of variable addition were evaluated by forward and backward stepwise selection. The addition of a new variable was considered significant if CAIC (Anderson et al., 1998) decreased by at least two per degree of freedom lost and deviance explained (R$^2$) increased by at least 0.01. The best model forms by district are listed in Table XXX. The marginal effects of selected covariates are in Figures XXX.
+The full scope of models evaluated included vessel, depth, dredge width, month and bed. Bed was not included for WKI District, since it only contains a single bed. Depth was fit as a thin plate regression spline, with smoothness determined by generalized cross-validation (Wood 2004). All other variables were fit as factors. The effects of variable addition were evaluated by forward and backward stepwise selection. The addition of a new variable was considered significant if CAIC (Anderson et al., 1998) decreased by at least two per degree of freedom lost and deviance explained ($R^2$) increased by at least 0.01. The best model forms by district are listed in Table XXX. The marginal effects of selected covariates are in Figures XXX.
 
 The standardized CPUE index was extracted from the models as the year coefficient ($\beta_i$) with the first level set to zero and scaled to canonical coefficients ($\beta^\prime_i$) as
 
@@ -145,7 +149,46 @@ $$
 $$
 
 and $n_j$ is the number of levels in the year variable. Nominal CPUE was scaled by the same method for comparison.
-<div>
+<blockquote>
+
+In practice this uses a custom function Tyler wrote for forward and backward selection of $mgcv$ style GAMs called ```f_step_gam()``` within a for loop to standardize CPUE for each ditrict that was fished in the previous season. There is no need to updated this index for areas that were not fished. The code produces plots of DHARMa residuals, but those don't need to be in the GHL packet.  
+
+The code then extracts and plots marginal effects. This needs to be stepped through somewhat carefully, because the plot code may change depending on what covariated are selected for the final, 'best' model (i can changed from year to year on occasion).  
+
+Then the code makes step plots using the custom ```f_step_plot()``` function whcih plots the standardized index for the null, full and intermediate model after each covariate is added. This is a good way to evaluate the influence of each covariate. Lastly, the code makes plots of the standardized CPUE in comparison to the nominal CPUE. The custom function ```f_getCPUE_gam()``` is used extract the standardized index from the model, given an $mgcv$ object.  
+
+The custom functions mentioned here are in [```scallop_obs_functions.R```](https://github.com/commfish/ak_scallops/blob/main/code/observer/scallop_obs_functions.R) which is the legacy version of ```scalobservR.R```. Some of these functions **should** eventually get moved over, but some can be forgotten in the annals of time.  
+
+## Fishery Extent
+
+Heat maps of effort are produced by season. The R code bins lat/lon data to the nearest 0.05 degree and summarises the proportion of dredge hours in each location bin. Then, a ggplot is made with geom tile to plot the cells.
+
+It's usually useful to interpret trends in fishery performance in the context of where fishing occured due to risk of hyperstability. To help with that Tyler developed an index of fishery extent that is the average pairwise distance between all hauls, excluding those that contribute the bottom 10% of catch (to exclude prospecting hauls). The intuition is that when fishing is spread out, the average pairwise distance is larger than when it's contracted. Also, using pairwise data allows the index to be weighted over all hauls instead of a few wayward hauls having undue influence like in a hull. 
+
+## Clappers
+
+Clapper catches can be used as an index of natural mortality, and in the past few seasons there was a very large mortality event that occured in Kodiak Shelikof and Northeast. So the R code summarise clapper counts and makes several plots, including plots of clapper catch by vessel.
+
+## Retention Curves
+
+There is no legal size for scallops, though $\geq$ 100 mm shell height is consider 'exploitable'. The R code uses a simple binomial regression and the size composition data which are designated as 'retained' and 'discarded' to estimate annual retention curves. Variability in annual size at 50% and 10% retention provide some context of fishing behavior and what portion of the stock being exploited.
+
+## Gonads
+
+Gonad plots are simply stacked bar plots of the proportion by gonad condition.
+
+## Meat Weight ~ Shell Height (Round Weight)
+
+These are just scatter plots of meat weight as a function of shell height or round weight. Meat weight ~ shell height is allometric, whereas meat weight ~ round weight is linear.
+
+
+
+
+
+
+
+
+
 
 
 
