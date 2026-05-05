@@ -375,7 +375,7 @@ write_csv(index, "./output/observer/2026/observer_cpue_std_index.csv") #agr 2025
 ## KSH
 core %>% pull(model) %>% .[[4]] %>% f_step_plot()+
   theme(axis.text.x = element_text(vjust = 0.5, angle = 90)) -> x
-ggsave("./figures/observer/2025/ksh_step_plot.png", plot = x, height = 5, width = 5, units = "in")
+ggsave("./figures/observer/2026/ksh_step_plot.png", plot = x, height = 5, width = 5, units = "in") #updated yr 2025 to 2026
 core %>%
   transmute(district, core_data) %>% unnest(core_data) %>%
   mutate(year = as.numeric(as.character(substring(season, 1, 4)))) %>%
@@ -399,12 +399,12 @@ core %>%
   labs(x = NULL, color = NULL, y = "CPUE Index")+
   facet_wrap(~district, ncol = 1) -> x
 
-ggsave("./figures/observer/2025/ksh_observer_cpue_std_index.png", plot = x, height = 3, width = 5, units = "in")
+ggsave("./figures/observer/2026/ksh_observer_cpue_std_index.png", plot = x, height = 3, width = 5, units = "in") #2025 to 2026 yr update agr
 
 ## KNE
 core %>% pull(model) %>% .[[3]] %>% f_step_plot()+
   theme(axis.text.x = element_text(vjust = 0.5, angle = 90)) -> x
-ggsave("./figures/observer/2025/kne_step_plot.png", plot = x, height = 5, width = 5, units = "in")
+ggsave("./figures/observer/2026/kne_step_plot.png", plot = x, height = 5, width = 5, units = "in") #2025 to 2026 yr update agr
 core %>%
   transmute(district, core_data) %>% unnest(core_data) %>%
   mutate(year = as.numeric(as.character(substring(season, 1, 4)))) %>%
@@ -428,13 +428,13 @@ core %>%
   labs(x = NULL, color = NULL, y = "CPUE Index")+
   facet_wrap(~district, ncol = 1) -> x
 
-ggsave("./figures/observer/2025/kne_observer_cpue_std_index.png", plot = x, height = 3, width = 5, units = "in")
+ggsave("./figures/observer/2026/kne_observer_cpue_std_index.png", plot = x, height = 3, width = 5, units = "in")
 
 
 ## KSW
 core %>% pull(model) %>% .[[5]] %>% f_step_plot()+
   theme(axis.text.x = element_text(vjust = 0.5, angle = 90)) -> x
-ggsave("./figures/observer/2025/ksw_step_plot.png", plot = x, height = 5, width = 5, units = "in")
+ggsave("./figures/observer/2026/ksw_step_plot.png", plot = x, height = 5, width = 5, units = "in") #2025 to 2026 yr update agr
 
 core %>%
   transmute(district, core_data) %>% unnest(core_data) %>%
@@ -459,7 +459,7 @@ core %>%
   labs(x = NULL, color = NULL, y = "CPUE Index")+
   facet_wrap(~district, ncol = 1) -> x
 
-ggsave("./figures/observer/2025/ksw_observer_cpue_std_index.png", plot = x, height = 3, width = 5, units = "in")
+ggsave("./figures/observer/2026/ksw_observer_cpue_std_index.png", plot = x, height = 3, width = 5, units = "in") #2025 to 2026 yr update agr
 
 ## WKI
 core %>%
@@ -485,12 +485,12 @@ core %>%
   labs(x = NULL, color = NULL, y = "CPUE Index")+
   facet_wrap(~district, ncol = 1) -> x
 
-ggsave("./figures/observer/2025/wki_observer_cpue_std_index.png", plot = x, height = 3, width = 5, units = "in")
+ggsave("./figures/observer/2026/wki_observer_cpue_std_index.png", plot = x, height = 3, width = 5, units = "in") #2025 to 2026 yr update agr
 
 ## YAK
 core %>% pull(model) %>% .[[1]] %>% f_step_plot()+
   theme(axis.text.x = element_text(vjust = 0.5, angle = 90)) -> x
-ggsave("./figures/observer/2025/yak_step_plot.png", plot = x, height = 5, width = 5, units = "in")
+ggsave("./figures/observer/2026/yak_step_plot.png", plot = x, height = 5, width = 5, units = "in") #2025 to 2026 yr update agr
 core %>%
   transmute(district, core_data) %>% unnest(core_data) %>%
   mutate(year = as.numeric(as.character(substring(season, 1, 4)))) %>%
@@ -514,7 +514,7 @@ core %>%
   labs(x = NULL, color = NULL, y = "CPUE Index")+
   facet_wrap(~district, ncol = 1) -> x
 
-ggsave("./figures/observer/2025/yak_observer_cpue_std_index.png", plot = x, height = 3, width = 5, units = "in")
+ggsave("./figures/observer/2026/yak_observer_cpue_std_index.png", plot = x, height = 3, width = 5, units = "in") #2025 to 2026 yr update agr
 
 # fishery extent ----
 
@@ -545,7 +545,7 @@ catch %>%
         panel.spacing = unit(0, "lines"),
         strip.text.x = element_blank(),
         strip.background = element_blank()) -> x
-ggsave("./figures/observer/2025/effort_map_KNE.png", plot = x, 
+ggsave("./figures/observer/2026/effort_map_KNE.png", plot = x, #2025 to 2026 yr update agr
        height = 8, width = 7, unit = "in")
 ### KSH
 catch %>%
@@ -573,7 +573,7 @@ catch %>%
         panel.spacing = unit(0, "lines"),
         strip.text.x = element_blank(),
         strip.background = element_blank()) -> x
-ggsave("./figures/observer/2025/effort_map_KSH.png", plot = x, 
+ggsave("./figures/observer/2026/effort_map_KSH.png", plot = x, #2025 to 2026 yr update agr
        height = 8, width = 7, unit = "in")
 ### KSW
 catch %>%
@@ -601,7 +601,7 @@ catch %>%
         panel.spacing = unit(0, "lines"),
         strip.text.x = element_blank(),
         strip.background = element_blank()) -> x
-ggsave("./figures/observer/2025/effort_map_KSW.png", plot = x, 
+ggsave("./figures/observer/2026/effort_map_KSW.png", plot = x, #2025 to 2026 yr update agr
        height = 8, width = 7, unit = "in")
 ### WKI
 catch %>%
@@ -629,7 +629,7 @@ catch %>%
         panel.spacing = unit(0, "lines"),
         strip.text.x = element_blank(),
         strip.background = element_blank()) -> x
-ggsave("./figures/observer/2025/effort_map_WKI.png", plot = x, 
+ggsave("./figures/observer/2026/effort_map_WKI.png", plot = x, #2025 to 2026 yr update agr
        height = 8, width = 7, unit = "in")
 
 ### YAK
@@ -658,7 +658,7 @@ catch %>%
         panel.spacing = unit(0, "lines"),
         strip.text.x = element_blank(),
         strip.background = element_blank()) -> x
-ggsave("./figures/observer/2025/effort_map_YAK.png", plot = x, 
+ggsave("./figures/observer/2026/effort_map_YAK.png", plot = x, #2025 to 2026 yr update agr
        height = 8, width = 7, unit = "in")
 
 ## extent of round weight catch (f_extent_catch from general_observer_data_functions.R)
@@ -691,7 +691,7 @@ catch %>%
       scale_y_continuous(sec.axis = sec_axis(~./1000, name = "Extent"))+
       labs(x = NULL, y = "CPUE (round lbs / dredge hr)", linetype = NULL)+
       theme(legend.position = "bottom") -> x
-    ggsave(paste0("./figures/observer/2025/cpue_extent_", district, ".png"), plot = x, 
+    ggsave(paste0("./figures/observer/2026/cpue_extent_", district, ".png"), plot = x, #2025 to 2026 yr update agr
            height = 3, width = 7, unit = "in")  
   }))
 
@@ -762,7 +762,7 @@ bycatch_by_day %>%
       filter(as.numeric(substring(season, 1, 4)) >= 2009) %>%
       arrange(season) %T>%
       # save output table
-      write_csv(paste0("./output/observer/2025/bycatch_summary_", district, ".csv")) %>%
+      write_csv(paste0("./output/observer/2026/bycatch_summary_", district, ".csv")) %>% #2025 to 2026 yr update agr
       pivot_longer(c(grep("total", names(.))), names_to = "species", values_to = "total") %>%
       mutate(species = case_when(species == "total_halibut" ~ "Pacific halibut",
                                  species == "total_dungeness" ~ "Dungeness crab",
@@ -779,7 +779,7 @@ bycatch_by_day %>%
       scale_color_manual(values = cb_palette[c(1, 2, 4, 5, 6)])+
       facet_wrap(~species, scales = "free_y", ncol = 1)+
       theme(legend.position = "none") -> x
-    ggsave(paste0("./figures/observer/2025/bycatch_totals_", district, ".png"), plot = x,
+    ggsave(paste0("./figures/observer/2026/bycatch_totals_", district, ".png"), plot = x, #2025 to 2026 yr update agr
            height = 6, width = 7, units = "in") 
     
     # non-target species bycatch ratio ----
@@ -801,7 +801,7 @@ bycatch_by_day %>%
       scale_colour_manual(values = cb_palette[1:6])+
       labs(x = NULL, y = "Bycatch Ratio \n (number bycatch : lbs scallop meat)", color = NULL)+
       theme(legend.position = "bottom") -> x
-    ggsave(paste0("./figures/observer/2025/tanner_bycatch_ratio_area_", district, ".png"), plot = x,
+    ggsave(paste0("./figures/observer/2026/tanner_bycatch_ratio_area_", district, ".png"), plot = x, #2025 to 2026 yr update agr
            height = 3, width = 7, units = "in")  
       
   }))
@@ -858,7 +858,7 @@ discards_by_day %>%
       dplyr::select(season, round_weight, discard_lb, discard_num, discard_ratio, discard_rate_lb, discard_rate_num,
                     discard_M_lbs, discard_M_num) %>%
       arrange(season) %>%
-      write_csv(paste0("./output/observer/2025/discard_summary_", district, ".csv"))
+      write_csv(paste0("./output/observer/2026/discard_summary_", district, ".csv")) 
     
     # plots ----
     disc %>%
@@ -881,7 +881,7 @@ discards_by_day %>%
       labs(x = NULL, y = "Scallop Discards (count)")+
       scale_y_continuous(labels = scales::comma)+
       theme(legend.position = "none") -> y
-    ggsave(paste0("./figures/observer/2025/scallop_discards_", district, ".png"), 
+    ggsave(paste0("./figures/observer/2026/scallop_discards_", district, ".png"),  #2025 to 2026 yr update agr
            plot = x / y, height = 6, width = 7, units = "in")
     
     # discard ratio
@@ -894,7 +894,7 @@ discards_by_day %>%
       scale_colour_manual(values = cb_palette[1:5])+
       labs(x = NULL, y = "Discard Ratio \n (Round lbs discarded : retained)")+
       theme(legend.position = "bottom") -> x
-    ggsave(paste0("./figures/observer/2025/scallop_discard_ratio_", district, ".png"), 
+    ggsave(paste0("./figures/observer/2026/scallop_discard_ratio_", district, ".png"),  #2025 to 2026 yr update agr
            plot = x, height = 3, width = 7, units = "in")
     
     # intact vs broken
@@ -907,7 +907,7 @@ discards_by_day %>%
       geom_boxplot(aes(x = substring(season, 1, 4), y = disc_wt / broken_wt), fill = cb_palette[2], alpha = 0.3)+
       geom_hline(yintercept = 1, linetype = 2)+
       labs(x = NULL, y = "Intact : broken discard ratio") -> x
-    ggsave(paste0("./figures/observer/2025/scallop_discard_broken_intact_ratio_", district, ".png"), 
+    ggsave(paste0("./figures/observer/2026/scallop_discard_broken_intact_ratio_", district, ".png"),  #2025 to 2026 yr update agr
            plot = x, height = 3, width = 7, units = "in")
   }))
 
@@ -934,7 +934,7 @@ bycatch %>%
     
     data %>%
       arrange(season) %>% print(n = 1000)
-      write_csv(paste0("./output/observer/2025/clappers_", district, ".csv"))
+      write_csv(paste0("./output/observer/2026/clappers_", district, ".csv"))  #2025 to 2026 yr update agr
     
     data %>%
       ggplot(aes(x = substring(season, 1, 4), y = clapper_rate, group = 1))+
@@ -974,7 +974,7 @@ cbv %>%
   labs(x = NULL, color = NULL, y = "Clapper rate (count / dredge hour)")+
   scale_color_manual(values = cb_palette[2:6], labels = c("Polar Sea", "Arctic Hunter", "Ocean Hunter", "Kilkenny", "Provider"))+
   theme(legend.position = c(0, 1), legend.justification = c(0, 1))-> x
-ggsave("./figures/observer/2025/clappers_rate_by_vessel_ksh.png", plot = x, height = 4, width = 6, units = "in")
+ggsave("./figures/observer/2026/clappers_rate_by_vessel_ksh.png", plot = x, height = 4, width = 6, units = "in")
 
 # map
 bycatch %>%
@@ -993,7 +993,7 @@ ggplot()+
   coord_sf(xlim = c(-154, -153), ylim = c(58.4, 58.8))+
   facet_wrap(~season, ncol = 4) -> x
 
-ggsave("./figures/observer/2025/clappers_map_ksh.png", plot = x, height = 8, width = 6, units = "in")
+ggsave("./figures/observer/2026/clappers_map_ksh.png", plot = x, height = 8, width = 6, units = "in")
 
 
 
@@ -1025,7 +1025,7 @@ cbv %>%
   labs(x = NULL, color = NULL, y = "Clapper rate (count / dredge hour)")+
   scale_color_manual(values = cb_palette[2:6], labels = c("Polar Sea", "Arctic Hunter", "Ocean Hunter", "Kilkenny", "Provider"))+
   theme(legend.position = c(0, 1), legend.justification = c(0, 1))-> x
-ggsave("./figures/observer/2025/clappers_rate_by_vessel_kne.png", plot = x, height = 4, width = 6, units = "in")
+ggsave("./figures/observer/2026/clappers_rate_by_vessel_kne.png", plot = x, height = 4, width = 6, units = "in")
 
 
 # map
@@ -1045,7 +1045,7 @@ ggplot()+
   coord_sf(xlim = c(-153.2, -150), ylim = c(56.5, 58.7))+
   facet_wrap(~season, ncol = 4) -> x
 
-ggsave("./figures/observer/2025/clappers_map_kne.png", plot = x, height = 8, width = 6, units = "in")
+ggsave("./figures/observer/2026/clappers_map_kne.png", plot = x, height = 8, width = 6, units = "in")
 
 
 
@@ -1083,7 +1083,7 @@ bycatch %>%
   right_join(shell_height %>% filter(rtnd_disc != "M")%>%
                mutate(district = ifelse(district %in% c("UB", "C", "WC"), "M", district)), 
              by = c("haul_id", "rtnd_disc") ) -> size_wts
-write_csv(size_wts, "./output/observer/2025/fishery_size_comp_wts.csv")
+write_csv(size_wts, "./output/observer/2026/fishery_size_comp_wts.csv")
 
 size_wts %>% 
   group_by(district) %>%
@@ -1122,7 +1122,7 @@ size_wts %>%
             axis.line.x = element_line(size = 0.1, color = "grey70"),
             axis.ticks.y = element_blank(),
             panel.background = element_blank()) -> x
-      ggsave(paste0("./figures/observer/2025/sh_comp_", district, ".png"), plot = x,
+      ggsave(paste0("./figures/observer/2026/sh_comp_", district, ".png"), plot = x,
              height = 2, width = 4, units = "in")
       
       } else {
@@ -1187,7 +1187,7 @@ shell_height %>%
       scale_color_manual(values = c("grey60", "black"), labels = c(expression(Ret[10]), expression(Ret[50])))+
       theme(legend.position = c(1,1),
             legend.justification = c(1,1)) -> y
-    ggsave(paste0("./figures/observer/2025/retention_curve_", district, ".png"), plot = x / y,
+    ggsave(paste0("./figures/observer/2026/retention_curve_", district, ".png"), plot = x / y,
            height = 6, width = 6, units = "in")
     
   }))
@@ -1224,7 +1224,7 @@ meat %>%
       guides(fill=guide_legend(nrow=2,byrow=TRUE))+
       facet_wrap(~month, ncol = 2)+
       labs(x = NULL, y = "Proportion", fill = NULL) -> x
-    ggsave(paste0("./figures/observer/2025/gonad_", district, ".png"), plot = x, 
+    ggsave(paste0("./figures/observer/2026/gonad_", district, ".png"), plot = x, 
            height = 5, width = 7, units = "in")
     
   }))
@@ -1246,7 +1246,7 @@ meat %>%
       labs(x = "ln Shell height(mm)", y = "ln Meat Weight (g)", color = NULL)+
       theme(legend.position = c(1, 0),
             legend.justification = c(1, 0)) -> x
-    ggsave(paste0("./figures/observer/2025/mwsh_", district, ".png"), plot = x, 
+    ggsave(paste0("./figures/observer/2026/mwsh_", district, ".png"), plot = x, 
            height = 3, width = 5, units = "in")
     
   }))
@@ -1262,7 +1262,7 @@ catch %>%
   geom_smooth(aes(x = round_weight, y = 0.1 * round_weight), color = 1, method = "lm", se = F, linetype = 2)+
   coord_cartesian(ylim = c(0, 600), expand = 0)+
   labs(x = "Round weight (lbs)", y = "Meat weight (lbs)") -> x
-ggsave("./figures/observer/2025/mw_rw_scatterplot.png", plot = x,
+ggsave("./figures/observer/2026/mw_rw_scatterplot.png", plot = x,
        height = 4, width = 6, units = "in")
 
 
@@ -1280,7 +1280,7 @@ catch %>%
   facet_wrap(~district, ncol = 2)+
   labs(x = NULL, y = "Meat weight : Round weight")+
   theme(axis.text.x = element_text(angle = 90, vjust = 0.5)) -> x
-ggsave("./figures/observer/2025/mw_rw_violin.png", plot = x,
+ggsave("./figures/observer/2026/mw_rw_violin.png", plot = x,
        height = 8, width = 7, units = "in")
 
 
