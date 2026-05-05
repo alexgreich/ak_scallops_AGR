@@ -355,7 +355,7 @@ ggsave("./figures/observer/2026/observer_cpue_std_ksw_effects.png", #AGR updated
 
 
 
-# get index 
+# get index
 core %>% #pull(model) %>% .[[4]] -> model
 #core %>% pull(core_data) %>% .[[4]] -> core_data
   mutate(index = purrr::map2(core_data, model, function(core_data, model) {
@@ -363,12 +363,13 @@ core %>% #pull(model) %>% .[[4]] -> model
     yrs <- unique( model$model$season)
     f_getCPUE_gam(model, loc, yrs)%>%
       mutate(year = as.numeric(as.character(substring(year, 1, 4)))) %>%
-      right_join(tibble(year = 1996:2025)) %>% arrange(year) #AGR changed 2024 to 2025 on the year. I assume 2025 is the final year here
+      right_join(tibble(year = 1996:2025)) %>% arrange(year) #agr changed 2024 to 2025 (the final year)
+  })) %>%
   transmute(district, index) %>%
   unnest(index) -> index
 
 # write output
-write_csv(index, "./output/observer/2025/observer_cpue_std_index.csv")
+write_csv(index, "./output/observer/2026/observer_cpue_std_index.csv") #agr 2025 to 2026 for the save
 
 ## plot index
 ## KSH
