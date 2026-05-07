@@ -58,9 +58,9 @@ shell_height_wiki <- do.call(bind_rows,
 bycatch_wiki <- do.call(bind_rows,
                    lapply(list.files("data/observer/bycatch", pattern = ".csv", full.names = T), read_csv))
 
-### crab bycath size data 2009/10 - Present  -AGR flag- only goes to 2024, and 2024 is empty
-crab_size_wiki <- do.call(bind_rows, #AGR FLAG- an error here- looks like a simple wrangling error, double to character. its on the bind_rows part. Can fix, separate into two
-                     lapply(paste0("data/observer/crab_size/", list.files("data/observer/crab_size/")), read_csv))
+### crab bycath size data 2009/10 - Present  -AGR flag- only goes to 2024, and 2024 is empty - AGR turned off because obsolete??
+#crab_size_wiki <- do.call(bind_rows, #AGR FLAG- an error here- looks like a simple wrangling error, double to character. its on the bind_rows part. Can fix, separate into two
+ #                    lapply(paste0("data/observer/crab_size/", list.files("data/observer/crab_size/")), read_csv))
 
 ### shell height meat weight data
 meat_wiki <- do.call(bind_rows,
@@ -78,7 +78,7 @@ catch <- f_clean_catch(catch_wiki)
 ## clean bycatch data
 bycatch <- f_clean_bycatch(bycatch_wiki, catch)
 ## clean crab size data
-crab_size <- f_clean_crab_size(crab_size_wiki) #AGR flag- error in the wrangle higher above for crab_size
+#crab_size <- f_clean_crab_size(crab_size_wiki) #AGR flag- error in the wrangle higher above for crab_size -agr turned off
 ## clean shell height data
 shell_height <- f_clean_sh(shell_height_wiki, catch)
 ## clean meat weight data
@@ -252,7 +252,7 @@ mapply(function(district, model) {
 #AGR flag - might need to change these below based on model selection- FLAG FLAG!!
 
 ## YAK
-core %>% pull(model) %>% .[[1]] %>% getViz(.) -> yak_viz
+core %>% pull(model) %>% .[[1]] %>% getViz(.) -> yak_viz #2026: season (year), adfg (vessel), dredge_width, bed
 # plot(sm(yak_viz, 1))+ 
 #   l_points(color = "grey80") + 
 #   l_fitLine() +
@@ -276,7 +276,7 @@ ggsave("./figures/observer/2026/observer_cpue_std_yak_effects.png", #AGR updated
        height = 5, width = 6, units = "in")
 
 ## WKI
-core %>% pull(model) %>% .[[2]] %>% getViz(.) -> wki_viz
+core %>% pull(model) %>% .[[2]] %>% getViz(.) -> wki_viz #2026: season (year), depth
 plot(sm(wki_viz, 1))+
   l_points(color = "grey80") +
   l_fitLine() +
@@ -287,7 +287,7 @@ ggsave("./figures/observer/2026/observer_cpue_std_wki_effects.png", #AGR updated
        height = 3, width = 4, units = "in")
 
 ## KNE
-core %>% pull(model) %>% .[[3]] %>% getViz(.) -> kne_viz
+core %>% pull(model) %>% .[[3]] %>% getViz(.) -> kne_viz #2026: season (year), adfg (vessel), bed, month, depth
 plot(sm(kne_viz, 1))+ 
   l_points(color = "grey80") + 
   l_fitLine() +
@@ -312,7 +312,7 @@ ggsave("./figures/observer/2026/observer_cpue_std_kne_effects.png", #AGR updated
 
 
 ## KSH
-core %>% pull(model) %>% .[[4]] %>% getViz(.) -> ksh_viz
+core %>% pull(model) %>% .[[4]] %>% getViz(.) -> ksh_viz #2026: season (year), adfg (vessel), month, dredge_width
 # plot(sm(ksh_viz, 1))+ 
 #   l_points(color = "grey80") + 
 #   l_fitLine() +
@@ -335,7 +335,7 @@ ggsave("./figures/observer/2026/observer_cpue_std_ksh_effects.png", #AGR updated
        height = 5, width = 6, units = "in")
 
 ## KSW
-core %>% pull(model) %>% .[[5]] %>% getViz(.) -> ksw_viz
+core %>% pull(model) %>% .[[5]] %>% getViz(.) -> ksw_viz # 2026: season (year), month, adfg (vessel), bed
 plot(pterm(ksw_viz, 4))+ 
   l_points(col = "grey80") + 
   l_ciBar(width = 0.5) + l_fitPoints() +
@@ -801,7 +801,7 @@ bycatch_by_day %>%
       scale_colour_manual(values = cb_palette[1:6])+
       labs(x = NULL, y = "Bycatch Ratio \n (number bycatch : lbs scallop meat)", color = NULL)+
       theme(legend.position = "bottom") -> x
-    ggsave(paste0("./figures/observer/2026/tanner_bycatch_ratio_area_", district, ".png"), plot = x, #2025 to 2026 yr update agr
+    ggsave(paste0("./figures/observer/2026/tanner_bycatch_ratio_area_", district, ".png"), plot = x, #2025 to 2026 yr update agr- FLAG- map is wack
            height = 3, width = 7, units = "in")  
       
   }))
@@ -929,11 +929,11 @@ bycatch %>%
             clapper_rate = sum(clapper_count) / sum(sample_hrs),
             clapper_est = clapper_rate * effort) %>%
   group_by(district) %>%
-  nest() %>% pull(data) %>% .[[1]] -> data
-  mutate(plot = purrr::map2_chr(data, district, function(data, district) {
+  nest() %>% #pull(data) %>% .[[1]] -> data AGR OFF -  this line is from debuggging and causes it not to work
+  mutate(plot = purrr::map2_chr(data, district, function(data, district) { #bug here- district not found-AGR-FLAG!!
     
     data %>%
-      arrange(season) %>% print(n = 1000)
+      arrange(season) %>% #print(n = 1000) #agr removed the print
       write_csv(paste0("./output/observer/2026/clappers_", district, ".csv"))  #2025 to 2026 yr update agr
     
     data %>%
@@ -943,7 +943,7 @@ bycatch %>%
       scale_y_continuous(labels = comma)+
       scale_x_discrete(labels = yraxis$labels, breaks = yraxis$breaks)+
       labs(x = NULL, y = "Clapper rate (count / dredge hour)") -> x
-    ggsave(paste0("./figures/observer/2025/clappers_", district, ".png"), plot = x,
+    ggsave(paste0("./figures/observer/2026/clappers_", district, ".png"), plot = x,
            height = 3, width = 7, units = "in")
   }))
   
@@ -1136,7 +1136,7 @@ size_wts %>%
                         axis.ticks.y = element_blank(),
                         panel.background = element_blank()) -> x
         nyrs = length(unique(data$season))
-        ggsave(paste0("./figures/observer/2025/sh_comp_", district, ".png"), plot = x,
+        ggsave(paste0("./figures/observer/2026/sh_comp_", district, ".png"), plot = x,
                height = (3/11) * nyrs, width = 6, units = "in")
             }
     
