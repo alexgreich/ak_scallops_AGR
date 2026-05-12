@@ -237,7 +237,7 @@ Season & Dredge hours & (rate) & (count)\\
 ```{r midkneclap, results='asis', eval = T}
 read_csv("../../../output/observer/2026/clappers_KNE.csv") -> x
 
-x <- x %>% select(-adfg) #agr add- get rid of vessel, which is here for some reason
+#x <- x %>% select(-adfg) #agr add- get rid of vessel, which is here for some reason
 
 			print(xtable(x, align = "lcccc", digits = c(0,0,0,2,0)), #agr added one C and one digit, not sure why. FLAG- make sure this ends up ok
 			      only.contents = TRUE,
@@ -440,7 +440,7 @@ Season & Dredge hours & (rate) & (count)\\
 ```{r midkshclap, results='asis', eval = T}
 read_csv("../../../output/observer/2026/clappers_KSH.csv") -> x
 
-x <- x %>% select(-adfg) #agr add- get rid of vessel, which is here for some reason
+#x <- x %>% select(-adfg) #agr add- get rid of vessel, which is here for some reason
 
 			print(xtable(x, align = "lcccc", digits = c(0,0,0,2,0)),
 			      only.contents = TRUE,
@@ -641,7 +641,6 @@ Season & Dredge hours & (rate) & (count)\\
 ```{r midkswclap, results='asis', eval = T}
 read_csv("../../../output/observer/2026/clappers_KSW.csv") -> x
 
-x <- x %>% select(-adfg) #agr add- get rid of vessel, which is here for some reason
 
 			print(xtable(x, align = "lcccc", digits = c(0,0,0,2,0)),
 			      only.contents = TRUE,
@@ -840,7 +839,7 @@ Season & Dredge hours & (rate) & (count)\\
 ```{r midwkiclap, results='asis', eval = T}
 read_csv("../../../output/observer/2026/clappers_WKI.csv") -> x
 
-x <- x %>% select(-adfg) #agr add- get rid of vessel, which is here for some reason
+#x <- x %>% select(-adfg) #agr add- get rid of vessel, which is here for some reason
 
 			print(xtable(x, align = "lcccc", digits = c(0,0,0,2,0)),
 			      only.contents = TRUE,
@@ -1030,7 +1029,7 @@ Season & Dredge hours & (rate) & (count)\\
 ```{r midyakclap, results='asis', eval = T}
 read_csv("../../../output/observer/2026/clappers_YAK.csv") -> x
 
-x <- x %>% select(-adfg) #agr add- get rid of vessel, which is here for some reason
+#x <- x %>% select(-adfg) #agr add- get rid of vessel, which is here for some reason
 
 			print(xtable(x, align = "lcccc", digits = c(0,0,0,2,0)),
 			      only.contents = TRUE,

@@ -672,7 +672,7 @@ catch %>%
   group_by(district, season) %>%
   summarise(CPUE = sum(round_weight, na.rm = T) / sum(dredge_hrs, na.rm = T),
             Extent = mean(extent, na.rm = T) * 1000) %>%
-  right_join(ghl %>%
+  right_join(ghl %>% #AGR FLAG
                f_add_season() %>%
                mutate(district = ifelse(district %in% c("UB", "C", "WC"), "M", district),
                       district = ifelse(district %in% c("D", "D16", "YAK"), "YAK", district)) %>%
@@ -913,7 +913,7 @@ discards_by_day %>%
 
 # clappers ----
 ## compute clapper number
-bycatch %>%
+bycatch %>% #AGR flag- clappers wrangle wrong. FLAG FLAG-  needs to sep by district, doesnt do that.
   # filter(!(district %in% c("KNE", "KSH", "KSW", "KSE", "KSEM", "YAK",
   #                          "WKI", "EKI", "KAMN", "KAMS") & adfg %in% c(303, 32554, 40924, 54966))) %>%
   # all ak pen districts to area M
@@ -924,13 +924,13 @@ bycatch %>%
             dredge_hrs = sum(dredge_hrs, na.rm = T),
             sample_hrs = sum(sample_hrs, na.rm = T),
             clapper_count = sum(clapper_count, na.rm = T), .groups = "drop") %>% #filter(season == "2024/25", district == "KNE")
-  group_by(season, district, adfg) %>%
+  group_by(season, district) %>% #agr removed "adfg" from the group_by
   summarise(effort = sum(dredge_hrs),
             clapper_rate = sum(clapper_count) / sum(sample_hrs),
             clapper_est = clapper_rate * effort) %>%
   group_by(district) %>%
   nest() %>% #pull(data) %>% .[[1]] -> data AGR OFF -  this line is from debuggging and causes it not to work
-  mutate(plot = purrr::map2_chr(data, district, function(data, district) { #bug here- district not found-AGR-FLAG!!
+  mutate(plot = purrr::map2_chr(data, district, function(data, district) { 
     
     data %>%
       arrange(season) %>% #print(n = 1000) #agr removed the print
