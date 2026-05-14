@@ -43,8 +43,12 @@ bind_rows(ak, can) -> land
 
 ## metadata
 ### ghl
-ghl <- read_csv("./data/observer/metadata/ScallopGHLs_ByFisheryAndDistrict.csv")
-cbl <- read_csv("./data/observer/metadata/ScalFisheryCrabBycatchLimitsByDistrict.csv")
+#ghl <- read_csv("./data/observer/metadata/ScallopGHLs_ByFisheryAndDistrict.csv")
+#cbl <- read_csv("./data/observer/metadata/ScalFisheryCrabBycatchLimitsByDistrict.csv")
+# the new data delivery is ghl and cbl combined, so just read in the one file and separate
+ghl_cbl <- read_csv("./data/observer/metadata/ALLScallop_GHL_Dump.csv")
+ghl <- ghl_cbl %>% select(fishery, district, ghl)
+cbl <- ghl_cbl %>% select(-ghl, -scalmgmtunit) 
 
 ## observer/logbook data
 ### scallop haul data 2009/10 - Present
@@ -103,7 +107,7 @@ f_fish_stats(catch, c("KSH"), add_ghl = T,
              path = "./output/observer/2026/fish_stats_KSH.csv")
 ### KSW
 f_fish_stats(catch, c("KSW"), add_ghl = T, 
-             path = "./output/observer/2026/fish_stats_KSW.csv") # agr flag. Something fishy here with 24/25
+             path = "./output/observer/2026/fish_stats_KSW.csv") 
 ### Area M
 f_fish_stats(catch, c("UB", "WC", "C"), add_ghl = T, 
              path = "./output/observer/2026/fish_stats_M.csv")
@@ -118,7 +122,7 @@ f_fish_stats(catch, c("WKI"), add_ghl = T,
              path = "./output/observer/2026/fish_stats_WKI.csv")
 ### EKI
 f_fish_stats(catch, c("EKI"), add_ghl = T, 
-             path = "./output/observer/2026/fish_stats_EKI.csv") #AGR flag why is this one only 2009-2012
+             path = "./output/observer/2026/fish_stats_EKI.csv") 
 ### YAK
 f_fish_stats(catch, c("YAK", "D", "D16"), add_ghl = T, 
              path = "./output/observer/2026/fish_stats_YAK.csv")
@@ -629,7 +633,7 @@ catch %>%
         panel.spacing = unit(0, "lines"),
         strip.text.x = element_blank(),
         strip.background = element_blank()) -> x
-ggsave("./figures/observer/2026/effort_map_WKI.png", plot = x, #2025 to 2026 yr update agr
+ggsave("./figures/observer/2026/effort_map_WKI.png", plot = x, #2025 to 2026 yr update agr - AGR flag - something is horribly wrong with 24/25
        height = 8, width = 7, unit = "in")
 
 ### YAK
